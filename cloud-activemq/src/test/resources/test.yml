@@ -1,0 +1,10 @@
+
+spring:
+  activemq:
+    broker-url: tcp://172.16.154.1:61616 # failover:(tcp://localhost:61616,tcp://localhost:61617)
+    user: xxx
+    password: xxx
+    in-memory: true
+    pool:
+      enabled: true # 如果此处设置为true，需要加activemq-pool的依赖包，否则会自动配置失败，报JmsMessagingTemplate注入失败
+      max-connections: 50

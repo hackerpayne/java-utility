@@ -1,0 +1,12 @@
+spring:
+  #jta相关参数配置
+  jta:
+    enabled: false
+    log-dir: classpath:tx-logs
+    transaction-manager-id: txManager
+    atomikos:
+      properties:
+        max-actives: 50
+        max-timeout: 300000
+        default-jta-timeout: 10000
+        enable-logging: true

@@ -1,0 +1,34 @@
+﻿spring:
+  data:
+    mongodb:
+      #uri: mongodb://192.168.252.121:20000,192.168.252.122:20000,192.168.252.12:20000/demo
+      database: demo
+      host: 10
+      username: root
+      password: 123456
+      port: 27017
+      address: # 连接池列表
+        - localhost
+        - localhost2
+      replicaSet:
+      minConnectionsPerHost: 0
+      maxConnectionsPerHost: 0
+      threadsAllowedToBlockForConnectionMultiplier: 0
+      serverSelectionTimeout: 0
+      maxWaitTime: 0
+      maxConnectionIdleTime: 0
+      maxConnectionLifeTime: 0
+      connectTimeout: 0
+      socketTimeout: 0
+      socketKeepAlive: 0
+      sslEnabled: 0
+      sslInvalidHostNameAllowed: 0
+      alwaysUseMBeans: 0
+      heartbeatFrequency: 0
+      minHeartbeatFrequency: 0
+      heartbeatConnectTimeout: 0
+      heartbeatSocketTimeout: 0
+      localThreshold: 0
+      authenticationDatabase: 0
+
+

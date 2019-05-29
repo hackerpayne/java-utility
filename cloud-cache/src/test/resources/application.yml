@@ -1,0 +1,13 @@
+
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    password: 123456
+
+  # 缓存配置
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:ehcache.xml # 配置文件路径
