@@ -7,18 +7,30 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>common-core</artifactId>
     <name>common-core</name>
     <packaging>jar</packaging>
 
     <dependencies>
+        <!-- 基础包，必选 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+
+        <!-- 基础包，必选 -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.0</version>
+        </dependency>
 
         <!-- HuTool工具包 -->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
-            <version>4.5.4</version>
+            <version>4.5.8</version>
         </dependency>
 
         <!-- 配置读取类需要 -->
@@ -69,10 +81,11 @@
             <version>2.6</version>
         </dependency>
 
+        <!-- 阿里json -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.12</version>
+            <version>1.2.38</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->

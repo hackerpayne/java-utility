@@ -45,8 +45,6 @@
         <module>cloud-mongodb</module>
         <module>cloud-activiti</module>
 
-        <module>code-gen</module>
-
     </modules>
 
     <dependencies>
@@ -81,20 +79,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- 基础包，必选 -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
-        </dependency>
-
-        <!-- 基础包，必选 -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>23.0</version>
-        </dependency>
-
         <!-- logback日志包 -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -123,13 +107,6 @@
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>1</version>
-        </dependency>
-
-        <!-- 阿里json -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.38</version>
         </dependency>
 
         <dependency>
