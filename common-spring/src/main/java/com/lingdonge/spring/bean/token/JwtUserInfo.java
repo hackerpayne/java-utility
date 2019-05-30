@@ -1,17 +1,15 @@
-package com.lingdonge.spring.entity;
+package com.lingdonge.spring.bean.token;
 
+import com.lindonge.core.bean.base.BaseEntity;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Jwt里面收集的用户信息列表
  */
 @Data
-public class JwtUserInfo implements Serializable {
-
-    private static final long serialVersionUID = -895875540581785581L;
+public class JwtUserInfo extends BaseEntity {
 
     /**
      * 令牌id

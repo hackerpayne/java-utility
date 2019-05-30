@@ -1,4 +1,4 @@
-package com.lingdonge.spring.bean;
+package com.lingdonge.spring.web.bean;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.MutablePropertyValues;

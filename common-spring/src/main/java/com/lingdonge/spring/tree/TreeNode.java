@@ -1,10 +1,10 @@
 package com.lingdonge.spring.tree;
 
 
+import com.lindonge.core.bean.base.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +13,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class TreeNode implements Serializable {
-    private static final long serialVersionUID = 8772115911922451037L;
+public class TreeNode extends BaseEntity {
 
     protected int id;
 

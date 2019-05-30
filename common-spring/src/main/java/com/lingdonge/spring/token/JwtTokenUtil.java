@@ -3,7 +3,7 @@ package com.lingdonge.spring.token;
 import cn.hutool.core.bean.BeanUtil;
 import com.google.common.collect.Lists;
 import com.lingdonge.spring.configuration.properties.JwtProperties;
-import com.lingdonge.spring.entity.JwtUserInfo;
+import com.lingdonge.spring.bean.token.JwtUserInfo;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.MapUtils;

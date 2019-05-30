@@ -1,7 +1,7 @@
 package com.lingdonge.spring.token;
 
 import com.lingdonge.spring.configuration.properties.JwtProperties;
-import com.lingdonge.spring.entity.JwtUserInfo;
+import com.lingdonge.spring.bean.token.JwtUserInfo;
 import com.kyle.utility.threads.ThreadUtil;
 import org.junit.Test;
 

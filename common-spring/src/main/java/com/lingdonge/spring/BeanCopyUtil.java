@@ -2,7 +2,7 @@ package com.lingdonge.spring;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.google.common.collect.Lists;
-import com.lingdonge.spring.entity.JwtUserInfo;
+import com.lingdonge.spring.bean.token.JwtUserInfo;
 import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.util.CollectionUtils;
 

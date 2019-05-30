@@ -1,6 +1,6 @@
 package com.lingdonge.spring.validation;
 
-import com.lingdonge.spring.entity.JwtUserInfo;
+import com.lingdonge.spring.bean.token.JwtUserInfo;
 import org.hibernate.validator.HibernateValidator;
 
 import javax.validation.ConstraintViolation;
