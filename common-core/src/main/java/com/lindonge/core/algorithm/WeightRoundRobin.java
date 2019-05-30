@@ -1,6 +1,6 @@
 package com.lindonge.core.algorithm;
 
-import com.lindonge.core.model.ModelTaskEveryHourWeight;
+import com.lindonge.core.bean.common.ModelTaskEveryHourWeight;
 
 import java.math.BigInteger;
 import java.util.ArrayList;

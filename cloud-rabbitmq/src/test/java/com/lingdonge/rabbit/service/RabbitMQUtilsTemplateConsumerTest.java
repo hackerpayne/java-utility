@@ -1,7 +1,7 @@
 package com.lingdonge.rabbit.service;
 
-import com.kyle.utility.threads.ThreadUtil;
-import com.kyle.utility.util.StringUtils;
+import com.lindonge.core.threads.ThreadUtil;
+import com.lindonge.core.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

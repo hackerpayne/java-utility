@@ -1,6 +1,6 @@
 package com.lingdonge.http.faker;
 
-import com.lindonge.core.model.ModelAddreeDetail;
+import com.lindonge.core.bean.common.ModelAddreeDetail;
 
 /**
  * 中文地址解析器

@@ -1,7 +1,7 @@
 package com.lingdonge.spring.enums;
 
 
-import com.lindonge.core.model.NameValue;
+import com.lindonge.core.bean.base.NameValue;
 
 import java.util.ArrayList;
 import java.util.List;

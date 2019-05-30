@@ -1,6 +1,6 @@
 package com.lingdonge.http.httpclient.utils;
 
-import com.lindonge.core.model.ModelProxy;
+import com.lindonge.core.bean.common.ModelProxy;
 import com.lindonge.core.util.StringUtils;
 import com.lingdonge.http.httpclient.strategy.CustomRedirectStrategy;
 import lombok.extern.slf4j.Slf4j;

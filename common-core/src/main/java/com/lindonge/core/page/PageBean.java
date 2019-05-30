@@ -1,6 +1,7 @@
 package com.lindonge.core.page;
 
-import java.io.Serializable;
+import com.lindonge.core.bean.base.BaseEntity;
+
 import java.util.List;
 
 /**
@@ -19,9 +20,7 @@ import java.util.List;
 //        pageBean.setData(emps);
 //        return pageBean;
 //        }
-public class PageBean<T> implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class PageBean<T> extends BaseEntity {
 
     /**
      * 当前页数据(查询数据库得到)

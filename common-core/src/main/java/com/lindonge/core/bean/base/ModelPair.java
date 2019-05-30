@@ -1,16 +1,12 @@
-package com.lindonge.core.model;
+package com.lindonge.core.bean.base;
 
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * 键值对
  */
 @Data
-public class ModelPair<T> implements Serializable {
-
-    private static final long serialVersionUID = -1;
+public class ModelPair<T> extends BaseEntity {
 
     private String key;
 

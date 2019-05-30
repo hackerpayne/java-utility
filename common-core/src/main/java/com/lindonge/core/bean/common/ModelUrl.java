@@ -1,9 +1,9 @@
-package com.lindonge.core.model;
+package com.lindonge.core.bean.common;
 
 import com.google.common.collect.Maps;
+import com.lindonge.core.bean.base.BaseEntity;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -11,9 +11,7 @@ import java.util.Map;
  * Created by Kyle on 16/8/29.
  */
 @Data
-public class ModelUrl implements Serializable {
-
-    private static final long serialVersionUID = -1;
+public class ModelUrl extends BaseEntity {
 
     private String url;
     private String cleanUrl;

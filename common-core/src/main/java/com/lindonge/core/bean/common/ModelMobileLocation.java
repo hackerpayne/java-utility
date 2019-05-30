@@ -1,5 +1,6 @@
-package com.lindonge.core.model;
+package com.lindonge.core.bean.common;
 
+import com.lindonge.core.bean.base.BaseEntity;
 import lombok.Data;
 
 /**
@@ -7,7 +8,7 @@ import lombok.Data;
  * Created by kyle on 17/5/5.
  */
 @Data
-public class ModelMobileLocation extends BaseEntity  {
+public class ModelMobileLocation extends BaseEntity {
 
     private static final long serialVersionUID = -1;
 

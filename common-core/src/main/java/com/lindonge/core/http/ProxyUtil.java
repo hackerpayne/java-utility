@@ -1,6 +1,6 @@
 package com.lindonge.core.http;
 
-import com.lindonge.core.model.ModelProxy;
+import com.lindonge.core.bean.common.ModelProxy;
 import com.lindonge.core.regex.PatternPool;
 import com.lindonge.core.regex.ReUtil;
 import org.slf4j.Logger;

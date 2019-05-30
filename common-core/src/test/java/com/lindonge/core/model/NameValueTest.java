@@ -1,5 +1,6 @@
 package com.lindonge.core.model;
 
+import com.lindonge.core.bean.base.NameValue;
 import org.junit.Test;
 
 public class NameValueTest {

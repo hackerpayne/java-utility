@@ -1,6 +1,6 @@
 package com.lingdonge.http.proxy;
 
-import com.lindonge.core.model.ModelProxy;
+import com.lindonge.core.bean.common.ModelProxy;
 import com.lingdonge.http.HttpResult;
 import com.lingdonge.http.HttpSetting;
 

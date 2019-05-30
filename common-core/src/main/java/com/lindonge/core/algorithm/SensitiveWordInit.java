@@ -1,8 +1,7 @@
 package com.lindonge.core.algorithm;
 
 import com.lindonge.core.file.FileUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,9 +13,8 @@ import java.util.*;
  * 初始化敏感词库，将敏感词加入到HashMap中，构建DFA算法模型
  * 代码来源：http://www.cnblogs.com/shihaiming/p/6294052.html
  */
+@Slf4j
 public class SensitiveWordInit {
-
-    private static final Logger logger = LoggerFactory.getLogger(SensitiveWordInit.class);
 
     private String ENCODING = "UTF-8";    //字符编码
 
@@ -36,7 +34,7 @@ public class SensitiveWordInit {
             addSensitiveWordToHashMap(keyWordSet);
             //spring获取application，然后application.setAttribute("sensitiveWordMap",sensitiveWordMap);
         } catch (Exception e) {
-            logger.error("initKeyWord发生异常", e);
+            log.error("initKeyWord发生异常", e);
         }
         return sensitiveWordMap;
     }
@@ -133,7 +131,7 @@ public class SensitiveWordInit {
                     }
                 }
             } else {
-                logger.error("敏感词库文件不存在");
+                log.error("敏感词库文件不存在");
             }
 
         } catch (Exception e) {
@@ -143,7 +141,7 @@ public class SensitiveWordInit {
                 read.close(); // 关闭文件流
             }
         }
-        logger.debug("从文件中读取到敏感词的数量：" + set.size());
+        log.debug("从文件中读取到敏感词的数量：" + set.size());
         return set;
     }
 

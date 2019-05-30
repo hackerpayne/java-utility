@@ -1,6 +1,6 @@
 package com.lindonge.core.http;
 
-import com.lindonge.core.model.ModelUrl;
+import com.lindonge.core.bean.common.ModelUrl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 

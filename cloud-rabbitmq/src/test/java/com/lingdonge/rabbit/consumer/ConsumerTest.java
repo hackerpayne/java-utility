@@ -3,17 +3,15 @@ package com.lingdonge.rabbit.consumer;
 import com.lingdonge.rabbit.TestUtil;
 import com.lingdonge.rabbit.service.RabbitMQUtils;
 import com.rabbitmq.client.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 
 /**
  * 原生代码测试
  */
+@Slf4j
 public class ConsumerTest {
-
-    private final static Logger logger = LoggerFactory.getLogger(RabbitMQUtils.class);
 
     public static void main(String[] args) {
         System.out.println("*** Work ***");

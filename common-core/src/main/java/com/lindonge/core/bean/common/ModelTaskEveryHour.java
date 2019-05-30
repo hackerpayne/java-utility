@@ -1,8 +1,8 @@
-package com.lindonge.core.model;
+package com.lindonge.core.bean.common;
 
-
-import com.lindonge.core.algorithm.IWeightRoundRobin;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * 精确设置每小时的任务信息：用于分小时段设置任务
@@ -10,32 +10,36 @@ import lombok.Data;
  * Created by kyle on 17/5/5.
  */
 @Data
-public class ModelTaskEveryHourWeight implements IWeightRoundRobin {
+public class ModelTaskEveryHour implements Serializable {
+
+    private static final long serialVersionUID = -1;
 
     private int hour;
+    private int min;
+    private int max;
     private int waitDone;
     private int hasDone;
 
-    // 限制最多数量
-    private int maxCountLimit;
-    private int weight;
 
     /**
      * 默认构造函数
      */
-    public ModelTaskEveryHourWeight() {
+    public ModelTaskEveryHour() {
     }
 
     /**
      * 构造函数
      *
      * @param hour
-     * @param weight
+     * @param min
+     * @param max
      */
-    public ModelTaskEveryHourWeight(int hour, int weight) {
+    public ModelTaskEveryHour(int hour, int min, int max) {
         this.hour = hour;
-        this.weight=weight;
+        this.max = max;
+        this.min = min;
     }
+
 
 
 }

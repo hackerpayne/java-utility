@@ -1,5 +1,6 @@
-package com.lindonge.core.model;
+package com.lindonge.core.bean.common;
 
+import com.lindonge.core.bean.base.BaseEntity;
 import lombok.Data;
 
 /**

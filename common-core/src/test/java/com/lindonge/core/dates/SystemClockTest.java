@@ -8,17 +8,12 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class SystemClockTest {
 
-
     private Lock lock = new ReentrantLock();
-
-
-
 
     @Test
     public void testClock() throws InterruptedException {
 
         Vector<Thread> listThreads = new Vector<>();
-
 
         Runnable runnable = new Runnable() {
             @Override

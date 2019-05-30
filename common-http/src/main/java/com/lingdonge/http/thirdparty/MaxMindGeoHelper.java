@@ -1,6 +1,6 @@
 package com.lingdonge.http.thirdparty;
 
-import com.lindonge.core.model.ModelIPLocation;
+import com.lindonge.core.bean.common.ModelIPLocation;
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import com.maxmind.geoip2.model.*;

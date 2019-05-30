@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.lindonge.core.encrypt.Md5Util;
 import com.lindonge.core.http.HtmlUtil;
 import com.lindonge.core.http.UserAgentUtil;
-import com.lindonge.core.model.ModelProxy;
+import com.lindonge.core.bean.common.ModelProxy;
 import com.lindonge.core.util.StringUtils;
 import com.lingdonge.http.jsoupxpath.exception.XpathSyntaxErrorException;
 import com.lingdonge.http.jsoupxpath.model.JXDocument;

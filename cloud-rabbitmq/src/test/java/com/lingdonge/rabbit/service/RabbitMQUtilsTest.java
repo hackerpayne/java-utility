@@ -1,6 +1,6 @@
 package com.lingdonge.rabbit.service;
 
-import com.kyle.utility.threads.ThreadUtil;
+import com.lindonge.core.threads.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

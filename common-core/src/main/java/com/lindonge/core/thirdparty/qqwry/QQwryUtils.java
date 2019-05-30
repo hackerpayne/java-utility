@@ -1,7 +1,7 @@
 package com.lindonge.core.thirdparty.qqwry;
 
 import com.lindonge.core.util.Utils;
-import com.lindonge.core.model.ModelIPLocation;
+import com.lindonge.core.bean.common.ModelIPLocation;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

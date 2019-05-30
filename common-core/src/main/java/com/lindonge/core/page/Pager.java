@@ -1,8 +1,8 @@
 package com.lindonge.core.page;
 
+import com.lindonge.core.bean.base.BaseEntity;
 import com.lindonge.core.util.StringUtils;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -74,9 +74,7 @@ import java.util.List;
  * ]]></pre>
  * </p>
  */
-public class Pager implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Pager extends BaseEntity {
 
     /**
      * 当前页码

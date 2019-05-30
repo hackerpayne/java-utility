@@ -1,4 +1,4 @@
-package com.lindonge.core.model;
+package com.lindonge.core.bean.base;
 
 import java.io.Serializable;
 

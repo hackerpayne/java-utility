@@ -1,7 +1,7 @@
 package com.lingdonge.http.okhttp;
 
 import com.lindonge.core.http.UserAgentUtil;
-import com.lindonge.core.model.ModelProxy;
+import com.lindonge.core.bean.common.ModelProxy;
 import com.lingdonge.http.HttpMethodConstant;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;

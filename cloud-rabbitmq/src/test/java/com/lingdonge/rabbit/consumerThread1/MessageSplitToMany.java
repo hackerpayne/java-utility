@@ -1,7 +1,7 @@
 package com.lingdonge.rabbit.consumerThread1;
 
 import com.alibaba.fastjson.JSONObject;
-import com.kyle.utility.encrypt.Md5Util;
+import com.lindonge.core.encrypt.Md5Util;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedHashMap;

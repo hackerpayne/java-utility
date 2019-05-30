@@ -2,7 +2,7 @@ package com.lingdonge.db.jdbc;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.google.common.collect.Lists;
-import com.lindonge.core.model.ModelPair;
+import com.lindonge.core.bean.base.ModelPair;
 import com.lindonge.core.reflect.NamingUtil;
 import com.lindonge.core.util.StringUtils;
 import com.lingdonge.db.db.PageUtil;

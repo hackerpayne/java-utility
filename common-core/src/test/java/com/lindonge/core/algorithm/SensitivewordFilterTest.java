@@ -1,7 +1,7 @@
 package com.lindonge.core.algorithm;
 
-import com.lindonge.core.util.Utils;
 import com.lindonge.core.file.FileUtil;
+import com.lindonge.core.util.Utils;
 import org.testng.annotations.Test;
 
 import java.util.Set;
@@ -16,7 +16,7 @@ public class SensitivewordFilterTest {
         System.out.println("敏感词的数量：" + filter.sensitiveWordMap.size());
         String string = "这是一个色情和暴力相关的文章的一些数据";
 
-        string="什么手机好用";
+        string = "什么手机好用";
 
         System.out.println("待检测语句字数：" + string.length());
         long beginTime = System.currentTimeMillis();

@@ -1,7 +1,7 @@
 package com.lingdonge.db.db;
 
 import com.lindonge.core.file.PropertiesUtils;
-import com.lindonge.core.model.ModelArticle;
+import com.lindonge.core.bean.common.ModelArticle;
 import com.lindonge.core.util.StringUtils;
 import com.lindonge.core.util.Utils;
 import lombok.extern.slf4j.Slf4j;

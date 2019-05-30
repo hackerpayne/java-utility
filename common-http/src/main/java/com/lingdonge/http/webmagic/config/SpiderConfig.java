@@ -1,6 +1,6 @@
 package com.lingdonge.http.webmagic.config;
 
-import com.lindonge.core.model.ModelProxy;
+import com.lindonge.core.bean.common.ModelProxy;
 import lombok.Data;
 
 import java.io.Serializable;

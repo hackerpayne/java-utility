@@ -1,6 +1,6 @@
 package com.lingdonge.activemq.configuration.properties;
 
-import com.lindonge.core.model.BaseEntity;
+import com.lindonge.core.bean.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
