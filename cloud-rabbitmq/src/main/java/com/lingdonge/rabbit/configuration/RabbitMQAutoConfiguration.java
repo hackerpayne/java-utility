@@ -1,6 +1,7 @@
 package com.lingdonge.rabbit.configuration;
 
 import com.lingdonge.rabbit.service.RabbitMQUtils;
+import com.lingdonge.rabbit.service.RabbitTemplateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -54,6 +55,7 @@ public class RabbitMQAutoConfiguration {
     public RabbitAdmin rabbitAdmin() {
         log.info("<<<<<<<<<<<<<<< 加载 RabbitAdmin 服务 >>>>>>>>>>>>>>>>>>");
         RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
+        rabbitAdmin.setAutoStartup(true);
         return rabbitAdmin;
     }
 
@@ -103,5 +105,11 @@ public class RabbitMQAutoConfiguration {
     public RabbitMQUtils rabbitMQUtils() throws IOException, TimeoutException {
         log.info("<<<<<<<<<<<<<<< 加载 RabbitMQUtils 服务 >>>>>>>>>>>>>>>>>>");
         return new RabbitMQUtils(properties);
+    }
+
+    @Bean
+    public RabbitTemplateUtil rabbitTemplateUtil() {
+        log.info("<<<<<<<<<<<<<<< 加载 RabbitTemplateUtil 服务 >>>>>>>>>>>>>>>>>>");
+        return new RabbitTemplateUtil(rabbitAdmin());
     }
 }
