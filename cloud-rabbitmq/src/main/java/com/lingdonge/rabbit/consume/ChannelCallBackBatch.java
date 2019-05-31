@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 批量拉取数据回本地
+ * 批量拉取数据回本地，数据量不够会循环等待
  */
 @Slf4j
 public class ChannelCallBackBatch implements ChannelCallback<List<byte[]>> {
@@ -27,7 +27,7 @@ public class ChannelCallBackBatch implements ChannelCallback<List<byte[]>> {
      * @param queueName
      */
     public ChannelCallBackBatch(String queueName) {
-        this(queueName, 100, 1L);
+        this(queueName, 100, 1000L);
     }
 
     /**
@@ -35,7 +35,7 @@ public class ChannelCallBackBatch implements ChannelCallback<List<byte[]>> {
      * @param batchSize
      */
     public ChannelCallBackBatch(String queueName, Integer batchSize) {
-        this(queueName, batchSize, 1L);
+        this(queueName, batchSize, 1000L);
     }
 
     /**
@@ -71,6 +71,7 @@ public class ChannelCallBackBatch implements ChannelCallback<List<byte[]>> {
             // handle messages 处理收到的消息列表，或者打包返回
 
             channel.basicAck(tag, true); // 批量确认消费完成
+
             return responseList;
         }
 
