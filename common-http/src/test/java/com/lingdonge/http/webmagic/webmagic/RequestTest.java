@@ -1,12 +1,12 @@
 package com.lingdonge.http.webmagic.webmagic;
 
+import com.lingdonge.core.http.HttpConstant;
 import com.lingdonge.http.webmagic.Request;
-import com.kyle.utility.http.HttpConstant;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * @author code4crafter@gmail.com
- *         Date: 17/3/11
+ * Date: 17/3/11
  */
 public class RequestTest {
 

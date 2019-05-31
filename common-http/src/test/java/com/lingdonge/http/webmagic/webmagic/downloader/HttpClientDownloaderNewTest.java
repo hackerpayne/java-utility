@@ -1,5 +1,11 @@
 package com.lingdonge.http.webmagic.webmagic.downloader;
 
+import com.lingdonge.core.bean.common.ModelProxy;
+import com.lingdonge.core.dates.TimeCounter;
+import com.lingdonge.core.http.DownloadUtil;
+import com.lingdonge.core.http.HttpConstant;
+import com.lingdonge.core.http.UserAgentUtil;
+import com.lingdonge.core.util.StringUtils;
 import com.lingdonge.http.webmagic.Page;
 import com.lingdonge.http.webmagic.Request;
 import com.lingdonge.http.webmagic.Site;
@@ -9,14 +15,8 @@ import com.lingdonge.http.webmagic.proxy.SimpleProxyProvider;
 import com.lingdonge.http.webmagic.selector.Html;
 import com.lingdonge.http.webmagic.selector.Json;
 import com.lingdonge.http.webmagic.selector.Selectable;
-import com.kyle.utility.dates.TimeCounter;
-import com.kyle.utility.http.DownloadUtil;
-import com.kyle.utility.http.HttpConstant;
-import com.kyle.utility.http.UserAgentUtil;
-import com.kyle.utility.model.ModelProxy;
-import com.kyle.utility.util.StringUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.List;
 

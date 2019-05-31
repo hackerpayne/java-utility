@@ -1,13 +1,12 @@
 package com.lingdonge.http.webmagic.webmagic;
 
-import com.kyle.http.webmagic.*;
+import com.lingdonge.http.webmagic.*;
 import com.lingdonge.http.webmagic.downloader.Downloader;
 import com.lingdonge.http.webmagic.pipeline.Pipeline;
 import com.lingdonge.http.webmagic.processor.PageProcessor;
 import com.lingdonge.http.webmagic.processor.SimplePageProcessor;
 import com.lingdonge.http.webmagic.scheduler.Scheduler;
-import com.lingdonge.http.webmagic.*;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,10 +16,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class SpiderTest {
 
-//    @Ignore("long time")
+    //    @Ignore("long time")
     @Test
     public void testStartAndStop() throws InterruptedException {
-        Spider spider = Spider.create(new SimplePageProcessor( "http://www.oschina.net/*")).addPipeline(new Pipeline() {
+        Spider spider = Spider.create(new SimplePageProcessor("http://www.oschina.net/*")).addPipeline(new Pipeline() {
             @Override
             public void process(ResultItems resultItems, Task task) {
                 System.out.println(1);
@@ -34,7 +33,7 @@ public class SpiderTest {
         Thread.sleep(10000);
     }
 
-//    @Ignore("long time")
+    //    @Ignore("long time")
     @Test
     public void testWaitAndNotify() throws InterruptedException {
         for (int i = 0; i < 10000; i++) {
@@ -87,7 +86,7 @@ public class SpiderTest {
                 if (count.incrementAndGet() > 1000) {
                     return null;
                 }
-                if (random.nextInt(100)>90){
+                if (random.nextInt(100) > 90) {
                     return null;
                 }
                 return new Request("test");

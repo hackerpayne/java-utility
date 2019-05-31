@@ -8,11 +8,7 @@ import com.vladmihalcea.flexypool.connection.JdkConnectionProxyFactory;
 import com.vladmihalcea.flexypool.strategy.IncrementPoolOnTimeoutConnectionAcquiringStrategy;
 import com.vladmihalcea.flexypool.strategy.RetryConnectionAcquiringStrategy;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.context.annotation.Bean;
 
 import javax.annotation.Resource;
@@ -25,8 +21,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class AtomikosFlexyPoolConfiguration {
 
-    public AtomikosFlexyPoolConfiguration(){
-        log.info("加载[{}]类",this.getClass().getSimpleName());
+    public AtomikosFlexyPoolConfiguration() {
+        log.info("加载[{}]类", this.getClass().getSimpleName());
     }
 
     @Resource

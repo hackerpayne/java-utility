@@ -1,7 +1,8 @@
 package com.lingdonge.http.webmagic.webmagic.utils;
 
-import com.kyle.utility.http.UrlUtils;
-import org.testng.annotations.Test;
+
+import com.lingdonge.core.http.UrlUtils;
+import org.junit.Test;
 
 /**
  * @author code4crafter@gmail.com <br>

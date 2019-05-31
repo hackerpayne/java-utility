@@ -1,8 +1,8 @@
 package com.lingdonge.spring.token;
 
-import com.lingdonge.spring.configuration.properties.JwtProperties;
+import com.lingdonge.core.threads.ThreadUtil;
 import com.lingdonge.spring.bean.token.JwtUserInfo;
-import com.kyle.utility.threads.ThreadUtil;
+import com.lingdonge.spring.configuration.properties.JwtProperties;
 import org.junit.Test;
 
 public class JwtTokenHelperTest {

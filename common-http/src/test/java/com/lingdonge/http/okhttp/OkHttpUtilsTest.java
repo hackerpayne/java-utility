@@ -1,8 +1,8 @@
 package com.lingdonge.http.okhttp;
 
-import com.kyle.utility.model.ModelProxy;
+import com.lingdonge.core.bean.common.ModelProxy;
 import org.jsoup.nodes.Document;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 public class OkHttpUtilsTest {
 

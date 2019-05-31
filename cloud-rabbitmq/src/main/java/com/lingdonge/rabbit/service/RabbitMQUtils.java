@@ -1,5 +1,6 @@
 package com.lingdonge.rabbit.service;
 
+import com.alibaba.fastjson.JSON;
 import com.lingdonge.core.file.io.IOUtil;
 import com.rabbitmq.client.*;
 import lombok.extern.slf4j.Slf4j;
@@ -55,11 +56,10 @@ public class RabbitMQUtils {
      *
      * @param config
      */
-//    @Autowired
     public RabbitMQUtils(RabbitProperties config) throws IOException, TimeoutException {
         RabbitMQUtils.rabbitProperties = config;
         this.afterPropertySet();// 注入和生成实例
-        log.info("正在加载 RabbitUtils 配置文件：" + config);
+        log.debug("<<<<<<<<<<<<<<< 正在加载 RabbitUtils 配置文件:{} >>>>>>>>>>>>>>>>>> ：", JSON.toJSONString(config));
     }
 
     private static volatile RabbitMQUtils instance;

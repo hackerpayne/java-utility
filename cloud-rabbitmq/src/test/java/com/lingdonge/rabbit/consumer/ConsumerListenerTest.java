@@ -20,7 +20,6 @@ import java.util.Map;
  *
  * @RabbitListener用于注册Listener时使用的信息：如queue，exchange，key、ListenerContainerFactory和RabbitAdmin的bean name。
  */
-//@Component
 @Slf4j
 public class ConsumerListenerTest {
 

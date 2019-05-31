@@ -1,7 +1,6 @@
 package com.lingdonge.spring.configuration;
 
-
-import com.kyle.utility.util.RandomUtil;
+import com.lingdonge.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 

@@ -25,7 +25,7 @@ import java.util.concurrent.TimeoutException;
  * Fanout：不需要key，它采取广播模式，一个消息进来时，投递到与该交换机绑定的所有队列。
  * Headers:我们可以不考虑它。
  */
-@Configuration
+//@Configuration
 @EnableRabbit
 @Slf4j
 public class RabbitCustomConfiguration {

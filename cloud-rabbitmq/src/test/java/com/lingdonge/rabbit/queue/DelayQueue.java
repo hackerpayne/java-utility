@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 /**
  * RabbitMQ延时队列配置
  */
-@Component
 public class DelayQueue {
 
 

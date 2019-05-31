@@ -1,5 +1,6 @@
-package com.lingdonge.db.configuration.properties;//package com.kyle.spiderservice.configuration;
+package com.lingdonge.db.configuration.properties;
 
+import com.lingdonge.db.model.BaseEntity;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -8,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Data
 @ConfigurationProperties(prefix = "spring.datasource")
-public class MySQLProperties {
+public class MySQLProperties extends BaseEntity {
 
     private String url;
 

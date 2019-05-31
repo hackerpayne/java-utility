@@ -93,7 +93,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.kyle.utility</groupId>
+            <groupId>com.lingdonge</groupId>
             <artifactId>cloud-database</artifactId>
             <version>${project.parent.version}</version>
         </dependency>

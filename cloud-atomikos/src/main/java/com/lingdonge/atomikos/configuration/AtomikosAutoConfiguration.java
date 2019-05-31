@@ -1,7 +1,7 @@
 package com.lingdonge.atomikos.configuration;
 
 import com.atomikos.jdbc.AtomikosDataSourceBean;
-import com.kyle.database.util.DataSourceBuilder;
+import com.lingdonge.db.util.DataSourceBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,8 +26,8 @@ import java.util.Properties;
 @Slf4j
 public class AtomikosAutoConfiguration {
 
-    public AtomikosAutoConfiguration(){
-        log.info("加载[{}]类",this.getClass().getSimpleName());
+    public AtomikosAutoConfiguration() {
+        log.info("加载[{}]类", this.getClass().getSimpleName());
     }
 
     @Resource

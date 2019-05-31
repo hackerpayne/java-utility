@@ -2,8 +2,8 @@ package com.lingdonge.lucene.core;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
+import com.lingdonge.core.util.Utils;
 import com.lingdonge.lucene.constant.AnalyzerType;
-import com.kyle.utility.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;

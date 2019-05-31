@@ -15,7 +15,6 @@ import javax.annotation.Resource;
  * auto-delete:表示消息队列没有在使用时将被自动删除。默认是false。
  * exclusive:表示该消息队列是否只在当前connection生效。默认false。
  */
-@Configuration
 public class TestQueue {
 
     @Resource

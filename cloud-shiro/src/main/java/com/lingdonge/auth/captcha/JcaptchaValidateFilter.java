@@ -1,4 +1,4 @@
-package com.lingdonge.auth.captcha;//package com.kyle.marketing.captcha;
+//package com.lingdonge.auth.captcha;
 //
 //import org.apache.auth.web.filter.AccessControlFilter;
 //import org.apache.auth.web.token.WebUtils;

@@ -3,19 +3,16 @@ package com.lingdonge.redis;
 import com.lingdonge.redis.service.RedisPoolUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import redis.clients.jedis.Jedis;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(locations = {"classpath:test.yml"})
+@EnableAutoConfiguration
 @Slf4j
-public class RedisPoolUtilTest {
+public class RedisPoolUtilTest extends SpringBaseTest {
 
     @Test
     public void testMultiThread() {

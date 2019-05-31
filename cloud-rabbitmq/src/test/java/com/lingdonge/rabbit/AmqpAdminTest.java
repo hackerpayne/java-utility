@@ -2,22 +2,28 @@ package com.lingdonge.rabbit;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@EnableAutoConfiguration // 自动加载配置文件
 @Slf4j
-public class AmqpAdminTest {
+public class AmqpAdminTest extends SpringBaseTest {
 
-    @Autowired
+    @Resource
     private RabbitAdmin rabbitAdmin;
+
+    @Resource
+    private RabbitProperties rabbitProperties;
+
+    @Test
+    public void testProperties() {
+        System.out.println(rabbitProperties);
+    }
 
     /**
      * 获取消息数量：https://stackoverflow.com/questions/45764747/spring-boot-rabbitmq-queue-count
@@ -25,8 +31,9 @@ public class AmqpAdminTest {
      * @throws Exception
      */
     @Test
-    public void purgeQueue() throws Exception {
-        Integer count = (Integer) rabbitAdmin.getQueueProperties("queue_name").get("QUEUE_MESSAGE_COUNT");
+    public void getQueueMessageCount() throws Exception {
+        String queue = "queue_ebdoor.com_low";
+        Integer count = (Integer) rabbitAdmin.getQueueProperties(queue).get(RabbitAdmin.QUEUE_MESSAGE_COUNT);
         System.out.println(count);
     }
 

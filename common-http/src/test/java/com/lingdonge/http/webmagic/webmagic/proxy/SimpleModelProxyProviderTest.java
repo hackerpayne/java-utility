@@ -1,15 +1,15 @@
 package com.lingdonge.http.webmagic.webmagic.proxy;
 
+import com.lingdonge.core.bean.common.ModelProxy;
 import com.lingdonge.http.webmagic.Site;
 import com.lingdonge.http.webmagic.Task;
 import com.lingdonge.http.webmagic.proxy.SimpleProxyProvider;
-import com.kyle.utility.model.ModelProxy;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * @author code4crafter@gmail.com
- *         Date: 17/4/16
- *         Time: 上午10:29
+ * Date: 17/4/16
+ * Time: 上午10:29
  */
 public class SimpleModelProxyProviderTest {
 

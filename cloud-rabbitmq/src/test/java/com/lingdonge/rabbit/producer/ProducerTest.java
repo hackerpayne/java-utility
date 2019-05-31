@@ -1,5 +1,6 @@
 package com.lingdonge.rabbit.producer;
 
+import com.lingdonge.rabbit.SpringBaseTest;
 import com.lingdonge.rabbit.TestUtil;
 import com.lingdonge.rabbit.service.RabbitMQUtils;
 import com.rabbitmq.client.BuiltinExchangeType;
@@ -15,20 +16,13 @@ import java.util.Date;
  * 原生生产者配置
  */
 @Slf4j
-public class ProducerTest {
+public class ProducerTest extends SpringBaseTest {
 
 
     //队列是否需要持久化
     public static final boolean DURABLE = true;
 
     public ProducerTest() {
-
-    }
-
-
-    public static void main(String[] args) {
-
-        normalProducer();
 
     }
 

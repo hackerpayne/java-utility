@@ -3,8 +3,6 @@ package com.lingdonge.atomikos.configuration;
 import com.atomikos.icatch.jta.UserTransactionImp;
 import com.atomikos.icatch.jta.UserTransactionManager;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -29,7 +27,7 @@ import java.util.Properties;
 public class AtomikosJtaTransactionAutoConfiguration {
 
     public AtomikosJtaTransactionAutoConfiguration() {
-        log.info("加载[{}]类",this.getClass().getSimpleName());
+        log.info("加载[{}]类", this.getClass().getSimpleName());
     }
 
     /**

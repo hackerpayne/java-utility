@@ -1,7 +1,6 @@
 package com.lingdonge.redis.bloomfilter;
 
-import com.lingdonge.redis.bloomfilter.RedisBloomFilterService;
-import com.kyle.utility.dates.JodaUtil;
+import com.lingdonge.core.dates.JodaUtil;
 import lombok.extern.slf4j.Slf4j;
 import orestes.bloomfilter.BloomFilter;
 import org.junit.Test;

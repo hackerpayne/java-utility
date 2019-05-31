@@ -1,4 +1,4 @@
 # Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.kyle.authservice.config.ShiroJwtConfiguration\
-com.kyle.authservice.config.ShiroRedisConfiguration\
+#org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+#com.lingdonge.shiro.config.ShiroJwtConfiguration\
+#com.lingdonge.shiro.config.ShiroRedisConfiguration\

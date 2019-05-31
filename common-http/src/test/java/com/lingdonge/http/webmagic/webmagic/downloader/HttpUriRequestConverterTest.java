@@ -1,16 +1,16 @@
 package com.lingdonge.http.webmagic.webmagic.downloader;
 
+import com.lingdonge.core.http.UrlUtils;
 import com.lingdonge.http.webmagic.Request;
 import com.lingdonge.http.webmagic.Site;
 import com.lingdonge.http.webmagic.downloader.HttpClientRequestContext;
 import com.lingdonge.http.webmagic.downloader.HttpUriRequestConverter;
-import com.kyle.utility.http.UrlUtils;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * @author code4crafter@gmail.com
- *         Date: 2017/7/22
- *         Time: 下午5:29
+ * Date: 2017/7/22
+ * Time: 下午5:29
  */
 public class HttpUriRequestConverterTest {
 

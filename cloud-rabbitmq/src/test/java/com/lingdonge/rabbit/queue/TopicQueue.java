@@ -14,7 +14,6 @@ import javax.annotation.Resource;
  * topic 是RabbitMQ中最灵活的一种方式，可以根据routing_key自由的绑定不同的队列
  * 定义2个Topic
  */
-@Component
 public class TopicQueue {
 
     @Resource
