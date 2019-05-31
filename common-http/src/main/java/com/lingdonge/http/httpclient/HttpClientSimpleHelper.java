@@ -1,7 +1,7 @@
 package com.lingdonge.http.httpclient;
 
-import com.lindonge.core.bean.common.ModelProxy;
-import com.lindonge.core.util.StringUtils;
+import com.lingdonge.core.bean.common.ModelProxy;
+import com.lingdonge.core.util.StringUtils;
 import com.lingdonge.http.httpclient.utils.HttpClientCreatorUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpHost;

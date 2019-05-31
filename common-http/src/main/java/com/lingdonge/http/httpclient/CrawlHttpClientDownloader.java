@@ -1,8 +1,8 @@
 package com.lingdonge.http.httpclient;
 
-import com.lindonge.core.http.HttpClientUtils;
-import com.lindonge.core.http.HttpConstant;
-import com.lindonge.core.bean.common.ModelProxy;
+import com.lingdonge.core.http.HttpClientUtils;
+import com.lingdonge.core.http.HttpConstant;
+import com.lingdonge.core.bean.common.ModelProxy;
 import com.lingdonge.http.HttpRequest;
 import com.lingdonge.http.HttpResult;
 import com.lingdonge.http.HttpSetting;

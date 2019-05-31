@@ -1,7 +1,7 @@
 package com.lingdonge.db.repository;
 
-import com.lindonge.core.page.PageBean;
-import com.lindonge.core.reflect.NamingUtil;
+import com.lingdonge.core.page.PageBean;
+import com.lingdonge.core.reflect.NamingUtil;
 import com.lingdonge.db.util.JdbcUtil;
 import com.lingdonge.db.util.SqlBuilder;
 import org.apache.commons.lang3.StringUtils;

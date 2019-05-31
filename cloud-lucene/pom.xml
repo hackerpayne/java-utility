@@ -1,15 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.lindonge</groupId>
+        <groupId>com.lingdonge</groupId>
         <artifactId>utility-parent</artifactId>
         <version>3.0.3</version>
     </parent>
 
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>cloud-lucene</artifactId>
+    <name>${project.artifactId}</name>
     <packaging>jar</packaging>
+    <description>全文检索集成</description>
 
     <properties>
         <slf4j.version>1.7.25</slf4j.version>
@@ -80,7 +82,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.lindonge</groupId>
+            <groupId>com.lingdonge</groupId>
             <artifactId>common-core</artifactId>
             <version>${project.parent.version}</version>
             <exclusions>

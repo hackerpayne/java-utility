@@ -1,6 +1,6 @@
 package com.lingdonge.rabbit.service;
 
-import com.lindonge.core.file.io.IOUtil;
+import com.lingdonge.core.file.io.IOUtil;
 import com.rabbitmq.client.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

@@ -3,7 +3,7 @@ package com.lingdonge.spring.web;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.net.HttpHeaders;
-import com.lindonge.core.http.RequestUtil;
+import com.lingdonge.core.http.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;

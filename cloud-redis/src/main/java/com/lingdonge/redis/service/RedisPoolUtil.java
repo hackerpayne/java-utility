@@ -1,7 +1,7 @@
 package com.lingdonge.redis.service;
 
 import com.alibaba.fastjson.JSON;
-import com.lindonge.core.convert.ConvertUtil;
+import com.lingdonge.core.convert.ConvertUtil;
 import com.lingdonge.redis.RedisConfigUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

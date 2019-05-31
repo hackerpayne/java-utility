@@ -2,8 +2,8 @@ package com.lingdonge.db.db;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import com.lindonge.core.bean.common.ModelDBItem;
-import com.lindonge.core.bean.base.ModelPair;
+import com.lingdonge.core.bean.common.ModelDBItem;
+import com.lingdonge.core.bean.base.ModelPair;
 import org.junit.Test;
 
 import java.util.List;

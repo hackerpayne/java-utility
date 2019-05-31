@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.lindonge.core.dates.DatePattern;
+import com.lingdonge.core.dates.DatePattern;
 import org.apache.commons.lang.time.DateUtils;
 import org.springframework.boot.jackson.JsonComponent;
 

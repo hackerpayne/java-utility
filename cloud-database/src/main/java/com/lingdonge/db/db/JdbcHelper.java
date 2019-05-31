@@ -1,7 +1,7 @@
 package com.lingdonge.db.db;
 
-import com.lindonge.core.file.PropertiesUtils;
-import com.lindonge.core.util.Utils;
+import com.lingdonge.core.file.PropertiesUtils;
+import com.lingdonge.core.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.io.FileUtils;

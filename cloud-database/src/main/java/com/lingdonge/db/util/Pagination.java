@@ -1,6 +1,6 @@
 package com.lingdonge.db.util;
 
-import com.lindonge.core.util.StringUtils;
+import com.lingdonge.core.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

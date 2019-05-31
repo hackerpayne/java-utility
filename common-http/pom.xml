@@ -1,15 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.lindonge</groupId>
+        <groupId>com.lingdonge</groupId>
         <artifactId>utility-parent</artifactId>
         <version>3.0.3</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>common-http</artifactId>
-    <name>common-http</name>
+    <name>${project.artifactId}</name>
     <packaging>jar</packaging>
+    <description>Http请求集成类</description>
 
     <properties>
         <httpclient.version>4.5.5</httpclient.version>
@@ -18,7 +19,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.lindonge</groupId>
+            <groupId>com.lingdonge</groupId>
             <artifactId>common-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
@@ -84,7 +85,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.lindonge</groupId>
+            <groupId>com.lingdonge</groupId>
             <artifactId>cloud-redis</artifactId>
             <version>${project.parent.version}</version>
             <optional>true</optional>

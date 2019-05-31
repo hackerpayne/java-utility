@@ -1,6 +1,6 @@
 package com.lingdonge.auth.jwt;
 
-import com.lindonge.core.encrypt.HmacSHA256Utils;
+import com.lingdonge.core.encrypt.HmacSHA256Utils;
 import com.lingdonge.spring.bean.token.JwtUserInfo;
 import com.lingdonge.spring.token.JwtTokenUtil;
 import org.apache.shiro.authc.AuthenticationInfo;

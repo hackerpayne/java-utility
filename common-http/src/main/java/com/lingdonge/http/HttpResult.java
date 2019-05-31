@@ -1,7 +1,7 @@
 package com.lingdonge.http;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.lindonge.core.http.HttpConstant;
+import com.lingdonge.core.http.HttpConstant;
 import lombok.Data;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.lingdonge.rabbit.consumerThread1;
 
-import com.lindonge.core.threads.ThreadUtil;
+import com.lingdonge.core.threads.ThreadUtil;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DefaultConsumer;

@@ -1,15 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.lindonge</groupId>
+        <groupId>com.lingdonge</groupId>
         <artifactId>utility-parent</artifactId>
         <version>3.0.3</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>common-excel</artifactId>
-    <name>common-excel</name>
+    <name>${project.artifactId}</name>
     <packaging>jar</packaging>
+    <description>Excel工具类集成</description>
 
     <properties>
         <poi.version>3.17</poi.version>
@@ -18,7 +19,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.lindonge</groupId>
+            <groupId>com.lingdonge</groupId>
             <artifactId>common-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>

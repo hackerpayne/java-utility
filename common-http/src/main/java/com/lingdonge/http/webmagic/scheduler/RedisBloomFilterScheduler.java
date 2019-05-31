@@ -1,8 +1,8 @@
 package com.lingdonge.http.webmagic.scheduler;
 
 import com.alibaba.fastjson.JSON;
-import com.lindonge.core.encrypt.Md5Util;
-import com.lindonge.core.util.StringUtils;
+import com.lingdonge.core.encrypt.Md5Util;
+import com.lingdonge.core.util.StringUtils;
 import com.lingdonge.http.webmagic.PageType;
 import com.lingdonge.http.webmagic.Request;
 import com.lingdonge.http.webmagic.Task;

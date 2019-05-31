@@ -1,6 +1,6 @@
 package com.lingdonge.http.httpclient;
 
-import com.lindonge.core.http.HttpClientUtils;
+import com.lingdonge.core.http.HttpClientUtils;
 import com.lingdonge.http.HttpRequest;
 import com.lingdonge.http.HttpResult;
 import com.lingdonge.http.util.CharsetUtils;

@@ -3,6 +3,14 @@
 listener 监听器
 consumer 消费者。
 
+实现RabbitMQ的消费者有两种模式，推模式（Push）和拉模式（Pull）。
+
+实现推模式推荐的方式是继承 DefaultConsumer 基类，也可以使用Spring AMQP的 SimpleMessageListenerContainer 。
+
+关于QueueingConsumer
+
+QueueingConsumer 在客户端本地使用 BlockingQueue 缓冲消息，其nextDelivery方法也可以用于实现拉模式（其本质上是 BlockingQueue.take ），但是 QueueingConsumer 现在已经标记为Deprecated。
+
 ### 第三方参考：
 https://github.com/littlersmall/rabbitmq-access
 

@@ -1,9 +1,9 @@
 package com.lingdonge.lucene.core;
 
 import com.google.common.collect.Lists;
-import com.lindonge.core.file.FileUtil;
-import com.lindonge.core.util.StringUtils;
-import com.lindonge.core.util.Utils;
+import com.lingdonge.core.file.FileUtil;
+import com.lingdonge.core.util.StringUtils;
+import com.lingdonge.core.util.Utils;
 import com.lingdonge.lucene.entity.HighlighterParam;
 import com.lingdonge.lucene.entity.Page;
 import lombok.extern.slf4j.Slf4j;

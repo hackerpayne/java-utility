@@ -1,6 +1,6 @@
 package com.lingdonge.quartz.service.impl;
 
-import com.lindonge.core.exceptions.UtilException;
+import com.lingdonge.core.exceptions.UtilException;
 import com.lingdonge.quartz.domain.ScheduleJob;
 import com.lingdonge.quartz.job.BaseJob;
 import com.lingdonge.quartz.job.QuartzJobFactoryRun;

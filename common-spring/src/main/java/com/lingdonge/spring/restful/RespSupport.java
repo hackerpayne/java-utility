@@ -1,7 +1,7 @@
 package com.lingdonge.spring.restful;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.lindonge.core.bean.base.BaseEntity;
+import com.lingdonge.core.bean.base.BaseEntity;
 import com.lingdonge.spring.constant.GlobalBaseConstant;
 import lombok.Data;
 

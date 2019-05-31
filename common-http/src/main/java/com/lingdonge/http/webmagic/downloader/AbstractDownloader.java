@@ -1,6 +1,6 @@
 package com.lingdonge.http.webmagic.downloader;
 
-import com.lindonge.core.http.HttpClientUtils;
+import com.lingdonge.core.http.HttpClientUtils;
 import com.lingdonge.http.util.CharsetUtils;
 import com.lingdonge.http.webmagic.Page;
 import com.lingdonge.http.webmagic.Request;

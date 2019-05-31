@@ -1,7 +1,7 @@
 package com.lingdonge.http.webmagic;
 
-import com.lindonge.core.http.CookieUtil;
-import com.lindonge.core.http.HttpConstant;
+import com.lingdonge.core.http.CookieUtil;
+import com.lingdonge.core.http.HttpConstant;
 
 import javax.servlet.http.Cookie;
 import java.util.*;

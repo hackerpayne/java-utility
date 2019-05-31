@@ -2,10 +2,10 @@ package com.lingdonge.http.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.lindonge.core.http.HttpHelper;
-import com.lindonge.core.bean.common.ModelIPLocation;
-import com.lindonge.core.thirdparty.qqwry.QQwryUtils;
-import com.lindonge.core.util.StringUtils;
+import com.lingdonge.core.http.HttpHelper;
+import com.lingdonge.core.bean.common.ModelIPLocation;
+import com.lingdonge.core.thirdparty.qqwry.QQwryUtils;
+import com.lingdonge.core.util.StringUtils;
 import com.lingdonge.http.thirdparty.MaxMindGeoHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;

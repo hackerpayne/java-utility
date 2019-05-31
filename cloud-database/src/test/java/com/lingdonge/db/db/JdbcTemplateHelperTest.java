@@ -1,7 +1,7 @@
 package com.lingdonge.db.db;
 
-import com.lindonge.core.dates.DateUtil;
-import com.lindonge.core.bean.common.ModelIPLocation;
+import com.lingdonge.core.dates.DateUtil;
+import com.lingdonge.core.bean.common.ModelIPLocation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;

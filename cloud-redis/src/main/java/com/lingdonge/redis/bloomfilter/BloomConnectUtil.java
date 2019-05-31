@@ -1,6 +1,6 @@
 package com.lingdonge.redis.bloomfilter;
 
-import com.lindonge.core.reflect.OptionalUtil;
+import com.lingdonge.core.reflect.OptionalUtil;
 import orestes.bloomfilter.BloomFilter;
 import orestes.bloomfilter.FilterBuilder;
 import orestes.bloomfilter.HashProvider;

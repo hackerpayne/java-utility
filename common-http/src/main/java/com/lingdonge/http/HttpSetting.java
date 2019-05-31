@@ -1,6 +1,6 @@
 package com.lingdonge.http;
 
-import com.lindonge.core.http.HttpConstant;
+import com.lingdonge.core.http.HttpConstant;
 
 import java.util.*;
 

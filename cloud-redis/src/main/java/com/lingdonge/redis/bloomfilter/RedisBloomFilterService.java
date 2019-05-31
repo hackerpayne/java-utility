@@ -1,7 +1,7 @@
 package com.lingdonge.redis.bloomfilter;
 
 import com.google.common.collect.Maps;
-import com.lindonge.core.cache.MemoryCounter;
+import com.lingdonge.core.cache.MemoryCounter;
 import com.lingdonge.redis.service.RedisTemplateUtil;
 import orestes.bloomfilter.BloomFilter;
 import org.apache.commons.lang3.math.NumberUtils;

@@ -1,8 +1,8 @@
 package com.lingdonge.http.faker;
 
 import com.google.common.collect.Lists;
-import com.lindonge.core.regex.ReUtil;
-import com.lindonge.core.util.StringUtils;
+import com.lingdonge.core.regex.ReUtil;
+import com.lingdonge.core.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;

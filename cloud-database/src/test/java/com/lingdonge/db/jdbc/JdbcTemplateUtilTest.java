@@ -2,7 +2,7 @@ package com.lingdonge.db.jdbc;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.lindonge.core.dates.DateUtil;
+import com.lingdonge.core.dates.DateUtil;
 import com.lingdonge.db.configuration.properties.DruidProperties;
 import com.lingdonge.db.util.DataSourceBuilder;
 import org.junit.Test;

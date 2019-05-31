@@ -1,8 +1,8 @@
 package com.lingdonge.http.jsouputil;
 
-import com.lindonge.core.http.HttpClientUtils;
-import com.lindonge.core.http.UserAgentUtil;
-import com.lindonge.core.threads.ThreadUtil;
+import com.lingdonge.core.http.HttpClientUtils;
+import com.lingdonge.core.http.UserAgentUtil;
+import com.lingdonge.core.threads.ThreadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection;

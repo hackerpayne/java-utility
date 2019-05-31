@@ -2,8 +2,8 @@ package com.lingdonge.db.util;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import com.lindonge.core.reflect.NamingUtil;
-import com.lindonge.core.util.StringUtils;
+import com.lingdonge.core.reflect.NamingUtil;
+import com.lingdonge.core.util.StringUtils;
 import com.lingdonge.db.db.Pager;
 import javafx.util.Pair;
 import org.apache.commons.collections.MapUtils;

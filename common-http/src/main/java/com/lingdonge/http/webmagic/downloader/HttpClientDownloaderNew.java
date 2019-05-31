@@ -1,9 +1,9 @@
 package com.lingdonge.http.webmagic.downloader;
 
-import com.lindonge.core.http.HttpClientUtils;
-import com.lindonge.core.http.HttpConstant;
-import com.lindonge.core.bean.common.ModelProxy;
-import com.lindonge.core.util.StringUtils;
+import com.lingdonge.core.http.HttpClientUtils;
+import com.lingdonge.core.http.HttpConstant;
+import com.lingdonge.core.bean.common.ModelProxy;
+import com.lingdonge.core.util.StringUtils;
 import com.lingdonge.http.webmagic.Page;
 import com.lingdonge.http.webmagic.Request;
 import com.lingdonge.http.webmagic.Site;

@@ -1,6 +1,6 @@
 package com.lingdonge.db.db;
 
-import com.lindonge.core.util.StringUtils;
+import com.lingdonge.core.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.List;

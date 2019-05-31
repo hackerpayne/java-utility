@@ -1,6 +1,6 @@
 package com.lingdonge.spring.log;
 
-import com.lindonge.core.dates.SystemClock;
+import com.lingdonge.core.dates.SystemClock;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;

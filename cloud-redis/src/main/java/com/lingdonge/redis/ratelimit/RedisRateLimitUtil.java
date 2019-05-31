@@ -1,6 +1,6 @@
 package com.lingdonge.redis.ratelimit;
 
-import com.lindonge.core.dates.SystemClock;
+import com.lingdonge.core.dates.SystemClock;
 import com.lingdonge.redis.RedisConfigUtil;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.data.redis.core.RedisTemplate;

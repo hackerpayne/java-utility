@@ -3,15 +3,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>com.lindonge</groupId>
+        <groupId>com.lingdonge</groupId>
         <artifactId>utility-parent</artifactId>
         <version>3.0.3</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>cloud-atomikos</artifactId>
-    <name>cloud-atomikos</name>
+    <name>${project.artifactId}</name>
     <packaging>jar</packaging>
+    <description>分布式事务集成</description>
 
     <properties>
         <flexy-pool.version>2.0.0</flexy-pool.version>
@@ -62,13 +63,13 @@
         </dependency>
 
         <dependency>
-            <groupId>com.lindonge</groupId>
+            <groupId>com.lingdonge</groupId>
             <artifactId>common-spring</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.lindonge</groupId>
+            <groupId>com.lingdonge</groupId>
             <artifactId>common-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>

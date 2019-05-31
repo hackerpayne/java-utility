@@ -1,6 +1,6 @@
 package com.lingdonge.http.webmagic.pipeline;
 
-import com.lindonge.core.collection.DoubleKeyMap;
+import com.lingdonge.core.collection.DoubleKeyMap;
 import com.lingdonge.http.webmagic.MultiPageModel;
 import com.lingdonge.http.webmagic.ResultItems;
 import com.lingdonge.http.webmagic.Task;

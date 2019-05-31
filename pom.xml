@@ -3,14 +3,15 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.lindonge</groupId>
-    <artifactId>utility-parent</artifactId>
-    <version>3.0.3</version>
-    <description>Java日常工具类</description>
-    <name>utility</name>
-
     <packaging>pom</packaging>
+
+    <groupId>com.lingdonge</groupId>
+    <artifactId>utility-parent</artifactId>
+    <name>utility</name>
+    <version>3.0.3</version>
+
+    <description>Java日常工具类</description>
+    <url>https://github.com/lingdonge/java-utility</url>
 
     <properties>
         <java.version>1.8</java.version>
@@ -20,9 +21,9 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
-        <spring.boot.version>2.0.6.RELEASE</spring.boot.version>
-        <spring.cloud.version>Finchley.SR2</spring.cloud.version>
-        <spring.cloud.netflix>2.0.2.RELEASE</spring.cloud.netflix>
+        <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
+        <spring.cloud.version>Greenwich.RELEASE</spring.cloud.version>
+        <spring.cloud.netflix>2.1.1.RELEASE</spring.cloud.netflix>
 
         <junit.version>4.12</junit.version>
     </properties>
@@ -129,6 +130,7 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- 官方 https://spring.io/projects/spring-cloud https://github.com/spring-projects/spring-cloud -->
             <!--<dependency>-->
             <!--<groupId>org.springframework.cloud</groupId>-->
             <!--<artifactId>spring-cloud-dependencies</artifactId>-->
@@ -137,6 +139,7 @@
             <!--<scope>import</scope>-->
             <!--</dependency>-->
 
+            <!-- 官方 https://spring.io/projects/spring-cloud-netflix https://github.com/spring-cloud/spring-cloud-netflix -->
             <!--<dependency>-->
             <!--<groupId>org.springframework.cloud</groupId>-->
             <!--<artifactId>spring-cloud-netflix</artifactId>-->
@@ -179,6 +182,15 @@
                 <!--<artifactId>docker-maven-plugin</artifactId>-->
                 <!--</plugin>-->
 
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.10.4</version>
+                    <configuration>
+                        <aggregate>true</aggregate>
+                    </configuration>
+                </plugin>
+
             </plugins>
         </pluginManagement>
 
@@ -211,5 +223,124 @@
     <!--<url>http://repo.spring.io/milestone</url>-->
     <!--</pluginRepository>-->
     <!--</pluginRepositories>-->
+
+    <profiles>
+        <profile>
+            <id>disable-javadoc-doclint</id>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <!-- java8版本导致javadoc打包编译失败时候，添加-->
+            <properties>
+                <javadoc.opts>-Xdoclint:none</javadoc.opts>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>release</id>
+
+            <distributionManagement>
+                <snapshotRepository>
+                    <!-- 取settings.xml中的ID -->
+                    <id>sonatype</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <!-- 取settings.xml中的ID -->
+                <repository>
+                    <id>sonatype</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.3</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>sonatype</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+
+                    <!-- Source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.10.4</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <!-- java8版本导致javadoc打包编译失败时候，添加-->
+                                <configuration>
+                                    <additionalparam>${javadoc.opts}</additionalparam>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Gpg Signature -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>git@github.com:lingdonge/java-utility.git</url>
+        <connection>scm:git@github.com:lingdonge/java-utility.git</connection>
+        <developerConnection>scm:git@github.com:lingdonge/java-utility.git</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>kyle</name>
+            <email>hackerpayne@gmail.com</email>
+            <url>www.lingdonge.com</url>
+        </developer>
+    </developers>
 
 </project>

@@ -1,8 +1,8 @@
 package com.lingdonge.db.util;
 
-import com.lindonge.core.exceptions.UtilException;
-import com.lindonge.core.reflect.ClassUtil;
-import com.lindonge.core.util.ReflectUtil;
+import com.lingdonge.core.exceptions.UtilException;
+import com.lingdonge.core.reflect.ClassUtil;
+import com.lingdonge.core.util.ReflectUtil;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.beans.BeanInfo;

@@ -1,7 +1,7 @@
 package com.lingdonge.http.faker;
 
-import com.lindonge.core.file.FileUtil;
-import com.lindonge.core.util.Utils;
+import com.lingdonge.core.file.FileUtil;
+import com.lingdonge.core.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;

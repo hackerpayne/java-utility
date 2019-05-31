@@ -1,6 +1,6 @@
 package com.lingdonge.http.webmagic.model;
 
-import com.lindonge.core.reflect.ClassUtil;
+import com.lingdonge.core.reflect.ClassUtil;
 import com.lingdonge.http.webmagic.Page;
 import com.lingdonge.http.webmagic.model.annotation.*;
 import com.lingdonge.http.webmagic.model.formatter.ObjectFormatter;

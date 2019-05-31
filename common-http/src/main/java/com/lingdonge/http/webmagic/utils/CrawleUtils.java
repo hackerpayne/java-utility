@@ -1,11 +1,11 @@
 package com.lingdonge.http.webmagic.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.lindonge.core.encrypt.Md5Util;
-import com.lindonge.core.http.HtmlUtil;
-import com.lindonge.core.http.UserAgentUtil;
-import com.lindonge.core.bean.common.ModelProxy;
-import com.lindonge.core.util.StringUtils;
+import com.lingdonge.core.encrypt.Md5Util;
+import com.lingdonge.core.http.HtmlUtil;
+import com.lingdonge.core.http.UserAgentUtil;
+import com.lingdonge.core.bean.common.ModelProxy;
+import com.lingdonge.core.util.StringUtils;
 import com.lingdonge.http.jsoupxpath.exception.XpathSyntaxErrorException;
 import com.lingdonge.http.jsoupxpath.model.JXDocument;
 import com.lingdonge.http.jsoupxpath.model.JXNode;

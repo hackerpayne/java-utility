@@ -2,8 +2,8 @@ package com.lingdonge.http.jsouputil;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import com.lindonge.core.collection.ArrayUtil;
-import com.lindonge.core.util.StringUtils;
+import com.lingdonge.core.collection.ArrayUtil;
+import com.lingdonge.core.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

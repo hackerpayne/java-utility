@@ -1,8 +1,8 @@
 package com.lingdonge.http.webmagic;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.lindonge.core.http.HttpConstant;
-import com.lindonge.core.http.UrlUtils;
+import com.lingdonge.core.http.HttpConstant;
+import com.lingdonge.core.http.UrlUtils;
 import com.lingdonge.http.webmagic.selector.Html;
 import com.lingdonge.http.webmagic.selector.Json;
 import com.lingdonge.http.webmagic.selector.Selectable;

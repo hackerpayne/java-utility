@@ -1,6 +1,6 @@
 package com.lingdonge.spring.web;
 
-import com.lindonge.core.util.Utils;
+import com.lingdonge.core.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.ClassPathResource;

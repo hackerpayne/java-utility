@@ -1,7 +1,7 @@
 package com.lingdonge.spring.tree;
 
 
-import com.lindonge.core.bean.base.BaseEntity;
+import com.lingdonge.core.bean.base.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 

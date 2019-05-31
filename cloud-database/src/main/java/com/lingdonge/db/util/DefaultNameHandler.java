@@ -1,6 +1,6 @@
 package com.lingdonge.db.util;
 
-import com.lindonge.core.reflect.NamingUtil;
+import com.lingdonge.core.reflect.NamingUtil;
 
 /**
  * 默认名称处理handler

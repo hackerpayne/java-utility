@@ -2,9 +2,9 @@ package com.lingdonge.http.faker;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.lindonge.core.dates.DateUtil;
-import com.lindonge.core.http.HttpHelper;
-import com.lindonge.core.bean.common.ModelMobileLocation;
+import com.lingdonge.core.dates.DateUtil;
+import com.lingdonge.core.http.HttpHelper;
+import com.lingdonge.core.bean.common.ModelMobileLocation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 

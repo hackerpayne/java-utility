@@ -1,9 +1,9 @@
 package com.lingdonge.http.webmagic.pipeline;
 
 import com.google.common.collect.Lists;
-import com.lindonge.core.file.FileUtil;
-import com.lindonge.core.util.StringUtils;
-import com.lindonge.core.util.Utils;
+import com.lingdonge.core.file.FileUtil;
+import com.lingdonge.core.util.StringUtils;
+import com.lingdonge.core.util.Utils;
 import com.lingdonge.http.webmagic.ResultItems;
 import com.lingdonge.http.webmagic.Task;
 import lombok.extern.slf4j.Slf4j;

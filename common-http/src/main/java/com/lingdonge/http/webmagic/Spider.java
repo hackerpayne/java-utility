@@ -1,8 +1,8 @@
 package com.lingdonge.http.webmagic;
 
-import com.lindonge.core.collection.HashUtil;
-import com.lindonge.core.http.UrlUtils;
-import com.lindonge.core.threads.CountableThreadPool;
+import com.lingdonge.core.collection.HashUtil;
+import com.lingdonge.core.http.UrlUtils;
+import com.lingdonge.core.threads.CountableThreadPool;
 import com.lingdonge.http.webmagic.downloader.Downloader;
 import com.lingdonge.http.webmagic.downloader.HttpClientDownloader;
 import com.lingdonge.http.webmagic.pipeline.CollectorPipeline;

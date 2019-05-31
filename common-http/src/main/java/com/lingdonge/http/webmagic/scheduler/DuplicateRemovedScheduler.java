@@ -1,6 +1,6 @@
 package com.lingdonge.http.webmagic.scheduler;
 
-import com.lindonge.core.http.HttpConstant;
+import com.lingdonge.core.http.HttpConstant;
 import com.lingdonge.http.webmagic.Request;
 import com.lingdonge.http.webmagic.Task;
 import com.lingdonge.http.webmagic.scheduler.component.DuplicateRemover;

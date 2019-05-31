@@ -1,6 +1,6 @@
 package com.lingdonge.http.webmagic.monitor;
 
-import com.lindonge.core.http.UrlUtils;
+import com.lingdonge.core.http.UrlUtils;
 import com.lingdonge.http.webmagic.Request;
 import com.lingdonge.http.webmagic.Spider;
 import com.lingdonge.http.webmagic.SpiderListener;

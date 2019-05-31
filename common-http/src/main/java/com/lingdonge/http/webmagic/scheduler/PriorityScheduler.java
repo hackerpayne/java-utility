@@ -1,6 +1,6 @@
 package com.lingdonge.http.webmagic.scheduler;
 
-import com.lindonge.core.util.NumberUtil;
+import com.lingdonge.core.util.NumberUtil;
 import com.lingdonge.http.webmagic.Request;
 import com.lingdonge.http.webmagic.Task;
 

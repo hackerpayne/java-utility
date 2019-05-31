@@ -1,8 +1,8 @@
 package com.lingdonge.http.faker;
 
 import com.jayway.jsonpath.JsonPath;
-import com.lindonge.core.http.HttpHelper;
-import com.lindonge.core.util.NumberUtil;
+import com.lingdonge.core.http.HttpHelper;
+import com.lingdonge.core.util.NumberUtil;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 import java.io.*;

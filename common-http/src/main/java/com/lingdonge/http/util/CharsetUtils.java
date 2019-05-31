@@ -1,7 +1,7 @@
 package com.lingdonge.http.util;
 
-import com.lindonge.core.regex.ReUtil;
-import com.lindonge.core.util.StringUtils;
+import com.lingdonge.core.regex.ReUtil;
+import com.lingdonge.core.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

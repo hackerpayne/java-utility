@@ -1,6 +1,6 @@
 package com.lingdonge.spring.bean.token;
 
-import com.lindonge.core.bean.base.BaseEntity;
+import com.lingdonge.core.bean.base.BaseEntity;
 import lombok.Data;
 
 import java.util.Date;

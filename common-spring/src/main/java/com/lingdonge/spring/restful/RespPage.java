@@ -1,7 +1,7 @@
 package com.lingdonge.spring.restful;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.lindonge.core.page.PageBean;
+import com.lingdonge.core.page.PageBean;
 import com.lingdonge.spring.constant.GlobalBaseConstant;
 
 import java.util.Collection;
