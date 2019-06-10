@@ -91,7 +91,6 @@ public class RedisTemplateUtil {
         return operations.multiGet(strs);
     }
 
-
     /**
      * @param key
      * @param <T>

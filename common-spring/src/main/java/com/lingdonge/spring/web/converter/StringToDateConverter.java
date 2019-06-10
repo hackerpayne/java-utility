@@ -1,4 +1,4 @@
-package com.lingdonge.spring.bean.converter;
+package com.lingdonge.spring.web.converter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

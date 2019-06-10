@@ -1,14 +1,16 @@
 package com.lingdonge.redis.service;
 
-import com.lingdonge.redis.service.RedisTemplateUtil;
+import com.lingdonge.redis.SpringBaseTest;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 
 import java.util.List;
 
-//@RunWith(SpringJunit4ClassRunner.class)
-//@SpringBootTest
-public class RedisTemplateUtilTest {
+@EnableAutoConfiguration
+@Slf4j
+public class RedisTemplateUtilTest extends SpringBaseTest {
 
     private RedisTemplateUtil redisTemplateUtil;
 

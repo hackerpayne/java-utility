@@ -290,7 +290,6 @@ public class RedisConfigUtil {
 //        redisTemplate.setEnableTransactionSupport(true); // 设置开启事务
         redisTemplate.afterPropertiesSet();//初始化配置内容
 
-
         return redisTemplate;
     }
 

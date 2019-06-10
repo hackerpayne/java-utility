@@ -1,4 +1,4 @@
-package com.lingdonge.spring.bean.converter;
+package com.lingdonge.spring.web.converter;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;

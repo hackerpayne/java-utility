@@ -1,6 +1,6 @@
 package com.lingdonge.spring.configuration;
 
-import com.lingdonge.spring.bean.converter.StringToDateConverter;
+import com.lingdonge.spring.web.converter.StringToDateConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.support.GenericConversionService;

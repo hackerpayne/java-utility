@@ -15,7 +15,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
  */
 //@Configuration
 @AutoConfigureAfter(RedisBasicAutoConfiguration.class) //在这个配置之后进行加载
-@EnableCaching//启用缓存，这个注解很重要；
+@EnableCaching //启用缓存，这个注解很重要；
 @Slf4j
 public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
 

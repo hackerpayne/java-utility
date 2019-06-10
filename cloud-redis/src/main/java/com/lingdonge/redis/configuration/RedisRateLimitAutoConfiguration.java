@@ -24,5 +24,4 @@ public class RedisRateLimitAutoConfiguration {
         return new RedisRateLimitUtil(redisTemplate);
     }
 
-
 }

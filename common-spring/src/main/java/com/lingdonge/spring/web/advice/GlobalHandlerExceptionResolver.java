@@ -12,6 +12,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 全局异常统一处理。使用Resp做为统一返回值
+ */
 @RestControllerAdvice
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Slf4j
@@ -28,7 +31,5 @@ public class GlobalHandlerExceptionResolver {
             return null;
         }
         return null;
-
     }
-
 }
