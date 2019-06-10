@@ -7,7 +7,7 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>spring-shiro</artifactId>
+    <artifactId>cloud-shiro</artifactId>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <description>Shiro集成</description>

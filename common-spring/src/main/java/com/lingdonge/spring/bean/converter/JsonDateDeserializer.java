@@ -13,7 +13,11 @@ import java.text.ParseException;
 import java.util.Date;
 
 /**
- * springboot中默认接收的日期自动转换不支持yyyy-MM-dd HH:mm:ss格式
+ * SpringBoot 中默认接收的日期自动转换不支持yyyy-MM-dd HH:mm:ss格式
+ * 使用方法：
+ *
+ * @JsonDeserialize(using = JsonDateDeserializer.class)
+ * private Date startTime;
  */
 @JsonComponent
 public class JsonDateDeserializer extends JsonDeserializer<Date> {
