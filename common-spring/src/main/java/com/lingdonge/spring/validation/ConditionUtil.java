@@ -11,40 +11,28 @@ public class ConditionUtil {
      * 检测String 非空且length大于0为真
      **/
     public static boolean checkString(String string) {
-        if (string != null && string.trim().length() > 0) {
-            return true;
-        }
-        return false;
+        return string != null && string.trim().length() > 0;
     }
 
     /**
      * 检测Integer 非空且大于0为真
      **/
     public static boolean checkInteger(Integer integer) {
-        if (integer != null && integer > 0) {
-            return true;
-        }
-        return false;
+        return integer != null && integer > 0;
     }
 
     /**
      * 检测Float 非空且大于0为真
      **/
     public static boolean checkFloat(Float f) {
-        if (f != null && f > 0) {
-            return true;
-        }
-        return false;
+        return f != null && f > 0;
     }
 
     /**
      * 检测Long 非空且大于0为真
      **/
     public static boolean checkLong(Long l) {
-        if (l != null && l > 0) {
-            return true;
-        }
-        return false;
+        return l != null && l > 0;
     }
 
     /**
@@ -56,7 +44,11 @@ public class ConditionUtil {
 
     /**
      * 检查String数组 是否这个长度 多数用于日期
-     **/
+     *
+     * @param strarray
+     * @param arraylength
+     * @return
+     */
     public static boolean checkObjectArray(Object[] strarray, Integer arraylength) {
         if (strarray == null) {
             return false;
@@ -102,30 +94,24 @@ public class ConditionUtil {
 
     /*** 检测数组 用于Hibernate原有in语句转换 ***/
     public static boolean checkInArray(String a[]) {
-        if (a == null || a.length < 1) {
-            return false;
-        }
-        return true;
+        return a != null && a.length >= 1;
     }
 
     /**
      * 检测Double 非空且大于0为真
-     **/
+     *
+     * @param value
+     * @return
+     */
     public static boolean checkDouble(Double value) {
-        if (value != null && value > 0) {
-            return true;
-        }
-        return false;
+        return value != null && value > 0;
     }
 
     /**
      * 检测List 非空且大于0为真
      **/
     public static boolean checkList(List<?> list) {
-        if (list != null && list.size() > 0) {
-            return true;
-        }
-        return false;
+        return list != null && list.size() > 0;
     }
 
     private ConditionUtil() {

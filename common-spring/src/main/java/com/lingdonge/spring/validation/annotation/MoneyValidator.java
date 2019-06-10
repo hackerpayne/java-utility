@@ -24,6 +24,9 @@ import java.util.regex.Pattern;
 
     Class<? extends Payload>[] payload() default {};
 
+    /**
+     * 手机号校验器
+     */
     class MoneyValidatorInner implements ConstraintValidator<MoneyValidator, Double> {
 
         private String moneyReg = "^\\d+(\\.\\d{1,2})?$";//表示金额的正则表达式

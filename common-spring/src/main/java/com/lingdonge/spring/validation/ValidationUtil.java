@@ -94,17 +94,5 @@ public class ValidationUtil {
         return errorMap;
     }
 
-    public static void main(String[] args) {
 
-        JwtUserInfo userInfo = new JwtUserInfo();
-        userInfo.setUserId("sfadf");
-        userInfo.setSubject("subject");
-
-        ValidResult validResult = ValidationUtil.validateBean(userInfo);
-        if (validResult.hasErrors()) {
-            String errors = validResult.getErrors();
-            System.out.println(errors);
-        }
-
-    }
 }

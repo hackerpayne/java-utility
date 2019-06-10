@@ -10,6 +10,7 @@ public class ValidErrorMessage {
     private String message;
 
     public ValidErrorMessage() {
+
     }
 
     public ValidErrorMessage(String propertyPath, String message) {

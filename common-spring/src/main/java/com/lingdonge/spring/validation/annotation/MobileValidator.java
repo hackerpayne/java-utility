@@ -1,6 +1,5 @@
 package com.lingdonge.spring.validation.annotation;
 
-
 import org.hibernate.validator.constraints.CompositionType;
 import org.hibernate.validator.constraints.ConstraintComposition;
 import org.hibernate.validator.constraints.Length;
@@ -26,7 +25,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 使用时：@MobileValidator
  */
 @ConstraintComposition(CompositionType.OR)
-@Pattern(regexp = "1[0-9]\\d{10}")
+@Pattern(regexp = "1\\d{10}")
 @Null
 @Length(min = 0, max = 0)
 @Documented
@@ -36,6 +35,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @ReportAsSingleViolation
 public @interface MobileValidator {
 
+    /**
+     * 错误消息提示
+     *
+     * @return
+     */
     String message() default "手机号校验错误";
 
     Class<?>[] groups() default {};

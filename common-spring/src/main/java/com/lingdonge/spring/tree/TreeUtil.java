@@ -39,8 +39,9 @@ public class TreeUtil {
 
     /**
      * 使用递归方法建树
-     *
      * @param treeNodes
+     * @param root
+     * @param <T>
      * @return
      */
     public static <T extends TreeNode> List<T> buildByRecursive(List<T> treeNodes, Object root) {
@@ -55,8 +56,9 @@ public class TreeUtil {
 
     /**
      * 递归查找子节点
-     *
+     * @param treeNode
      * @param treeNodes
+     * @param <T>
      * @return
      */
     public static <T extends TreeNode> T findChildren(T treeNode, List<T> treeNodes) {

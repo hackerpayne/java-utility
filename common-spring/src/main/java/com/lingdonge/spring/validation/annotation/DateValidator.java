@@ -56,6 +56,7 @@ public @interface DateValidator {
      * 必须实现 ConstraintValidator接口
      */
     class DateValidatorInner implements ConstraintValidator<DateValidator, String> {
+
         private String dateFormat;
 
         @Override
