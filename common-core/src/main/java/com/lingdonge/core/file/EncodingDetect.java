@@ -1,6 +1,6 @@
 package com.lingdonge.core.file;
 
-import org.testng.collections.Lists;
+import com.google.common.collect.Lists;
 
 import java.io.*;
 import java.net.URL;
@@ -10,16 +10,6 @@ import java.util.List;
  * 检测文件编码
  */
 public class EncodingDetect {
-    public static void main(String[] args) {
-        String file = "/Users/kyle/Downloads/958896357874073600.txt";
-        String encode = getJavaEncode(file);
-        System.out.println(encode);
-
-        file = "/Users/kyle/Downloads/orm_init_table.sql";
-        encode = getJavaEncode(file);
-        System.out.println(encode);
-        readFile(file, encode);
-    }
 
     /**
      * 得到文件的编码

@@ -5,8 +5,9 @@
     <parent>
         <groupId>com.lingdonge</groupId>
         <artifactId>utility-parent</artifactId>
-        <version>3.0.3</version>
+        <version>3.0.4</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
     <artifactId>cloud-database</artifactId>
     <name>${project.artifactId}</name>

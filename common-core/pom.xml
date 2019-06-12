@@ -3,7 +3,7 @@
     <parent>
         <groupId>com.lingdonge</groupId>
         <artifactId>utility-parent</artifactId>
-        <version>3.0.3</version>
+        <version>3.0.4</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
-            <version>4.5.8</version>
+            <version>4.5.11</version>
         </dependency>
 
         <!-- 配置读取类需要 -->
@@ -104,14 +104,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.10</version>
-            <optional>true</optional>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
 <!--        <dependency>-->
 <!--            <groupId>commons-dbcp</groupId>-->
@@ -149,6 +141,7 @@
         <!--<groupId>org.slf4j</groupId>-->
         <!--<artifactId>slf4j-log4j12</artifactId>-->
         <!--<version>1.7.21</version>-->
+
         <!--</dependency>-->
         <dependency>
             <groupId>javax.servlet</groupId>

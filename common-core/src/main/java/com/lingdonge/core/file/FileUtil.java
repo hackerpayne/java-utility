@@ -2,18 +2,18 @@ package com.lingdonge.core.file;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
+import com.lingdonge.core.collection.ArrayUtil;
+import com.lingdonge.core.exceptions.IORuntimeException;
 import com.lingdonge.core.http.UrlUtils;
+import com.lingdonge.core.reflect.Assert;
 import com.lingdonge.core.util.JudgeUtil;
 import com.lingdonge.core.util.StringUtils;
 import com.lingdonge.core.util.Utils;
-import com.lingdonge.core.collection.ArrayUtil;
-import com.lingdonge.core.exceptions.IORuntimeException;
-import com.lingdonge.core.reflect.Assert;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
-import org.testng.collections.Lists;
 
 import java.io.*;
 import java.net.URI;
