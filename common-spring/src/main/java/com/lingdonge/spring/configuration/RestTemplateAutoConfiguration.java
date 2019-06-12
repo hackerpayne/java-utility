@@ -10,7 +10,6 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -27,6 +26,7 @@ import org.springframework.web.client.AsyncRestTemplate;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +43,7 @@ import java.util.List;
 @Slf4j
 public class RestTemplateAutoConfiguration {
 
-
-    @Autowired
+    @Resource
     private RestTemplateProperties restTemplateProperties;
 
     /**
@@ -126,7 +125,7 @@ public class RestTemplateAutoConfiguration {
     @Bean
     public ClientHttpRequestFactory clientHttpRequestFactory(RestTemplateProperties restTemplateProperties) {
 
-        log.info("<<<<<<<<<<<<<<< 重写 RestTemplate RequestFactory 处理机制，超时时间设为[" + restTemplateProperties.getTimeOutSeconds() + "]秒 >>>>>>>>>>>>>>>>>>");
+        log.debug("<<<<<<<<<<<<<<< 重写 RestTemplate RequestFactory 处理机制，超时时间设为[" + restTemplateProperties.getTimeOutSeconds() + "]秒 >>>>>>>>>>>>>>>>>>");
 
         int timeoutMills = restTemplateProperties.getTimeOutSeconds() * 1000;
 

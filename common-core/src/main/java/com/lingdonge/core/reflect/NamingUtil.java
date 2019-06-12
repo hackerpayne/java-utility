@@ -44,7 +44,7 @@ public class NamingUtil {
      * @return 下划线形式的字符串
      */
     public static String camelToUnderline(String param) {
-        if (param == null || "".equals(param.trim())) {
+        if (StringUtils.isEmpty(param)) {
             return "";
         }
         int len = param.length();
@@ -73,7 +73,7 @@ public class NamingUtil {
      * @return 驼峰形式的字符串
      */
     public static String underlineToCamel(String param) {
-        if (param == null || "".equals(param.trim())) {
+        if (StringUtils.isEmpty(param)) {
             return "";
         }
         int len = param.length();
@@ -92,9 +92,4 @@ public class NamingUtil {
         return sb.toString();
     }
 
-
-    public static void main(String[] args) {
-        System.out.println(camelToUnderline("a.userName"));
-        System.out.println(underlineToCamel("a_user_Name"));
-    }
 }

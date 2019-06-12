@@ -1,11 +1,11 @@
 package com.lingdonge.core.http;
 
 
-import com.lingdonge.core.util.JudgeUtil;
-import com.lingdonge.core.util.StringUtils;
 import com.lingdonge.core.collection.ArrayUtil;
 import com.lingdonge.core.regex.ReUtil;
+import com.lingdonge.core.util.JudgeUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.BufferedReader;
@@ -19,7 +19,6 @@ import java.util.Set;
 
 /**
  * Http请求工具类
- *
  */
 @Slf4j
 public class HtmlUtil {
@@ -167,8 +166,8 @@ public class HtmlUtil {
     public static String getMetaRefresh(String input) {
         String metaUrl = ReUtil.get("<(?:META|meta|Meta) (?:HTTP-EQUIV|http-equiv)=\"refresh\".*(URL|url)=(.*)\"", input, 2);
 
-        metaUrl = org.apache.commons.lang3.StringUtils.removeStart(metaUrl, "'");
-        metaUrl = org.apache.commons.lang3.StringUtils.removeEnd(metaUrl, "'");
+        metaUrl = StringUtils.removeStart(metaUrl, "'");
+        metaUrl = StringUtils.removeEnd(metaUrl, "'");
 
         return metaUrl;
     }

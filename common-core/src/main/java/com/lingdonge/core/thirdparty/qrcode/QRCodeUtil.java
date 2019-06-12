@@ -20,27 +20,6 @@ import java.util.Random;
 public class QRCodeUtil {
 
 
-    public static void main(String[] args) {
-
-        String text = generateNumCode(12);  //随机生成的12位验证码
-
-        text = "http://www.baidu.com";
-        System.out.println("随机生成的12位验证码为： " + text);
-        int width = 100;    //二维码图片的宽
-        int height = 100;   //二维码图片的高
-        String format = "png";  //二维码图片的格式
-
-        try {
-            //生成二维码图片，并返回图片路径
-            String pathName = generateQRCode(text, width, height, format, FileUtil.getFile(Utils.CurrentDir, "ok.png"));
-            System.out.println("生成二维码的图片路径： " + pathName);
-
-            String content = parseQRCode(pathName);
-            System.out.println("解析出二维码的图片的内容为： " + content);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * 根据内容，生成指定宽高、指定格式的二维码图片

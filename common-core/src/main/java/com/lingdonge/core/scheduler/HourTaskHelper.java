@@ -2,9 +2,8 @@ package com.lingdonge.core.scheduler;
 
 import com.google.common.collect.Maps;
 import com.lingdonge.core.bean.common.ModelTaskEveryHour;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Calendar;
 import java.util.concurrent.ConcurrentMap;
@@ -13,9 +12,9 @@ import java.util.concurrent.ConcurrentMap;
  * 每小时指定任务数量的设置
  * Created by kyle on 17/5/7.
  */
+@Slf4j
 public class HourTaskHelper {
 
-    private static final Logger logger = LoggerFactory.getLogger(HourTaskHelper.class);
     // 限制最多数量
     private int maxCountLimit;
 

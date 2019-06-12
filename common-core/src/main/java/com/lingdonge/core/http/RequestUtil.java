@@ -1,5 +1,6 @@
 package com.lingdonge.core.http;
 
+import cn.hutool.core.io.IoUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
@@ -245,20 +246,8 @@ public class RequestUtil {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            IoUtil.close(inputStream);
+            IoUtil.close(reader);
         }
         return sb.toString();
     }

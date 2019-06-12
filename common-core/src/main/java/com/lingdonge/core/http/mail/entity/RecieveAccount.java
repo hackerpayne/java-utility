@@ -1,17 +1,14 @@
 package com.lingdonge.core.http.mail.entity;
 
-import com.lingdonge.core.util.Utils;
+import com.lingdonge.core.bean.base.BaseEntity;
 import com.lingdonge.core.file.FileUtil;
+import com.lingdonge.core.util.Utils;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-
 @Getter
 @Setter
-public class RecieveAccount implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class RecieveAccount extends BaseEntity {
 
     /**
      * 收件服务器IP

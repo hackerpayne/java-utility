@@ -1,8 +1,8 @@
 package com.lingdonge.core.http.mail;
 
+import com.lingdonge.core.file.PropertiesUtils;
 import com.lingdonge.core.http.mail.entity.MailEntity;
 import com.lingdonge.core.http.mail.entity.UserAuthentication;
-import com.lingdonge.core.file.PropertiesUtils;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -23,8 +23,11 @@ import java.util.Properties;
 public class SendMailHandler {
 
     private static Properties properties = System.getProperties();
+
     Session sendMailSession = null;
+
     UserAuthentication authenticator = null;
+
     Transport trans = null;
 
     private void connect() throws Exception {

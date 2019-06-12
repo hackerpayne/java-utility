@@ -1,8 +1,9 @@
 package com.lingdonge.core.sys;
 
+import cn.hutool.core.io.IoUtil;
+import com.lingdonge.core.file.InputStreamRunnable;
 import com.lingdonge.core.util.StringUtils;
 import com.lingdonge.core.util.Utils;
-import com.lingdonge.core.file.InputStreamRunnable;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedInputStream;
@@ -137,6 +138,8 @@ public class ProcessHelper {
             log.error(e.getMessage(), e);
             return null;
         } finally {
+            IoUtil.close(bReader);
+            IoUtil.close(sReader);
         }
     }
 

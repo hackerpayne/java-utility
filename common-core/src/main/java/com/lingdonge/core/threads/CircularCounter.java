@@ -1,6 +1,7 @@
 package com.lingdonge.core.threads;
 
 import com.lingdonge.core.dates.JodaUtil;
+import com.lingdonge.core.dates.LocalDateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -34,7 +35,7 @@ public class CircularCounter {
          * 正常使用应该将key初始化为getCurrentDateString()
          */
 //        this.key = getCurrentDateString() + "sssssssssss";
-        this.key = JodaUtil.getDate();
+        this.key = LocalDateUtil.getNowDate();
         this.value = new AtomicInteger(0);
     }
 
@@ -47,7 +48,7 @@ public class CircularCounter {
         AtomicInteger oldValue = value;
         AtomicInteger newInteger = new AtomicInteger(0);
         int newVal = -1;
-        String newDateStr = JodaUtil.getDate();
+        String newDateStr = LocalDateUtil.getNowDate();
         //日期一致，计数器加1后返回
         if (isDateEquals(newDateStr)) {
             newVal = add(1);

@@ -5,8 +5,7 @@ import com.lingdonge.core.http.mail.entity.MailEntity;
 import com.lingdonge.core.http.mail.entity.RecieveAccount;
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.pop3.POP3Folder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -17,38 +16,14 @@ import java.security.Security;
 import java.util.List;
 import java.util.Properties;
 
-import static com.lingdonge.core.http.mail.entity.EnumRecieveType.*;
+import static com.lingdonge.core.http.mail.entity.EnumRecieveType.POP3;
 
 /**
  * 邮件的收取类
  * http://blog.csdn.net/lanjian056/article/details/52711305
  */
+@Slf4j
 public class ReceiveMailHandler {
-    private Logger logger = LoggerFactory.getLogger(getClass());
-
-    public static void main(String[] args) {
-        ReceiveMailHandler receiveMailHandler = new ReceiveMailHandler();
-        RecieveAccount recieveAccount = new RecieveAccount();
-
-        // Sina邮箱
-//        recieveAccount.setHost("pop.sina.com");
-//        recieveAccount.setPort(995);
-//        recieveAccount.setUserName("teste@sina.com");
-//        recieveAccount.setPassword("teste");
-//        recieveAccount.setRecieveType(EnumRecieveType.POP3);
-//        recieveAccount.setEnableSSL(true);
-
-        recieveAccount.setHost("pop.qq.com");
-        recieveAccount.setPort(995);
-        recieveAccount.setUserName("test@qq.com");
-        recieveAccount.setPassword("tse");
-        recieveAccount.setRecieveType(POP3);
-        recieveAccount.setEnableSSL(true);
-
-        List<MailEntity> listUnreadMails = receiveMailHandler.receiveMail(recieveAccount, 10);
-
-        System.out.println(listUnreadMails.size());
-    }
 
     /**
      * 获取session会话的方法
@@ -131,7 +106,7 @@ public class ReceiveMailHandler {
             messageCount = folder.getMessageCount();// 获取所有邮件个数
 
             //获取新邮件处理
-            logger.info("============>>邮件总数：" + messageCount);
+            log.info("============>>邮件总数：" + messageCount);
 
             if (messageCount > 0) {
                 Message[] messages = null;
@@ -164,7 +139,7 @@ public class ReceiveMailHandler {
             }
             return listMails;
         } catch (Exception e) {
-            logger.error("收件时发生异常", e);
+            log.error("收件时发生异常", e);
             return listMails;
         } finally {
             if (folder != null && folder.isOpen()) {
@@ -191,8 +166,9 @@ public class ReceiveMailHandler {
      * @param messages 要解析的邮件列表
      */
     public List<MailEntity> parseMessage(RecieveAccount account, Message... messages) throws MessagingException, IOException {
-        if (messages == null || messages.length < 1)
+        if (messages == null || messages.length < 1) {
             throw new MessagingException("未找到要解析的邮件!");
+        }
 
         List<MailEntity> listMails = Lists.newArrayList();
 
@@ -232,7 +208,7 @@ public class ReceiveMailHandler {
     public void getUnreadMail(RecieveAccount account) throws Exception {
         Store store = getSessionMail(account);
 
-        logger.info("login email:{} server:", account.getUserName().toString(), account.getHost().toString());
+        log.info("login email:{} server:", account.getUserName().toString(), account.getHost().toString());
 
         Folder folder = store.getFolder("INBOX");
 
@@ -275,7 +251,7 @@ public class ReceiveMailHandler {
 
             } else {
 
-                logger.error("no have this folder {}", folder);
+                log.error("no have this folder {}", folder);
 
             }
 
@@ -320,7 +296,7 @@ public class ReceiveMailHandler {
                 subject = MimeUtility.decodeText(((MimeMessage) message).getSubject());// 将邮件主题解码
             }
         } catch (Exception ex) {
-            logger.error(ex.getMessage());
+            log.error(ex.getMessage());
         }
 
         return subject;

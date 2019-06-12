@@ -1,18 +1,14 @@
 package com.lingdonge.core.bean.common;
 
+import com.lingdonge.core.bean.base.BaseEntity;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * 精确设置每小时的任务信息：用于分小时段设置任务
  * 比如：1点，最小2，最大10个任务
- * Created by kyle on 17/5/5.
  */
 @Data
-public class ModelTaskEveryHour implements Serializable {
-
-    private static final long serialVersionUID = -1;
+public class ModelTaskEveryHour extends BaseEntity {
 
     private int hour;
     private int min;
@@ -39,7 +35,6 @@ public class ModelTaskEveryHour implements Serializable {
         this.max = max;
         this.min = min;
     }
-
 
 
 }

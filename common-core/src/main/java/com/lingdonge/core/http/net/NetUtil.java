@@ -1,9 +1,10 @@
 package com.lingdonge.core.http.net;
 
-import com.lingdonge.core.util.StringUtils;
-import com.lingdonge.core.util.ValidateUtil;
 import com.lingdonge.core.collection.CollectionUtil;
 import com.lingdonge.core.exceptions.UtilException;
+import com.lingdonge.core.util.StringUtils;
+import com.lingdonge.core.util.ValidateUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.*;
 import java.util.ArrayList;
@@ -14,12 +15,44 @@ import java.util.LinkedHashSet;
 /**
  * 网络相关工具
  *
- * @author xiaoleilu
  */
+@Slf4j
 public class NetUtil {
+
     public final static String LOCAL_IP = "127.0.0.1";
 
-    private NetUtil() {
+    /**
+     * 检查本地端口是否被占用
+     *
+     * @param port
+     * @return
+     */
+    public static boolean isLoclePortUsing(int port) {
+        boolean flag = true;
+        try {
+            flag = isPortUsing("127.0.0.1", port);
+        } catch (Exception e) {
+        }
+        return flag;
+    }
+
+    /**
+     * 检查指定主机的端口是否被占用
+     *
+     * @param host
+     * @param port
+     * @return
+     */
+    public static boolean isPortUsing(String host, int port) {
+        boolean flag = false;
+        try {
+            InetAddress theAddress = InetAddress.getByName(host);
+            Socket socket = new Socket(theAddress, port);
+            flag = true;
+        } catch (Exception e) {
+
+        }
+        return flag;
     }
 
     /**
@@ -310,6 +343,33 @@ public class NetUtil {
         }
 
         return candidateAddress;
+    }
+
+    /**
+     * 获取本机IP地址
+     *
+     * @return
+     */
+    public static String getServerAddr() {
+        try {
+            //一个主机有多个网络接口
+            Enumeration<NetworkInterface> netInterfaces = NetworkInterface.getNetworkInterfaces();
+            while (netInterfaces.hasMoreElements()) {
+                NetworkInterface netInterface = netInterfaces.nextElement();
+                //每个网络接口,都会有多个"网络地址",比如一定会有loopback地址,会有siteLocal地址等.以及IPV4或者IPV6    .
+                Enumeration<InetAddress> addresses = netInterface.getInetAddresses();
+                while (addresses.hasMoreElements()) {
+                    InetAddress address = addresses.nextElement();
+                    //get only :172.*,192.*,10.*
+                    if (address.isSiteLocalAddress() && !address.isLoopbackAddress()) {
+                        return address.getHostAddress();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
+        return null;
     }
 
     /**

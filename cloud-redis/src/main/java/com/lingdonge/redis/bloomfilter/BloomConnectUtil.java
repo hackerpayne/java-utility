@@ -11,6 +11,9 @@ import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import java.time.Duration;
 import java.util.HashSet;
 
+/**
+ * Bloom过滤器连接创建工具。避免重复创建连接
+ */
 public class BloomConnectUtil {
 
     /**
@@ -35,15 +38,16 @@ public class BloomConnectUtil {
      */
     public static BloomFilter buildBloomFilter(RedisProperties redisProperties, Integer elementsCount, double falsePositiveProbality, String redisKey) {
 
-        Integer connections = 10;
-        if (OptionalUtil.resolve(() -> redisProperties.getJedis().getPool().getMaxActive()).isPresent()) {
+        int connections = 10;
+        if (OptionalUtil.resolve(() -> redisProperties.getJedis().getPool().getMaxActive()).isPresent()) { // 从Jedis 参数中取参数
             connections = redisProperties.getJedis().getPool().getMaxActive();
         }
+
         if (OptionalUtil.resolve(() -> redisProperties.getLettuce().getPool().getMaxActive()).isPresent()) {
             connections = redisProperties.getJedis().getPool().getMaxActive();
         }
 
-        if (redisProperties.getTimeout() == null) {
+        if (null == redisProperties.getTimeout()) {
             redisProperties.setTimeout(Duration.ofSeconds(10));
         }
         if (StringUtils.isEmpty(redisProperties.getHost())) {
@@ -54,7 +58,7 @@ public class BloomConnectUtil {
             redisProperties.setPassword(null);
         }
 
-        Long timeout = redisProperties.getTimeout().getSeconds() * 1000;
+        long timeout = redisProperties.getTimeout().getSeconds() * 1000;
 
         RedisPool redisPool = null;
         if (redisProperties.getSentinel() != null) {
@@ -66,7 +70,7 @@ public class BloomConnectUtil {
                     .sentinels(new HashSet<>(redisProperties.getSentinel().getNodes()))
                     .database(redisProperties.getDatabase())
                     .redisConnections(connections)
-                    .timeout(timeout.intValue())
+                    .timeout((int) timeout)
                     .build();
 
         } else {
@@ -76,7 +80,7 @@ public class BloomConnectUtil {
                     .password(redisProperties.getPassword())
                     .database(redisProperties.getDatabase())
                     .redisConnections(connections)
-                    .timeout(timeout.intValue())
+                    .timeout((int) timeout)
                     .build();
         }
 

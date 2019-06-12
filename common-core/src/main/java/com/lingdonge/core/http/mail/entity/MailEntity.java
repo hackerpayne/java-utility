@@ -1,10 +1,10 @@
 package com.lingdonge.core.http.mail.entity;
 
+import com.lingdonge.core.bean.base.BaseEntity;
 import com.lingdonge.core.file.json.FastJsonUtil;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,8 +12,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
-public class MailEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class MailEntity extends BaseEntity {
 
     /**
      * 邮件id

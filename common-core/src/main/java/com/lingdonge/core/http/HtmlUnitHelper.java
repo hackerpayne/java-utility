@@ -1,7 +1,6 @@
 package com.lingdonge.core.http;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -10,8 +9,8 @@ import org.slf4j.LoggerFactory;
  * <p>
  * Created by Kyle on 16/10/11.
  */
+@Slf4j
 public class HtmlUnitHelper {
-    private static final Logger logger = LoggerFactory.getLogger(HtmlUnitHelper.class);
 //
 //    public void Test() throws IOException {
 //

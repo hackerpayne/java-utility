@@ -11,6 +11,12 @@ import org.testng.annotations.Test;
 public class NumberUtilTest {
 
     @Test
+    public void test() {
+        System.out.println(NumberUtil.formatDouble(116.46604901357878, 5));
+    }
+
+
+    @Test
     public void roundTest() {
 
         //四舍

@@ -1,17 +1,14 @@
 package com.lingdonge.core.bean.common;
 
 
+import com.lingdonge.core.bean.base.BaseEntity;
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * 代理IP实体类
  */
 @Data
-public class ModelProxy implements Serializable {
-
-    private static final long serialVersionUID = -3699072211264713025L;
+public class ModelProxy extends BaseEntity {
 
     private String host;
 

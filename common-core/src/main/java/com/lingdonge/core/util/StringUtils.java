@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import cn.hutool.core.util.StrUtil;
 import com.google.common.base.CharMatcher;
 import com.lingdonge.core.collection.ArrayUtil;
 import com.lingdonge.core.encode.CharsetUtil;

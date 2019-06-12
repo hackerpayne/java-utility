@@ -1,6 +1,10 @@
 package com.lingdonge.core.http.ftp;
 
-public class FtpProperties {
+import com.lingdonge.core.bean.base.BaseEntity;
+import lombok.Data;
+
+@Data
+public class FtpProperties extends BaseEntity {
 
     private String host;    //ftp服务器ip
 
@@ -11,52 +15,5 @@ public class FtpProperties {
     private String password;//密码
 
     private String basePath;//存放文件的基本路径
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getBasePath() {
-        return basePath;
-    }
-
-    public void setBasePath(String basePath) {
-        this.basePath = basePath;
-    }
-
-    @Override
-    public String toString() {
-        return "FtpUtil [host=" + host + ", port=" + port + ", username=" + username + ", password=" + password
-                + ", basePath=" + basePath + "]";
-    }
-
 
 }

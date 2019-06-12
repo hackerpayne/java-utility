@@ -10,8 +10,6 @@ import lombok.Data;
 @Data
 public class ModelIPLocation extends BaseEntity {
 
-    private static final long serialVersionUID = -1;
-
     /**
      * 获取ISP信息
      */

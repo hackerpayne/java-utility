@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class AtomCounter {
+
     private AtomicInteger atomicInteger = new AtomicInteger(0);
 
     public void increment() {

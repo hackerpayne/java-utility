@@ -13,22 +13,6 @@ import java.security.SecureRandom;
  */
 public class DesEncryptUtil {
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        // 待加密的内容
-        String content = "test";
-        // DES 的加密KEy
-        String desKey = "13881cf5bc03416e7e852827485e3eee";
-        System.out.println("密　钥：" + desKey);
-        System.out.println("加密前：" + content);
-        System.out.println("============================");
-
-        String encrypted = encryptToHexString(content, desKey);
-        System.out.println("Hex加密后：" + encrypted);
-        System.out.println("Hex解密后：" + decryptHex(encrypted, desKey));
-    }
 
     /**
      * 加密返回16进制值，一般也可以使用Base64

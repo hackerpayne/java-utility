@@ -1,19 +1,19 @@
 package com.lingdonge.core.http;
 
+import cn.hutool.core.io.IoUtil;
 import com.lingdonge.core.bean.common.ModelProxy;
 import com.lingdonge.core.regex.PatternPool;
 import com.lingdonge.core.regex.ReUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.net.*;
 
 /**
- * Created by kyle on 2017/7/12.
+ *
  */
+@Slf4j
 public class ProxyUtil {
-    private static final Logger logger = LoggerFactory.getLogger(ProxyUtil.class);
 
     /**
      * 判断是否为有效的代理IP
@@ -110,33 +110,13 @@ public class ProxyUtil {
             socket.connect(endpointSocketAddr, 3000);
             return true;
         } catch (IOException e) {
-            logger.warn("FAILRE - CAN not connect!  remote: " + p);
+            log.warn("FAILRE - CAN not connect!  remote: " + p);
             return false;
         } finally {
-            if (socket != null) {
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    logger.warn("Error occurred while closing socket of validating proxy", e);
-                }
-            }
+            IoUtil.close(socket);
         }
 
     }
 
-    public static void main(String[] args) {
-
-        String html = "<tr>\n" +
-                "                    <td>122.243.13.223</td>\n" +
-                "                    <td>9000</td>\n" +
-                "                    <td>普匿</td>\n" +
-                "\t\t    <td>HTTP</td>\n" +
-                "\t\t    <td>0.31 秒</td>\n" +
-                "\t\t    <td>浙江省金华市 电信</td>\n" +
-                "\t\t    <td>6分钟8秒前</td>\n" +
-                "                </tr>";
-
-        System.out.println("代理结果为：" + parseProxy(html));
-    }
 
 }

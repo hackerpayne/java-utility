@@ -10,8 +10,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class NameValue extends BaseEntity {
+
     private String name;
+
     private Object value;
+
     private Object obj;
 
     public NameValue() {

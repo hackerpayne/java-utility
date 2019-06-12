@@ -4,8 +4,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,9 +15,8 @@ import java.util.Map;
  * Zxing二维码生成辅助类
  * Created by kyle on 17/4/24.
  */
+@Slf4j
 public class QRCodeHelper {
-
-    private static final Logger logger = LoggerFactory.getLogger(QRCodeHelper.class);
 
     /**
      * 生成网址二维码，保存到指定的文件内
@@ -34,7 +32,7 @@ public class QRCodeHelper {
                 file.mkdirs();
                 file.createNewFile();
             } catch (IOException e) {
-                logger.error("genQrcode文件不存在", e);
+                log.error("genQrcode文件不存在", e);
             }
         }
 
@@ -42,10 +40,10 @@ public class QRCodeHelper {
         Map<EncodeHintType, String> hints = new HashMap<>();
         hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
         try {
-            BitMatrix bitMatrix = new MultiFormatWriter().encode(message, BarcodeFormat.QR_CODE,
-                    300, 300, hints);// 生成矩阵
+            BitMatrix bitMatrix = new MultiFormatWriter().encode(message, BarcodeFormat.QR_CODE, 300, 300, hints);// 生成矩阵
             MatrixToImageWriter.writeToFile(bitMatrix, "png", file);// 输出图像
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

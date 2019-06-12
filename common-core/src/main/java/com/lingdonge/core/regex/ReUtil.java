@@ -527,9 +527,7 @@ public class ReUtil {
                 return false;
             }
             if (regex == null) {
-                if (other.regex != null) {
-                    return false;
-                }
+                return other.regex == null;
             } else if (!regex.equals(other.regex)) {
                 return false;
             }

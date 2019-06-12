@@ -106,15 +106,10 @@ public class URLParser {
      */
     public ModelUrl parseUrlModel() {
         ModelUrl model = new ModelUrl(this.uri.toString());
-
         model.setCleanUrl(this.getCleanUrl());
-
         model.setQueryStr(this.getQueryStr());
-
         model.setFragment(this.getFragement());
-
         model.setQueryMap(this.parseQuery());
-
         return model;
     }
 

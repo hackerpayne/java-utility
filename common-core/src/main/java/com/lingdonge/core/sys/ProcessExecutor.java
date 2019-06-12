@@ -1,7 +1,7 @@
 package com.lingdonge.core.sys;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import cn.hutool.core.io.IoUtil;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,8 +16,8 @@ import java.util.List;
  * processExecutor = new ProcessExecutor(process);
  * processExecutor.execute();
  */
+@Slf4j
 public class ProcessExecutor {
-    private static final Logger logger = LoggerFactory.getLogger(ProcessExecutor.class);
 
     private Process p;
     private List<String> outputList;
@@ -101,21 +101,11 @@ public class ProcessExecutor {
                     this.outputList.add(output);
                 }
             } catch (IOException e) {
-                logger.error(e.getMessage());
+                log.error(e.getMessage());
             } finally {
-                try {
-                    if (null != br) {
-                        br.close();
-                    }
-                    if (null != ir) {
-                        ir.close();
-                    }
-                    if (null != this.is) {
-                        this.is.close();
-                    }
-                } catch (IOException e) {
-                    logger.error(e.getMessage());
-                }
+                IoUtil.close(br);
+                IoUtil.close(ir);
+                IoUtil.close(this.is);
             }
 
         }

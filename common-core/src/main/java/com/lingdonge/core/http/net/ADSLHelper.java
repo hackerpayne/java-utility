@@ -25,8 +25,6 @@ public class ADSLHelper {
             cutAdsl(adslTitle);
             Thread.sleep(sleepTimes * 1000);
             connAdsl(adslTitle, adslName, adslPass);
-        } catch (InterruptedException e) {
-            log.error("ChangeIp Trigger Error", e);
         } catch (Exception e) {
             log.error("ChangeIp Trigger Error", e);
         }
@@ -34,6 +32,12 @@ public class ADSLHelper {
 
     /**
      * 连接ADSL
+     *
+     * @param adslTitle
+     * @param adslName
+     * @param adslPass
+     * @return
+     * @throws Exception
      */
     public static boolean connAdsl(String adslTitle, String adslName, String adslPass) throws Exception {
         log.info("正在建立连接.");
@@ -67,12 +71,4 @@ public class ADSLHelper {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        connAdsl("宽带", "hzhz**********", "******");
-        Thread.sleep(1000);
-        cutAdsl("宽带");
-        Thread.sleep(1000);
-        //再连，分配一个新的IP
-        connAdsl("宽带", "hzhz**********", "******");
-    }
 }

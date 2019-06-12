@@ -1,6 +1,9 @@
 package com.lingdonge.core.thirdparty.weibo;
 
-public class WeiboID {
+/**
+ * WeiboID算法
+ */
+public class WeiboUtil {
 
     static String[] str62key = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 
@@ -131,13 +134,6 @@ public class WeiboID {
         return s62;
     }
 
-    public static void main(String[] args) throws Exception {
-        String aa = url2mid("zeRxPdQhO");
-        System.out.println(aa);
-
-        String bb = mid2url("4308479479485430");
-        System.out.println(bb);
-    }
 
 
 }

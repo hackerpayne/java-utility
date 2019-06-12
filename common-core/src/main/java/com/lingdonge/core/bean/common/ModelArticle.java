@@ -11,8 +11,6 @@ import lombok.Setter;
 @Setter
 public class ModelArticle extends BaseEntity {
 
-    private static final long serialVersionUID = -1;
-
     private int artid;
 
     private String title;

@@ -1048,7 +1048,4 @@ public class NumberUtil {
     }
 
 
-    public static void main(String[] args) {
-        System.out.println(formatDouble(116.46604901357878, 5));
-    }
 }

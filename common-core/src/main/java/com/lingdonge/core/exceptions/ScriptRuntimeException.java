@@ -1,4 +1,4 @@
-package com.lingdonge.core.script;
+package com.lingdonge.core.exceptions;
 
 
 import com.lingdonge.core.exceptions.ExceptionUtil;
