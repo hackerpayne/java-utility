@@ -114,21 +114,4 @@ public class YamlUtil {
         new Yaml().dump(clz, new FileWriter(filePath));
     }
 
-    public static void main(String[] args) throws IOException {
-
-        Map map = loadYamlAsMap("application-local.yml");
-        System.out.println(map);
-
-        Properties properties = loadYamlAsProperties("hbase.yml");
-        System.out.println("=====properties=====");
-        System.out.println(properties.getProperty("hbase.client.scanner.timeout.period"));
-
-        Object obj = YamlUtil.loadYamlAsObj("application-local.yml");
-        System.out.println(obj);
-
-//        ModelProfile profile = loadYamlAs("application-local.yml", ModelProfile.class);
-//        System.out.println(profile.toString());
-
-    }
-
 }

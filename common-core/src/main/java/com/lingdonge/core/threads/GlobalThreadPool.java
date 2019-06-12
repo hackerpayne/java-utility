@@ -1,7 +1,7 @@
 package com.lingdonge.core.threads;
 
 
-import com.lingdonge.core.exceptions.UtilException;
+import cn.hutool.core.exceptions.UtilException;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;

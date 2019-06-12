@@ -105,7 +105,7 @@ public class LuceneUtils {
     /**
      * 索引保存位置
      */
-    private String indexStoreFolder = FileUtil.getFile(Utils.CurrentDir, "data", "lucene").getAbsolutePath();
+    private String indexStoreFolder = FileUtil.file(Utils.CurrentDir, "data", "lucene").getAbsolutePath();
 
     /**
      * 默认

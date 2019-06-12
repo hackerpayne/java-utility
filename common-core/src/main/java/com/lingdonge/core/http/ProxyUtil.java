@@ -1,9 +1,9 @@
 package com.lingdonge.core.http;
 
 import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.ReUtil;
 import com.lingdonge.core.bean.common.ModelProxy;
 import com.lingdonge.core.regex.PatternPool;
-import com.lingdonge.core.regex.ReUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -115,8 +115,6 @@ public class ProxyUtil {
         } finally {
             IoUtil.close(socket);
         }
-
     }
-
 
 }

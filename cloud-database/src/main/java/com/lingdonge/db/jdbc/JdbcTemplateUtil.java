@@ -1,7 +1,9 @@
 package com.lingdonge.db.jdbc;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
+import com.lingdonge.core.bean.base.BaseEntity;
 import com.lingdonge.core.bean.base.ModelPair;
 import com.lingdonge.core.reflect.NamingUtil;
 import com.lingdonge.core.util.StringUtils;
@@ -18,7 +20,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,7 +35,7 @@ import java.util.Map;
 @Getter
 @Setter
 @Slf4j
-public class JdbcTemplateUtil implements Serializable {
+public class JdbcTemplateUtil extends BaseEntity {
 
     private String tableName;
 
@@ -563,7 +564,7 @@ public class JdbcTemplateUtil implements Serializable {
     public List<Map<String, Object>> findByPage(Integer pageNo, Integer pageSize) {
         pageNo = pageNo > 0 ? pageNo : 1;
         Integer offset = (pageNo - 1) * pageSize;
-        String sql = StringUtils.format("select * from {} br WHERE br.id>=(SELECT id from {} ORDER BY id asc limit {},1 ) limit {}", this.tableName, this.tableName, offset, pageSize);
+        String sql = StrUtil.format("select * from {} br WHERE br.id>=(SELECT id from {} ORDER BY id asc limit {},1 ) limit {}", this.tableName, this.tableName, offset, pageSize);
 
         return getJdbcTemplate().queryForList(sql);
     }

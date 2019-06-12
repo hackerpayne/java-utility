@@ -9,16 +9,6 @@ import java.io.*;
  */
 public class EncodeUtil {
 
-    public static void main(String[] args) {
-        String unicode = EncodeUtil.str2Unicode("中文");
-
-        System.out.println(unicode);
-
-        String decode = EncodeUtil.unicode2Str(unicode);
-
-        System.out.println("还原结果：" + decode);
-    }
-
     /**
      * @param string
      * @return
@@ -83,10 +73,8 @@ public class EncodeUtil {
                 sb.append(str).append("\n");
             }
             return sb.toString();
-        } catch (UnsupportedEncodingException e1) {
+        } catch (IOException e1) {
             e1.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         return str;

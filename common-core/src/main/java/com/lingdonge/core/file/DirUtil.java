@@ -1,8 +1,7 @@
 package com.lingdonge.core.file;
 
-import com.lingdonge.core.exceptions.IORuntimeException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import cn.hutool.core.io.IORuntimeException;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,9 +14,8 @@ import java.util.List;
 /**
  * 目录操作辅助类
  */
+@Slf4j
 public class DirUtil {
-
-    private static final Logger logger = LoggerFactory.getLogger(DirUtil.class);
 
     /**
      * 判断是否为目录，如果path为null，则返回false
@@ -26,7 +24,7 @@ public class DirUtil {
      * @return 如果为目录true
      */
     public static boolean isDirectory(String path) {
-        return (path == null) ? false : FileUtil.file(path).isDirectory();
+        return (path != null) && FileUtil.file(path).isDirectory();
     }
 
     /**
@@ -36,7 +34,7 @@ public class DirUtil {
      * @return 如果为目录true
      */
     public static boolean isDirectory(File file) {
-        return (file == null) ? false : file.isDirectory();
+        return (file != null) && file.isDirectory();
     }
 
     /**
@@ -46,8 +44,9 @@ public class DirUtil {
      */
     public static void createDir(String path) {
         File dir = new File(path);
-        if (!dir.exists())
+        if (!dir.exists()) {
             dir.mkdir();
+        }
     }
 
     /**
@@ -80,7 +79,7 @@ public class DirUtil {
      */
     public static boolean isDirEmpty(Path dirPath) {
         try (DirectoryStream<Path> dirStream = Files.newDirectoryStream(dirPath)) {
-            return false == dirStream.iterator().hasNext();
+            return !dirStream.iterator().hasNext();
         } catch (IOException e) {
             throw new IORuntimeException(e);
         }

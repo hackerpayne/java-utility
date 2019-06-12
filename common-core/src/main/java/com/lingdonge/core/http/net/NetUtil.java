@@ -1,20 +1,17 @@
 package com.lingdonge.core.http.net;
 
-import com.lingdonge.core.collection.CollectionUtil;
-import com.lingdonge.core.exceptions.UtilException;
+import cn.hutool.core.exceptions.UtilException;
+import cn.hutool.core.lang.Validator;
+import cn.hutool.core.util.StrUtil;
 import com.lingdonge.core.util.StringUtils;
-import com.lingdonge.core.util.ValidateUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.*;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Enumeration;
 import java.util.LinkedHashSet;
 
 /**
  * 网络相关工具
- *
  */
 @Slf4j
 public class NetUtil {
@@ -82,7 +79,7 @@ public class NetUtil {
      * @return long值
      */
     public static long ipv4ToLong(String strIP) {
-        if (ValidateUtil.isIpv4(strIP)) {
+        if (Validator.isIpv4(strIP)) {
             long[] ip = new long[4];
             // 先找到IP地址字符串中.的位置
             int position1 = strIP.indexOf(".");
@@ -105,7 +102,7 @@ public class NetUtil {
      * @return 是否可用
      */
     public static boolean isUsableLocalPort(int port) {
-        if (false == isValidPort(port)) {
+        if (!isValidPort(port)) {
             // 给定的IP未在指定端口范围中
             return false;
         }
@@ -165,7 +162,7 @@ public class NetUtil {
             URL absoluteUrl = new URL(absoluteBasePath);
             return new URL(absoluteUrl, relativePath).toString();
         } catch (Exception e) {
-            throw new UtilException(StringUtils.format("To absolute url [{}] base [{}] error!", relativePath, absoluteBasePath), e);
+            throw new UtilException(StrUtil.format("To absolute url [{}] base [{}] error!", relativePath, absoluteBasePath), e);
         }
     }
 
@@ -230,23 +227,6 @@ public class NetUtil {
         } catch (UnknownHostException e) {
             return hostName;
         }
-    }
-
-    /**
-     * 获取本机所有网卡
-     *
-     * @return 所有网卡，异常返回<code>null</code>
-     * @since 3.0.1
-     */
-    public static Collection<NetworkInterface> getNetworkInterfaces() {
-        Enumeration<NetworkInterface> networkInterfaces = null;
-        try {
-            networkInterfaces = NetworkInterface.getNetworkInterfaces();
-        } catch (SocketException e) {
-            return null;
-        }
-
-        return CollectionUtil.addAll(new ArrayList<NetworkInterface>(), networkInterfaces);
     }
 
     /**

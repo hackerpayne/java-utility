@@ -1,5 +1,6 @@
 package com.lingdonge.core.encode;
 
+import cn.hutool.core.util.StrUtil;
 import com.lingdonge.core.util.StringUtils;
 
 import java.awt.*;
@@ -61,7 +62,7 @@ public class HexUtil {
      * @return 十六进制char[]
      */
     public static char[] encodeHex(String str, Charset charset) {
-        return encodeHex(StringUtils.bytes(str, charset), true);
+        return encodeHex(StrUtil.bytes(str, charset), true);
     }
 
     /**
@@ -93,7 +94,7 @@ public class HexUtil {
      * @return 十六进制String
      */
     public static String encodeHexStr(String data, Charset charset) {
-        return encodeHexStr(StringUtils.bytes(data, charset), true);
+        return encodeHexStr(StrUtil.bytes(data, charset), true);
     }
 
     /**
@@ -151,7 +152,7 @@ public class HexUtil {
      * @return 字符串
      */
     public static String decodeHexStr(char[] hexData, Charset charset) {
-        return StringUtils.str(decodeHex(hexData), charset);
+        return StrUtil.str(decodeHex(hexData), charset);
     }
 
     /**

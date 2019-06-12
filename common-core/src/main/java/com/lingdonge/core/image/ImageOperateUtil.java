@@ -1,9 +1,9 @@
 package com.lingdonge.core.image;
 
-import com.lingdonge.core.exceptions.IORuntimeException;
-import com.lingdonge.core.exceptions.UtilException;
+import cn.hutool.core.exceptions.UtilException;
+import cn.hutool.core.io.IORuntimeException;
+import cn.hutool.core.util.NumberUtil;
 import com.lingdonge.core.file.FileUtil;
-import com.lingdonge.core.util.NumberUtil;
 import com.lingdonge.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
@@ -18,7 +18,10 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.*;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.Random;
 

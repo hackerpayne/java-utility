@@ -1,6 +1,6 @@
 package com.lingdonge.core.encode;
 
-import com.lingdonge.core.util.StringUtils;
+import cn.hutool.core.util.StrUtil;
 
 import java.io.ByteArrayOutputStream;
 
@@ -29,7 +29,7 @@ public class Base62 {
      * @return
      */
     public static String encodeBase62(String input) {
-        return encodeBase62(StringUtils.bytes(input));
+        return encodeBase62(StrUtil.bytes(input));
     }
 
     public static String encodeBase62(byte[] data) {
@@ -41,24 +41,24 @@ public class Base62 {
             while (pos > 5) {
                 char c = encodes[val >> (pos -= 6)];
                 sb.append(
-                /**/c == 'i' ? "ia" :
-                /**/c == '+' ? "ib" :
-                /**/c == '/' ? "ic" : String.valueOf(c));
+                        /**/c == 'i' ? "ia" :
+                                /**/c == '+' ? "ib" :
+                                /**/c == '/' ? "ic" : String.valueOf(c));
                 val &= ((1 << pos) - 1);
             }
         }
         if (pos > 0) {
             char c = encodes[val << (6 - pos)];
             sb.append(
-            /**/c == 'i' ? "ia" :
-            /**/c == '+' ? "ib" :
-            /**/c == '/' ? "ic" : String.valueOf(c));
+                    /**/c == 'i' ? "ia" :
+                            /**/c == '+' ? "ib" :
+                            /**/c == '/' ? "ic" : String.valueOf(c));
         }
         return sb.toString();
     }
 
     public static String decodeBase62Str(String str) {
-        return StringUtils.str(decodeBase62(str), CharsetUtil.UTF_8);
+        return StrUtil.str(decodeBase62(str), CharsetUtil.UTF_8);
     }
 
     public static byte[] decodeBase62(String str) {
@@ -78,9 +78,9 @@ public class Base62 {
             if (c == 'i') {
                 c = data[++i];
                 c =
-                /**/c == 'a' ? 'i' :
-                /**/c == 'b' ? '+' :
-                /**/c == 'c' ? '/' : data[--i];
+                        /**/c == 'a' ? 'i' :
+                        /**/c == 'b' ? '+' :
+                        /**/c == 'c' ? '/' : data[--i];
             }
             val = (val << 6) | decodes[c];
             pos += 6;

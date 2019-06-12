@@ -1,7 +1,8 @@
 package com.lingdonge.db.db;
 
-import com.lingdonge.core.file.PropertiesUtils;
+import cn.hutool.core.util.StrUtil;
 import com.lingdonge.core.bean.common.ModelArticle;
+import com.lingdonge.core.file.PropertiesUtils;
 import com.lingdonge.core.util.StringUtils;
 import com.lingdonge.core.util.Utils;
 import lombok.extern.slf4j.Slf4j;
@@ -241,7 +242,7 @@ public class JdbcTemplateHelper {
             where = "";
         }
 
-        String sql = StringUtils.format("select count(1) as num from `{}` {}", table, where);
+        String sql = StrUtil.format("select count(1) as num from `{}` {}", table, where);
 
         log.info(sql);
 

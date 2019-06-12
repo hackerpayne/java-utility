@@ -24,7 +24,9 @@ public class MyClassLoader extends ClassLoader {
     private boolean Flag(FileInputStream fis, ByteArrayOutputStream bos) throws Exception {
 
         boolean Result = false;
-        if (fis.read() == 0xCA) Result = true;
+        if (fis.read() == 0xCA) {
+            Result = true;
+        }
         return Result;
 
     }

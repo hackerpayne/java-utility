@@ -1,7 +1,7 @@
 package com.lingdonge.core.encode;
 
 
-import com.lingdonge.core.util.StringUtils;
+import cn.hutool.core.util.StrUtil;
 
 import java.nio.charset.Charset;
 
@@ -47,7 +47,7 @@ public final class Base32 {
         while (i < bytes.length) {
             currByte = (bytes[i] >= 0) ? bytes[i] : (bytes[i] + 256); // unsign
 
-			/* Is the current digit going to span a byte boundary? */
+            /* Is the current digit going to span a byte boundary? */
             if (index > 3) {
                 if ((i + 1) < bytes.length) {
                     nextByte = (bytes[i + 1] >= 0) ? bytes[i + 1] : (bytes[i + 1] + 256);
@@ -91,7 +91,7 @@ public final class Base32 {
      * @return 被加密后的字符串
      */
     public static String encode(String source, String charset) {
-        return encode(StringUtils.bytes(source, charset));
+        return encode(StrUtil.bytes(source, charset));
     }
 
     /**
@@ -102,7 +102,7 @@ public final class Base32 {
      * @return 被加密后的字符串
      */
     public static String encode(String source, Charset charset) {
-        return encode(StringUtils.bytes(source, charset));
+        return encode(StrUtil.bytes(source, charset));
     }
 
     //----------------------------------------------------------------------------------------- decode
@@ -120,14 +120,14 @@ public final class Base32 {
         for (i = 0, index = 0, offset = 0; i < base32.length(); i++) {
             lookup = base32.charAt(i) - '0';
 
-			/* Skip chars outside the lookup table */
+            /* Skip chars outside the lookup table */
             if (lookup < 0 || lookup >= base32Lookup.length) {
                 continue;
             }
 
             digit = base32Lookup[lookup];
 
-			/* If this digit is not in the table, ignore it */
+            /* If this digit is not in the table, ignore it */
             if (digit == 0xFF) {
                 continue;
             }
@@ -175,7 +175,7 @@ public final class Base32 {
      * @return 被加密后的字符串
      */
     public static String decodeStr(String source, String charset) {
-        return StringUtils.str(decode(source), charset);
+        return StrUtil.str(decode(source), charset);
     }
 
     /**
@@ -186,6 +186,6 @@ public final class Base32 {
      * @return 被加密后的字符串
      */
     public static String decodeStr(String source, Charset charset) {
-        return StringUtils.str(decode(source), charset);
+        return StrUtil.str(decode(source), charset);
     }
 }

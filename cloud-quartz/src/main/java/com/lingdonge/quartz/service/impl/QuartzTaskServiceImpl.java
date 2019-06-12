@@ -1,14 +1,13 @@
 package com.lingdonge.quartz.service.impl;
 
-import com.lingdonge.core.exceptions.UtilException;
+import cn.hutool.core.exceptions.UtilException;
 import com.lingdonge.quartz.domain.ScheduleJob;
 import com.lingdonge.quartz.job.BaseJob;
 import com.lingdonge.quartz.job.QuartzJobFactoryRun;
 import com.lingdonge.quartz.repository.ScheduleJobRepository;
 import com.lingdonge.quartz.service.QuartzTaskService;
+import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
@@ -19,9 +18,8 @@ import java.util.List;
 
 @Service
 @Transactional
+@Slf4j
 public class QuartzTaskServiceImpl implements QuartzTaskService {
-
-    private Logger logger = LoggerFactory.getLogger(getClass());
 
     //加入Qulifier注解，通过名称注入bean
     @Autowired
@@ -37,7 +35,7 @@ public class QuartzTaskServiceImpl implements QuartzTaskService {
     @Override
     public void loadAndRunTask() {
 
-        logger.info("遍历并加载数据库任务列表并执行");
+        log.info("遍历并加载数据库任务列表并执行");
 
         //查询数据库是否存在需要定时的任务
         List<ScheduleJob> scheduleJobs = scheduleJobRepository.findAllByJobStatus("1");
@@ -64,7 +62,7 @@ public class QuartzTaskServiceImpl implements QuartzTaskService {
 
             if (null == cronTrigger) {
 
-                logger.info("任务[" + scheduleJob.getJobName() + "]不存在，准备重新添加并运行");
+                log.info("任务[" + scheduleJob.getJobName() + "]不存在，准备重新添加并运行");
 
                 //设置触发时间
                 CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression());
@@ -87,7 +85,7 @@ public class QuartzTaskServiceImpl implements QuartzTaskService {
                 scheduler.scheduleJob(jobDetail, trigger);
             } else {
 
-                logger.info("任务[" + scheduleJob.getJobName() + "]已经在调度中，准备更新Cron表达式继续运行");
+                log.info("任务[" + scheduleJob.getJobName() + "]已经在调度中，准备更新Cron表达式继续运行");
 
 
                 /* Trigger已存在，那么更新相应的定时设置 */
@@ -103,7 +101,7 @@ public class QuartzTaskServiceImpl implements QuartzTaskService {
             }
 
         } catch (Exception ex) {
-            logger.error("Task init failed.", ex);
+            log.error("Task init failed.", ex);
         }
 //        添加Job监听器
 //        QuartzJobListener quartzJobListener = new QuartzJobListener("quartzListener", jobManagerService);
@@ -140,7 +138,7 @@ public class QuartzTaskServiceImpl implements QuartzTaskService {
     @Override
     public void addJob(ScheduleJob job) throws Exception {
         if (checkExists(job.getJobName(), job.getJobGroup())) {
-            logger.info("===> AddJob fail, job already exist, jobGroup:{}, jobName:{}", job.getJobGroup(), job.getJobName());
+            log.info("===> AddJob fail, job already exist, jobGroup:{}, jobName:{}", job.getJobGroup(), job.getJobName());
             throw new UtilException(String.format("Job已经存在, jobName:{%s},jobGroup:{%s}", job.getJobName(), job.getJobGroup()));
         }
 
@@ -161,7 +159,7 @@ public class QuartzTaskServiceImpl implements QuartzTaskService {
             scheduler.scheduleJob(jobDetail, trigger);
 
         } catch (SchedulerException e) {
-            logger.error("创建定时任务失败" + e);
+            log.error("创建定时任务失败" + e);
             throw new Exception("创建定时任务失败");
         }
     }
@@ -178,7 +176,7 @@ public class QuartzTaskServiceImpl implements QuartzTaskService {
         try {
             scheduler.pauseJob(jobKey);
         } catch (SchedulerException e) {
-            logger.error("Task pause failed.", e);
+            log.error("Task pause failed.", e);
         }
     }
 
@@ -195,7 +193,7 @@ public class QuartzTaskServiceImpl implements QuartzTaskService {
         try {
             scheduler.resumeJob(jobKey);
         } catch (SchedulerException e) {
-            logger.error("Task resume failed.", e);
+            log.error("Task resume failed.", e);
         }
     }
 
@@ -224,7 +222,7 @@ public class QuartzTaskServiceImpl implements QuartzTaskService {
         try {
             scheduler.deleteJob(jobKey);
         } catch (SchedulerException e) {
-            logger.error("Task delete failed.", e);
+            log.error("Task delete failed.", e);
         }
     }
 
@@ -244,7 +242,7 @@ public class QuartzTaskServiceImpl implements QuartzTaskService {
                 scheduler.unscheduleJob(triggerKey);
                 scheduler.deleteJob(JobKey.jobKey(jobName, jobGroup));
 
-                logger.info("===> delete, triggerKey:{}", triggerKey);
+                log.info("===> delete, triggerKey:{}", triggerKey);
             }
         } catch (SchedulerException e) {
             throw new SchedulerException(e);
@@ -263,7 +261,7 @@ public class QuartzTaskServiceImpl implements QuartzTaskService {
         try {
             scheduler.triggerJob(jobKey);
         } catch (SchedulerException e) {
-            logger.error("Task run failed.", e);
+            log.error("Task run failed.", e);
         }
     }
 
@@ -324,7 +322,7 @@ public class QuartzTaskServiceImpl implements QuartzTaskService {
             scheduler.rescheduleJob(triggerKey, trigger);
 
         } catch (SchedulerException e) {
-            logger.error("更新定时任务失败" + e);
+            log.error("更新定时任务失败" + e);
             throw new Exception("更新定时任务失败");
         }
     }

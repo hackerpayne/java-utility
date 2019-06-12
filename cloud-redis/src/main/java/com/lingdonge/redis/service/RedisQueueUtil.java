@@ -1,6 +1,6 @@
 package com.lingdonge.redis.service;
 
-import com.lingdonge.core.util.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 
@@ -97,17 +97,17 @@ public class RedisQueueUtil {
         for (int i = 0; i < 100; i++) {
             queue.add("Test:" + String.valueOf(i));
         }
-        System.out.println(StringUtils.format("当前队列数量：{}", queue.count()));
-        System.out.println(StringUtils.format("当前队列是否存在Test:1：{}", queue.exists("Test:1") ? "yes" : "no"));
-        System.out.println(StringUtils.format("当前队列是否存在Test:101：{}", queue.exists("Test:101") ? "yes" : "no"));
+        System.out.println(StrUtil.format("当前队列数量：{}", queue.count()));
+        System.out.println(StrUtil.format("当前队列是否存在Test:1：{}", queue.exists("Test:1") ? "yes" : "no"));
+        System.out.println(StrUtil.format("当前队列是否存在Test:101：{}", queue.exists("Test:101") ? "yes" : "no"));
 
         queue.delete("Test:1");
         queue.delete("Test:2");
         queue.delete("Test:3");
 
-        System.out.println(StringUtils.format("删除3条后，当前队列数量：{}", queue.count()));
+        System.out.println(StrUtil.format("删除3条后，当前队列数量：{}", queue.count()));
 
-        System.out.println(StringUtils.format("检查Test:1是否存在，结果为：{}", queue.exists("Test:1")));
+        System.out.println(StrUtil.format("检查Test:1是否存在，结果为：{}", queue.exists("Test:1")));
 
     }
 }

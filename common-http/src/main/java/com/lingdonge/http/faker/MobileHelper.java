@@ -1,7 +1,8 @@
 package com.lingdonge.http.faker;
 
+import cn.hutool.core.util.ReUtil;
+import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
-import com.lingdonge.core.regex.ReUtil;
 import com.lingdonge.core.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -68,9 +69,7 @@ public class MobileHelper {
      * @return
      */
     public static boolean isValidMobile(String phone) {
-        if (phone.matches(CHINA_MOBILE) || phone.matches(CHINA_TELICOM) || phone.matches(CHINA_UNICOM))
-            return true;
-        return false;
+        return phone.matches(CHINA_MOBILE) || phone.matches(CHINA_TELICOM) || phone.matches(CHINA_UNICOM);
     }
 
     /**

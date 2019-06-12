@@ -1,6 +1,6 @@
 package com.lingdonge.core.regex;
 
-import com.lingdonge.core.collection.HashUtil;
+import cn.hutool.core.collection.CollUtil;
 
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 /**
  * 常用正则表达式集合
  *
- * @author Looly
  */
 public class PatternPool {
 
@@ -60,7 +59,7 @@ public class PatternPool {
     /**
      * 正则中需要被转义的关键字
      */
-    public final static Set<Character> RE_KEYS = HashUtil.newHashSet(new Character[]{'$', '(', ')', '*', '+', '.', '[', ']', '?', '\\', '^', '{', '}', '|'});
+    public final static Set<Character> RE_KEYS = CollUtil.newHashSet(new Character[]{'$', '(', ')', '*', '+', '.', '[', ']', '?', '\\', '^', '{', '}', '|'});
 
     /**
      * 分组
@@ -80,6 +79,9 @@ public class PatternPool {
      */
     public final static Pattern EMAIL = Pattern.compile("(\\w|.)+@\\w+(\\.\\w+){1,2}");
 
+    /**
+     * 邮件正则2
+     */
     public final static String EMAIL2 = "\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
 
     /**

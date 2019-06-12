@@ -1,6 +1,6 @@
 package com.lingdonge.http.webmagic.model;
 
-import com.lingdonge.core.reflect.ClassUtil;
+import com.lingdonge.core.reflect.BeanUtil;
 import com.lingdonge.http.webmagic.Page;
 import com.lingdonge.http.webmagic.model.annotation.*;
 import com.lingdonge.http.webmagic.model.formatter.ObjectFormatter;
@@ -52,7 +52,7 @@ class PageModelExtractor {
         this.clazz = clazz;
         initClassExtractors();
         fieldExtractors = new ArrayList<FieldExtractor>();
-        for (Field field : ClassUtil.getFieldsIncludeSuperClass(clazz)) {
+        for (Field field : BeanUtil.getFieldsIncludeSuperClass(clazz)) {
             field.setAccessible(true);
             FieldExtractor fieldExtractor = getAnnotationExtractBy(clazz, field);
             FieldExtractor fieldExtractorTmp = getAnnotationExtractCombo(clazz, field);

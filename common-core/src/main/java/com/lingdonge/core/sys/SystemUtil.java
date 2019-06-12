@@ -1,9 +1,9 @@
 package com.lingdonge.core.sys;
 
+import cn.hutool.core.lang.Console;
+import cn.hutool.core.lang.Singleton;
+import cn.hutool.core.util.StrUtil;
 import com.lingdonge.core.util.NumberUtil;
-import com.lingdonge.core.util.StringUtils;
-import com.lingdonge.core.reflect.Console;
-import com.lingdonge.core.reflect.Singleton;
 
 import java.io.PrintWriter;
 import java.lang.management.ManagementFactory;
@@ -93,7 +93,7 @@ public final class SystemUtil {
      * @return 属性值或<code>null</code>
      */
     public static String get(String name, String defaultValue) {
-        return StringUtils.nullToDefault(get(name, false), defaultValue);
+        return StrUtil.nullToDefault(get(name, false), defaultValue);
     }
 
     /**
@@ -318,6 +318,6 @@ public final class SystemUtil {
      * @param value   值
      */
     protected static void append(StringBuilder builder, String caption, Object value) {
-        builder.append(caption).append(StringUtils.nullToDefault(value.toString(), "[n/a]")).append("\n");
+        builder.append(caption).append(StrUtil.nullToDefault(value.toString(), "[n/a]")).append("\n");
     }
 }

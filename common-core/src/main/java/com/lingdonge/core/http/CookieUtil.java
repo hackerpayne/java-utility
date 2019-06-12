@@ -1,6 +1,6 @@
 package com.lingdonge.core.http;
 
-import com.lingdonge.core.util.StringUtils;
+import cn.hutool.core.util.StrUtil;
 
 import javax.servlet.http.Cookie;
 import java.util.LinkedHashMap;
@@ -43,7 +43,7 @@ public class CookieUtil {
         Map<String, Cookie> mapCookies = parseCookies(cookieStr);
 
         mapCookies.forEach((key, value) -> {
-            System.out.println(StringUtils.format(".addCookie(\"{}\",\"{}\");", key, value.getValue()));
+            System.out.println(StrUtil.format(".addCookie(\"{}\",\"{}\");", key, value.getValue()));
         });
     }
 

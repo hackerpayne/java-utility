@@ -48,8 +48,9 @@ public class HourTaskHelper {
      * @param hourJob
      */
     public void addHourJob(ModelTaskEveryHour hourJob) {
-        if (hourJob != null)
+        if (hourJob != null) {
             mapHour.put(hourJob.getHour(), hourJob);
+        }
     }
 
     /**

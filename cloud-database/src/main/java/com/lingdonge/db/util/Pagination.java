@@ -1,6 +1,6 @@
 package com.lingdonge.db.util;
 
-import com.lingdonge.core.util.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -101,7 +101,7 @@ public class Pagination<T> {
         setStartIndex();//计算起始行数
         setLastIndex(); //计算结束行数
 
-        log.info(StringUtils.format("SQL【{}】表数据【{}】条，每页【{}】条，共【{}】页", sql, getTotalRows(), getNumPerPage(), getTotalPages()));
+        log.info(StrUtil.format("SQL【{}】表数据【{}】条，每页【{}】条，共【{}】页", sql, getTotalRows(), getNumPerPage(), getTotalPages()));
 
 //        //使用mysql时直接使用limits
 //        StringBuffer paginationSQL = new StringBuffer();
@@ -133,11 +133,11 @@ public class Pagination<T> {
         setStartIndex();//计算起始行数
         setLastIndex(); //计算结束行数
 
-        String sql = StringUtils.format("select * from {}  br WHERE br.{}>=(SELECT {} from {} ORDER BY  {} {} limit {},1 ) limit {}", table, mainKey, mainKey, table, mainKey, sort, getStartIndex(), pageSize);
+        String sql = StrUtil.format("select * from {}  br WHERE br.{}>=(SELECT {} from {} ORDER BY  {} {} limit {},1 ) limit {}", table, mainKey, mainKey, table, mainKey, sort, getStartIndex(), pageSize);
 
 //        System.out.println("sql处理结果为：" + sql);
 
-        log.info(StringUtils.format("SQL【{}】表数据【{}】条，每页【{}】条，共【{}】页", sql, getTotalRows(), getNumPerPage(), getTotalPages()));
+        log.info(StrUtil.format("SQL【{}】表数据【{}】条，每页【{}】条，共【{}】页", sql, getTotalRows(), getNumPerPage(), getTotalPages()));
 
         List<T> results = jdbcTemplate.query(sql, mapper);
         return results;
@@ -167,7 +167,7 @@ public class Pagination<T> {
          paginationSQL.append(" ) WHERE num > " + startIndex);
          */
 
-        log.info(StringUtils.format("SQL【{}】表数据【{}】条，每页【{}】条，共【{}】页", paginationSQL.toString(), getTotalRows(), getNumPerPage(), getTotalPages()));
+        log.info(StrUtil.format("SQL【{}】表数据【{}】条，每页【{}】条，共【{}】页", paginationSQL.toString(), getTotalRows(), getNumPerPage(), getTotalPages()));
 
         return jdbcTemplate.queryForList(paginationSQL.toString());
 
@@ -197,7 +197,7 @@ public class Pagination<T> {
          paginationSQL.append(" ) WHERE num > " + startIndex);
          */
 
-        log.info(StringUtils.format("SQL【{}】表数据【{}】条，每页【{}】条，共【{}】页", paginationSQL.toString(), getTotalRows(), getNumPerPage(), getTotalPages()));
+        log.info(StrUtil.format("SQL【{}】表数据【{}】条，每页【{}】条，共【{}】页", paginationSQL.toString(), getTotalRows(), getNumPerPage(), getTotalPages()));
 
         return jdbcTemplate.queryForList(paginationSQL.toString(), (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0].getClass());
 //        List<E> result = jdbcTemplate.query(sql.toString(), new Object[] {queryPara}, new BeanPropertyRowMapper<E>(E.class))

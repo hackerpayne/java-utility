@@ -1,10 +1,11 @@
 package com.lingdonge.http.webmagic.utils;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import com.lingdonge.core.bean.common.ModelProxy;
 import com.lingdonge.core.encrypt.Md5Util;
 import com.lingdonge.core.http.HtmlUtil;
 import com.lingdonge.core.http.UserAgentUtil;
-import com.lingdonge.core.bean.common.ModelProxy;
 import com.lingdonge.core.util.StringUtils;
 import com.lingdonge.http.jsoupxpath.exception.XpathSyntaxErrorException;
 import com.lingdonge.http.jsoupxpath.model.JXDocument;
@@ -32,11 +33,6 @@ import java.util.List;
  */
 @Slf4j
 public class CrawleUtils {
-
-    public static void main(String[] args) throws Exception {
-
-        log.info("Done 处理完成");
-    }
 
     /**
      * 打印所有列表的信息
@@ -108,7 +104,7 @@ public class CrawleUtils {
     public synchronized static void clearItem(String uuid, Request request) {
 
         try {
-            log.info(StringUtils.format("开始清理Redis数据Key:[{}],Field:[{}]", "item_" + uuid, request.getUrl()));
+            log.info(StrUtil.format("开始清理Redis数据Key:[{}],Field:[{}]", "item_" + uuid, request.getUrl()));
             redisPoolUtil = RedisPoolUtil.getInstance();
             redisPoolUtil.hdel("item_" + uuid, Md5Util.getMd516(request.getUrl()));
         } catch (Exception e) {

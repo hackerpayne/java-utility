@@ -1,8 +1,8 @@
 package com.lingdonge.db.db;
 
-import com.lingdonge.core.util.StringUtils;
+import cn.hutool.core.util.StrUtil;
+import com.lingdonge.db.model.BaseEntity;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -74,9 +74,7 @@ import java.util.List;
  * ]]></pre>
  * </p>
  */
-public class Pager implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Pager extends BaseEntity {
 
     /**
      * 当前页码
@@ -402,6 +400,7 @@ public class Pager implements Serializable {
      *
      * @return 字符串表示。
      */
+    @Override
     public String toString() {
         StringBuffer sb = new StringBuffer("Pager: page ");
 
@@ -424,10 +423,10 @@ public class Pager implements Serializable {
         }
 
         sb.append(" of ").append(pageCount).append(",\n");
-        sb.append(StringUtils.format("Total Count:[{}],Total Page:[{}];", totalCount, pageCount));
-        sb.append(StringUtils.format("Showing Items From:[{}]-[{}];", startIndex, endIndex));
-        sb.append(StringUtils.format("Offset:[{}],Length:[{}];", startIndex, getActualLength()));
-        sb.append(StringUtils.format("Next Page :[{}]，Pre Page:[{}]", getNextPage(), getPreviousPage()));
+        sb.append(StrUtil.format("Total Count:[{}],Total Page:[{}];", totalCount, pageCount));
+        sb.append(StrUtil.format("Showing Items From:[{}]-[{}];", startIndex, endIndex));
+        sb.append(StrUtil.format("Offset:[{}],Length:[{}];", startIndex, getActualLength()));
+        sb.append(StrUtil.format("Next Page :[{}]，Pre Page:[{}]", getNextPage(), getPreviousPage()));
 
         return sb.toString();
     }

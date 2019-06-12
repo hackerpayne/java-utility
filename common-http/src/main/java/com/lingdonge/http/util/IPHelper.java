@@ -249,7 +249,6 @@ public class IPHelper {
 //                String isp = obj.getString("isp");
 
                 if (StringUtils.isAllNotEmpty(province, city)) {
-
                     location = new ModelIPLocation(ipAddr);
 //                    location.setCountry(country);
                     location.setProvince(province);

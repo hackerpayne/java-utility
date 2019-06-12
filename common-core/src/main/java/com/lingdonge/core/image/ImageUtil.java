@@ -1,8 +1,8 @@
 package com.lingdonge.core.image;
 
+import cn.hutool.core.io.IORuntimeException;
 import com.lingdonge.core.encode.Base64Util;
 import com.lingdonge.core.encode.CharsetUtil;
-import com.lingdonge.core.exceptions.IORuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 

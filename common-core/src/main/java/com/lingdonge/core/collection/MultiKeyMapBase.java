@@ -1,5 +1,7 @@
 package com.lingdonge.core.collection;
 
+import org.apache.commons.collections.map.MultiKeyMap;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +16,7 @@ public abstract class MultiKeyMapBase {
 
     public MultiKeyMapBase() {
     }
+
 
     @SuppressWarnings("rawtypes")
     public MultiKeyMapBase(Class<? extends Map> protoMapClass) {

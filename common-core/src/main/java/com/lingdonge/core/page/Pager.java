@@ -1,7 +1,7 @@
 package com.lingdonge.core.page;
 
+import cn.hutool.core.util.StrUtil;
 import com.lingdonge.core.bean.base.BaseEntity;
-import com.lingdonge.core.util.StringUtils;
 
 import java.util.List;
 
@@ -423,10 +423,10 @@ public class Pager extends BaseEntity {
         }
 
         sb.append(" of ").append(pageCount).append(",\n");
-        sb.append(StringUtils.format("Total Count:[{}],Total Page:[{}];", totalCount, pageCount));
-        sb.append(StringUtils.format("Showing Items From:[{}]-[{}];", startIndex, endIndex));
-        sb.append(StringUtils.format("Offset:[{}],Length:[{}];", startIndex, getActualLength()));
-        sb.append(StringUtils.format("Next Page :[{}]，Pre Page:[{}]", getNextPage(), getPreviousPage()));
+        sb.append(StrUtil.format("Total Count:[{}],Total Page:[{}];", totalCount, pageCount));
+        sb.append(StrUtil.format("Showing Items From:[{}]-[{}];", startIndex, endIndex));
+        sb.append(StrUtil.format("Offset:[{}],Length:[{}];", startIndex, getActualLength()));
+        sb.append(StrUtil.format("Next Page :[{}]，Pre Page:[{}]", getNextPage(), getPreviousPage()));
 
         return sb.toString();
     }

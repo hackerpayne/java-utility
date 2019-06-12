@@ -326,9 +326,7 @@ public class ReceiveMailHandler {
                 getMailContent((Part) part.getContent());
             } else {
             }
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (MessagingException | IOException e) {
             e.printStackTrace();
         }
         return bodytext.toString();
@@ -348,24 +346,24 @@ public class ReceiveMailHandler {
                 for (int i = 0; i < mp.getCount(); i++) {
                     BodyPart mpart = mp.getBodyPart(i);
                     String disposition = mpart.getDisposition();
-                    if ((disposition != null) && ((disposition.equals(Part.ATTACHMENT)) || (disposition.equals(Part.INLINE))))
+                    if ((disposition != null) && ((disposition.equals(Part.ATTACHMENT)) || (disposition.equals(Part.INLINE)))) {
                         attachflag = true;
-                    else if (mpart.isMimeType("multipart/*")) {
+                    } else if (mpart.isMimeType("multipart/*")) {
                         attachflag = isContainAttach((Part) mpart);
                     } else {
                         String contype = mpart.getContentType();
-                        if (contype.toLowerCase().indexOf("application") != -1)
+                        if (contype.toLowerCase().indexOf("application") != -1) {
                             attachflag = true;
-                        if (contype.toLowerCase().indexOf("name") != -1)
+                        }
+                        if (contype.toLowerCase().indexOf("name") != -1) {
                             attachflag = true;
+                        }
                     }
                 }
             } else if (part.isMimeType("message/rfc822")) {
                 attachflag = isContainAttach((Part) part.getContent());
             }
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (MessagingException | IOException e) {
             e.printStackTrace();
         }
         return attachflag;

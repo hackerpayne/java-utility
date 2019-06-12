@@ -23,7 +23,7 @@ public class YamlToPropertiesConverter {
 
         final Yaml yaml = new Yaml();
         final Object object = yaml.load(new UnicodeReader(inputStream));
-        if (object != null && object instanceof Map) {
+        if (object instanceof Map) {
             try {
                 final Map map = (Map<String, Object>) object;
                 final Map<String, String> flatMap = flattenMap(map);

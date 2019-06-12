@@ -1,5 +1,6 @@
 package com.lingdonge.db.util;
 
+import cn.hutool.core.util.StrUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.lingdonge.core.reflect.NamingUtil;
@@ -158,7 +159,7 @@ public class SqlBuilder {
 //        System.out.println(listKeys);
 //        System.out.println(listObjs);
 
-        String sql = StringUtils.format("INSERT INTO `{}` ({}) VALUES ({})", tableName, Joiner.on(",").join(listKeys), Joiner.on(",").join(listCommas));
+        String sql = StrUtil.format("INSERT INTO `{}` ({}) VALUES ({})", tableName, Joiner.on(",").join(listKeys), Joiner.on(",").join(listCommas));
         return new Pair<String, List<Object[]>>(sql, parameters);
     }
 

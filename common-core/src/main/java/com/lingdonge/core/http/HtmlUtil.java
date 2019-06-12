@@ -1,9 +1,7 @@
 package com.lingdonge.core.http;
 
-
-import com.lingdonge.core.collection.ArrayUtil;
-import com.lingdonge.core.regex.ReUtil;
-import com.lingdonge.core.util.JudgeUtil;
+import cn.hutool.core.util.ArrayUtil;
+import cn.hutool.core.util.ReUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.message.BasicNameValuePair;
@@ -38,14 +36,14 @@ public class HtmlUtil {
      */
     public static String getClientIP(javax.servlet.http.HttpServletRequest request, String... otherHeaderNames) {
         String[] headers = {"X-Forwarded-For", "X-Real-IP", "ModelProxy-Client-IP", "WL-ModelProxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR"};
-        if (JudgeUtil.isNotEmpty(otherHeaderNames)) {
+        if (ArrayUtil.isNotEmpty(otherHeaderNames)) {
             headers = ArrayUtil.addAll(headers, otherHeaderNames);
         }
 
         String ip;
         for (String header : headers) {
             ip = request.getHeader(header);
-            if (false == isUnknow(ip)) {
+            if (!isUnknow(ip)) {
                 return getMultistageReverseProxyIp(ip);
             }
         }

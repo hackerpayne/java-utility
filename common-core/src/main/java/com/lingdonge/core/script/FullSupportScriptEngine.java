@@ -1,7 +1,7 @@
 package com.lingdonge.core.script;
 
 
-import com.lingdonge.core.util.StringUtils;
+import cn.hutool.core.util.StrUtil;
 
 import javax.script.*;
 import java.io.Reader;
@@ -29,7 +29,7 @@ public class FullSupportScriptEngine implements ScriptEngine, Compilable, Invoca
             manager.getEngineByMimeType(nameOrExtOrMime);
         }
         if (null == this.engine) {
-            throw new NullPointerException(StringUtils.format("Script for [{}] not support !", nameOrExtOrMime));
+            throw new NullPointerException(StrUtil.format("Script for [{}] not support !", nameOrExtOrMime));
         }
     }
 

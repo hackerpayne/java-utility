@@ -1,6 +1,6 @@
 package com.lingdonge.http.webmagic;
 
-import com.lingdonge.core.collection.HashUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import com.lingdonge.core.http.UrlUtils;
 import com.lingdonge.core.threads.CountableThreadPool;
 import com.lingdonge.http.webmagic.downloader.Downloader;
@@ -556,7 +556,7 @@ public class Spider implements Runnable, Task {
     }
 
     public <T> T get(String url) {
-        List<String> urls = HashUtil.newArrayList(url);
+        List<String> urls = CollectionUtil.newArrayList(url);
         List<T> resultItemses = getAll(urls);
         if (resultItemses != null && resultItemses.size() > 0) {
             return resultItemses.get(0);

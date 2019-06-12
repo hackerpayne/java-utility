@@ -1,9 +1,11 @@
 package com.lingdonge.core.file.xml;
 
-import com.lingdonge.core.util.StringUtils;
+import cn.hutool.core.exceptions.UtilException;
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.StrUtil;
 import com.lingdonge.core.encode.CharsetUtil;
-import com.lingdonge.core.exceptions.UtilException;
 import com.lingdonge.core.file.FileUtil;
+import com.lingdonge.core.util.StringUtils;
 import org.apache.commons.io.IOUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -101,7 +103,7 @@ public class XmlUtil {
         final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
             final DocumentBuilder builder = dbf.newDocumentBuilder();
-            return builder.parse(new InputSource(StringUtils.getReader(xmlStr)));
+            return builder.parse(new InputSource(StrUtil.getReader(xmlStr)));
         } catch (Exception e) {
             throw new UtilException("Parse xml file [" + xmlStr + "] error!", e);
         }
@@ -141,7 +143,7 @@ public class XmlUtil {
      */
     public static String toStr(Document doc, String charset) {
         try {
-            StringWriter writer = StringUtils.getWriter();
+            StringWriter writer = StrUtil.getWriter();
 
             final Transformer xformer = TransformerFactory.newInstance().newTransformer();
             xformer.setOutputProperty(OutputKeys.ENCODING, charset);
@@ -335,9 +337,7 @@ public class XmlUtil {
             xmlenc = new XMLEncoder(FileUtil.getOutputStream(dest));
             xmlenc.writeObject(t);
         } finally {
-            //关闭XMLEncoder会相应关闭OutputStream
-            if (xmlenc != null)
-                xmlenc.close();
+            IoUtil.close(xmlenc);
         }
     }
 
@@ -358,7 +358,9 @@ public class XmlUtil {
             xmldec = new XMLDecoder(FileUtil.getInputStream(source));
             result = xmldec.readObject();
         } finally {
-            if (xmldec != null) xmldec.close();
+            if (xmldec != null) {
+                xmldec.close();
+            }
         }
         return (T) result;
     }

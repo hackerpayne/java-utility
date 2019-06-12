@@ -1,7 +1,7 @@
 package com.lingdonge.redis.service;
 
 import com.alibaba.fastjson.JSON;
-import com.lingdonge.core.convert.ConvertUtil;
+import com.lingdonge.core.reflect.BeanUtil;
 import com.lingdonge.redis.RedisConfigUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -313,7 +313,7 @@ public class RedisPoolUtil {
             byte[] value = jedis.get(key.getBytes());
 
             if (value != null) {
-                return ConvertUtil.unserialize(value, clazz);
+                return BeanUtil.unserialize(value, clazz);
             } else {
                 return null;
             }
@@ -432,9 +432,9 @@ public class RedisPoolUtil {
         try {
             jedis = getJedis();
             if (seconds > 0) {
-                jedis.setex(key.getBytes(), seconds, ConvertUtil.serialize(object));
+                jedis.setex(key.getBytes(), seconds, BeanUtil.serialize(object));
             } else {
-                jedis.set(key.getBytes(), ConvertUtil.serialize(object));
+                jedis.set(key.getBytes(), BeanUtil.serialize(object));
             }
         } catch (Exception e) {
             log.error("redis set failed!", e);
@@ -1219,7 +1219,7 @@ public class RedisPoolUtil {
 
         try {
             jedis = getJedis();
-            return ConvertUtil.unserialize(jedis.hget(key.getBytes(), fieldName.getBytes()), clazz);
+            return BeanUtil.unserialize(jedis.hget(key.getBytes(), fieldName.getBytes()), clazz);
         } catch (Exception e) {
             log.error("redis hget failed!", e);
             return null;
@@ -1295,7 +1295,7 @@ public class RedisPoolUtil {
         Jedis jedis = null;
         try {
             jedis = getJedis();
-            jedis.hset(key.getBytes(), fieldName.getBytes(), ConvertUtil.serialize(object));
+            jedis.hset(key.getBytes(), fieldName.getBytes(), BeanUtil.serialize(object));
             if (seconds > 0) {
                 jedis.expire(key.getBytes(), seconds);
             }
@@ -1534,7 +1534,7 @@ public class RedisPoolUtil {
         Long ret = null;
         try {
             jedis = getJedis();
-            byte[] bytes = ConvertUtil.serialize(value);
+            byte[] bytes = BeanUtil.serialize(value);
             ret = jedis.lpush(key.getBytes(), bytes);
 
             if (second > 0) {
@@ -1627,7 +1627,7 @@ public class RedisPoolUtil {
         Jedis jedis = null;
         try {
             jedis = getJedis();
-            return ConvertUtil.unserialize(jedis.lrange(key.getBytes(), start, end), clazz);
+            return BeanUtil.unserialize(jedis.lrange(key.getBytes(), start, end), clazz);
         } catch (Exception e) {
             log.error("redis lrange data failed , key = " + key, e);
         } finally {

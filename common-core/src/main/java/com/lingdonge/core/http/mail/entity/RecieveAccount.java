@@ -28,7 +28,7 @@ public class RecieveAccount extends BaseEntity {
     /**
      * 附件保存路径
      */
-    private String attach_path = FileUtil.getFile(Utils.CurrentDir, "recieveMailAttach").getAbsolutePath();//附件存放目录
+    private String attach_path = FileUtil.file(Utils.CurrentDir, "recieveMailAttach").getAbsolutePath();//附件存放目录
     /**
      * 收取用户名
      */

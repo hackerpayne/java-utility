@@ -1,8 +1,8 @@
 package com.lingdonge.db.util;
 
-import com.lingdonge.core.exceptions.UtilException;
-import com.lingdonge.core.reflect.ClassUtil;
-import com.lingdonge.core.util.ReflectUtil;
+import cn.hutool.core.exceptions.UtilException;
+import cn.hutool.core.util.ReflectUtil;
+import com.lingdonge.core.reflect.BeanUtil;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.beans.BeanInfo;
@@ -35,8 +35,8 @@ public class DefaultRowMapper implements RowMapper<Object> {
 
     @Override
     public Object mapRow(ResultSet resultSet, int i) throws SQLException {
-        Object entity = ClassUtil.newInstance(this.clazz);
-        BeanInfo beanInfo = ReflectUtil.getBeanInfo(this.clazz);
+        Object entity = ReflectUtil.newInstance(this.clazz);
+        BeanInfo beanInfo = BeanUtil.getBeanInfo(this.clazz);
         PropertyDescriptor[] pds = beanInfo.getPropertyDescriptors();
         for (PropertyDescriptor pd : pds) {
             String column = nameHandler.getColumnName(pd.getName());

@@ -1,8 +1,7 @@
 package com.lingdonge.http.jsouputil;
 
 import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
-import com.lingdonge.core.collection.ArrayUtil;
+import com.lingdonge.core.collection.CollectionUtil;
 import com.lingdonge.core.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -161,7 +160,7 @@ public class JsoupUtil {
         List<String> listAvalableTags = Splitter.on(",").omitEmptyStrings().trimResults().splitToList(avalableTags);
 
         Whitelist myCustomWhitelist = new Whitelist();
-        List<String> whiteLists = ArrayUtil.removeItem(listAvalableTags, Lists.newArrayList(listTagsToClear));
+        List<String> whiteLists = CollectionUtil.removeItems(listAvalableTags, listTagsToClear);
         myCustomWhitelist.addTags(whiteLists.toArray(new String[whiteLists.size()]));
         return Jsoup.clean(input, myCustomWhitelist);
     }

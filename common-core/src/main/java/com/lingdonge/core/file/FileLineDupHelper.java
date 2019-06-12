@@ -20,12 +20,6 @@ import java.util.List;
 @Slf4j
 public class FileLineDupHelper {
 
-    public static void main(String[] args) {
-        List<String> listTests = Splitter.onPattern("[\r|\n|\\||,| |\t]").omitEmptyStrings().trimResults().splitToList("wangliyan@netconcepts.cn|\r" +
-                "christy@netconcepts.cn|zhengjian@netconcepts.cn,www.ok.com");
-
-        System.out.println(Joiner.on("---").join(listTests));
-    }
 
     /**
      * 使用Bloom Filter判断是否重复，把不重复的内容输入到新的文件里面

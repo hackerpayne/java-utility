@@ -1,6 +1,7 @@
 package com.lingdonge.excel;
 
-import com.lingdonge.core.collection.MapUtil;
+import cn.hutool.core.collection.IterUtil;
+import cn.hutool.core.io.IoUtil;
 import com.lingdonge.core.util.StringUtils;
 import com.monitorjbl.xlsx.StreamingReader;
 import lombok.extern.slf4j.Slf4j;
@@ -141,7 +142,7 @@ public class ExcelHelper {
                     for (String row : rowlist) {
                         cellValues.add(row);
                     }
-                    result.add(MapUtil.toMap(headerList, cellValues));
+                    result.add(IterUtil.toMap(headerList, cellValues));
                 }
             }
         };
@@ -223,8 +224,9 @@ public class ExcelHelper {
         } catch (Exception e) {
             throw new Exception("analysis excel exception!", e);
         } finally {
-            if (workbook != null)
+            if (workbook != null) {
                 workbook.close();
+            }
         }
 
         return list;
@@ -344,13 +346,7 @@ public class ExcelHelper {
         } catch (Exception e) {
             log.error("createWorkbookByFile读取文件异常", e);
         } finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (Exception e) {
-                    log.error("createWorkbookByFile读取文件异常", e);
-                }
-            }
+            IoUtil.close(fis);
         }
 
         return book;
@@ -365,8 +361,9 @@ public class ExcelHelper {
      */
     public static Integer getSheetNum(String filePath) {
         Workbook book = createWorkbookByFile(filePath);
-        if (book != null)
+        if (book != null) {
             return book.getNumberOfSheets();
+        }
         return 0;
     }
 
@@ -378,8 +375,9 @@ public class ExcelHelper {
     public static String getSheetName(String filePath, Integer sheetIndex) {
         Workbook book = createWorkbookByFile(filePath);
 
-        if (book != null)
+        if (book != null) {
             return book.getSheetName(sheetIndex);
+        }
         return null;
     }
 

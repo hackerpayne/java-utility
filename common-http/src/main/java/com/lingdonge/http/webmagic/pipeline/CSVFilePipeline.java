@@ -1,8 +1,8 @@
 package com.lingdonge.http.webmagic.pipeline;
 
+import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
 import com.lingdonge.core.file.FileUtil;
-import com.lingdonge.core.util.StringUtils;
 import com.lingdonge.core.util.Utils;
 import com.lingdonge.http.webmagic.ResultItems;
 import com.lingdonge.http.webmagic.Task;
@@ -36,7 +36,7 @@ public class CSVFilePipeline implements Pipeline {
      */
     public CSVFilePipeline(Map<String, String> headers, String savePath) {
 
-        this.saveFilePath = FileUtil.getFile(Utils.CurrentDir, "data", savePath).getAbsolutePath();
+        this.saveFilePath = FileUtil.file(Utils.CurrentDir, "data", savePath).getAbsolutePath();
 
         try {
             CSVFormat format = CSVFormat.DEFAULT.withRecordSeparator("\n");
@@ -76,7 +76,7 @@ public class CSVFilePipeline implements Pipeline {
         listDatas.add(itemData);
 
         if (listDatas.size() <= 0) {
-            log.error(StringUtils.format("CompanyDataPipeline保存URL：【{}】到数据库出错，表名不能为空，数据不能为空！！！", url));
+            log.error(StrUtil.format("CompanyDataPipeline保存URL：【{}】到数据库出错，表名不能为空，数据不能为空！！！", url));
             return;//没数据直接跳出了，不要进去处理了
         }
 
