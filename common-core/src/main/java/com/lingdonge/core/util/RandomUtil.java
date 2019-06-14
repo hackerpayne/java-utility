@@ -1,13 +1,9 @@
 package com.lingdonge.core.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
+import com.lingdonge.core.dates.LocalDateUtil;
+
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -382,6 +378,25 @@ public class RandomUtil {
             rn = "0";
         }
         return rn;
+    }
+
+    /**
+     * 生成一个订单ID号
+     *
+     * @return
+     */
+    public static String getOrderId() {
+        return getOrderId(LocalDateTime.now());
+    }
+
+    /**
+     * 生成一个订单ID号
+     *
+     * @param localDateTime
+     * @return
+     */
+    public static String getOrderId(LocalDateTime localDateTime) {
+        return LocalDateUtil.getTime(localDateTime, "yyyyMMddHHmmss") + getRandNumber(4);
     }
 
 }

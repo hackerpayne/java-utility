@@ -4,8 +4,8 @@ import com.lingdonge.http.jsoupxpath.exception.XpathSyntaxErrorException;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.List;
 

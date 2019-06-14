@@ -338,19 +338,33 @@ public class DocumentX {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null) return false;
-        if (getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
 
         DocumentX other = (DocumentX) obj;
 
         if (all == null) {
-            if (other.all != null) return false;
-        } else if (!all.equals(other.all)) return false;
+            if (other.all != null) {
+                return false;
+            }
+        } else if (!all.equals(other.all)) {
+            return false;
+        }
 
         if (currentEles == null) {
-            if (other.currentEles != null) return false;
-        } else if (!currentEles.equals(other.currentEles)) return false;
+            if (other.currentEles != null) {
+                return false;
+            }
+        } else if (!currentEles.equals(other.currentEles)) {
+            return false;
+        }
 
         if (doc == null) {
             if (other.doc != null) return false;
@@ -359,8 +373,9 @@ public class DocumentX {
     }
 
     public Element get(int idx) throws Exception {
-        if (idx < 0 || idx > currentEles.size())
+        if (idx < 0 || idx > currentEles.size()) {
             throw new Exception("传入的下标(" + idx + ") 超出当前节点集的范围(" + currentEles.size() + ")");
+        }
 
         return currentEles.get(idx);
     }

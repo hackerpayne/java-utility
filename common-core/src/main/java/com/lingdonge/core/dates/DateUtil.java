@@ -621,7 +621,6 @@ public class DateUtil {
 
     }
 
-
     /**
      * 把字符串按照多种形式进行解析
      *
@@ -653,12 +652,6 @@ public class DateUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String sDate = sdf.format(date);
         return sDate;
-    }
-
-    public static String orderNumber(Date date) throws Exception {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        String order = sdf.format(date) + RandomValidateCodeUtil.createRandomNum(4);
-        return order;
     }
 
     /**
@@ -707,11 +700,4 @@ public class DateUtil {
         return dayAfter;
     }
 
-
-
-    public static void main(String[] args) {
-
-        List<String> listDates = getDatesBetween("2018-01-10", "2018-01-22");
-        System.out.println(listDates.size());
-    }
 }

@@ -1,13 +1,11 @@
 package com.lingdonge.core.dates;
 
-import cn.hutool.core.date.DateUtil;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,67 +15,7 @@ import java.util.stream.Stream;
 /**
  * 如果是 Java 8 ，建议使用 DateTimeFormatter 代替 SimpleDateFormat。
  */
-public class LocalDateUtil extends DateUtil {
-
-
-    private void testLocalDate() {
-        // 获取当前日期
-        LocalDate now = LocalDate.now();
-        // 设置日期
-        LocalDate now2 = LocalDate.of(2099, 2, 28);
-        // 解析日期，格式必须是yyyy-MM-dd
-        LocalDate now3 = LocalDate.parse("2018-01-12");
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        String formatRs = now.format(dtf);
-
-        // 取本月第一天
-        LocalDate firstDay = now.with(TemporalAdjusters.firstDayOfMonth());
-        LocalDate firstDay2 = now.withDayOfMonth(1);
-
-        // 取本月第2天
-        LocalDate secondDay = now.withDayOfMonth(2);
-        LocalDate nextMonthDay = now.with(TemporalAdjusters.firstDayOfNextMonth());
-        LocalDate nextYearDay = now.with(TemporalAdjusters.firstDayOfNextYear());
-
-        // 明年的这一天
-        LocalDate localDate = now.plusYears(1);
-
-        // 当前日期加上往后推20天
-        LocalDate plusDate = now.plus(20, ChronoUnit.DAYS);
-        LocalDate plusYear = now.plus(10, ChronoUnit.YEARS);
-
-        // 当前日期往前推10天
-        LocalDate minusDay = now.minusDays(10);
-        LocalDate minusYear = now.minus(10, ChronoUnit.YEARS);
-
-        //localDate转Date
-        ZoneId zoneId = ZoneId.systemDefault();
-        ZonedDateTime zdt = now.atStartOfDay(zoneId);
-        Instant instant = zdt.toInstant();
-        Date fromDate = Date.from(instant);
-
-        // Date转LocalDate
-        Date date = new Date();
-        Instant instantToUse = date.toInstant();
-        ZoneId zoneIdToUse = ZoneId.systemDefault();
-        LocalDate localDateToShow = instantToUse.atZone(zoneIdToUse).toLocalDate();
-
-        // 比较日期大小
-        boolean b1 = localDateToShow.equals(LocalDate.of(2018, 04, 27));
-        boolean b2 = localDateToShow.equals(LocalDate.of(2018, 04, 26));
-
-        // 判断日期前后  -> false
-        boolean b3 = localDateToShow.isAfter(LocalDate.of(2018, 04, 26));//false
-        boolean b4 = localDateToShow.isAfter(LocalDate.of(2018, 04, 25));//true
-        boolean b5 = localDateToShow.isBefore(LocalDate.of(2018, 04, 26));//false
-        boolean b6 = localDateToShow.isBefore(LocalDate.of(2018, 04, 25));//false
-        boolean b7 = localDateToShow.isBefore(LocalDate.of(2018, 04, 27));//true
-
-        // 计算两个日期之间的时间间隔   格式为：x年x月x天
-        Period between = Period.between(localDateToShow, LocalDate.of(2018, 05, 28));
-        long bwDays = ChronoUnit.DAYS.between(localDateToShow, LocalDate.of(2018, 05, 28));
-
-    }
+public class LocalDateUtil {
 
     /**
      * Date转LocalDate
@@ -289,6 +227,12 @@ public class LocalDateUtil extends DateUtil {
         return getStartOfDay(localDateTime).format(formatter);
     }
 
+    /**
+     * 获取一天开始时间
+     *
+     * @param localDate
+     * @return
+     */
     public static String getStartOfDayStr(LocalDate localDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DatePattern.DATE_TIME_FORMAT);
         return getStartOfDay(localDate).format(formatter);
@@ -304,6 +248,12 @@ public class LocalDateUtil extends DateUtil {
         return localDateTime.with(LocalTime.MAX);
     }
 
+    /**
+     * 获取一天结束时间
+     *
+     * @param localDate
+     * @return
+     */
     public static LocalDateTime getEndOfDay(LocalDate localDate) {
         return localDate.atTime(LocalTime.MAX);
     }
@@ -319,6 +269,12 @@ public class LocalDateUtil extends DateUtil {
         return getEndOfDay(localDateTime).format(formatter);
     }
 
+    /**
+     * 获取一天结束时间
+     *
+     * @param localDate
+     * @return
+     */
     public static String getEndOfDayStr(LocalDate localDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DatePattern.DATE_TIME_FORMAT);
         return getEndOfDay(localDate).format(formatter);
@@ -334,7 +290,6 @@ public class LocalDateUtil extends DateUtil {
         Instant instant = Instant.ofEpochMilli(timestamp);
         return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     }
-
 
     /**
      * LocalDateTime转时间戳
@@ -357,6 +312,18 @@ public class LocalDateUtil extends DateUtil {
     public static LocalDateTime parseStr(String time, String format) {
         DateTimeFormatter df = DateTimeFormatter.ofPattern(format);
         return LocalDateTime.parse(time, df);
+    }
+
+    /**
+     * 指定时间格式，转为日期
+     *
+     * @param time
+     * @param format
+     * @return
+     */
+    public static LocalDate parseStrToDate(String time, String format) {
+        DateTimeFormatter df = DateTimeFormatter.ofPattern(format);
+        return LocalDate.parse(time, df);
     }
 
     /**
