@@ -1,6 +1,6 @@
 package com.lingdonge.core.file;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.io.File;
 import java.util.Arrays;

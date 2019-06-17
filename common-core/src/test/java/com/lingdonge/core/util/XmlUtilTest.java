@@ -1,8 +1,8 @@
 package com.lingdonge.core.util;
 
-import com.lingdonge.core.file.xml.XmlUtil;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import cn.hutool.core.util.XmlUtil;
+import org.junit.Assert;
+import org.junit.Test;
 import org.w3c.dom.Document;
 
 /**

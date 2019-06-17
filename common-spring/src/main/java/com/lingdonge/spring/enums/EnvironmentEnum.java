@@ -3,8 +3,9 @@ package com.lingdonge.spring.enums;
 
 import com.lingdonge.core.bean.base.NameValue;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 开发环境枚举
@@ -31,21 +32,12 @@ public enum EnvironmentEnum {
         return value;
     }
 
-    public static String getName(Integer value) {
-        for (EnvironmentEnum item : values()) {
-            if (value != null && item.value.equals(value)) {
-                return item.name;
-            }
-        }
-        return "未知类型-" + value;
+    public static EnvironmentEnum getItem(String value) {
+        return Arrays.stream(values()).filter(item -> item.value.equals(value)).findAny().get();
     }
 
     public static List<NameValue> getItemList() {
-        List<NameValue> dataList = new ArrayList<NameValue>();
-        for (EnvironmentEnum item : values()) {
-            dataList.add(new NameValue(item.name, item.value));
-        }
-        return dataList;
+        return Arrays.stream(values()).map(item -> new NameValue(item.name, item.value)).collect(Collectors.toList());
     }
 
 }

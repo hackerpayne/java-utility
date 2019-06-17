@@ -1,7 +1,7 @@
 package com.lingdonge.core.lang;
 
-import com.lingdonge.core.reflect.Console;
-import org.testng.annotations.Test;
+import cn.hutool.core.lang.Console;
+import org.junit.Test;
 
 /**
  * 控制台单元测试

@@ -1,8 +1,8 @@
 package com.lingdonge.core.http;
 
 
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 /**
  * Created by Kyle on 16/8/29.

@@ -1,9 +1,5 @@
 package com.lingdonge.core.util;
 
-
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 /**
  * 身份证单元测试
  *

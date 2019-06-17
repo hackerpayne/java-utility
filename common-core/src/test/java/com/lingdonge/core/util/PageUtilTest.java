@@ -1,8 +1,8 @@
 package com.lingdonge.core.util;
 
 import com.lingdonge.core.page.PageUtil;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * 分页单元测试

@@ -1,13 +1,13 @@
 package com.lingdonge.core.util;
 
 
+import cn.hutool.core.lang.Console;
+import cn.hutool.core.util.StrUtil;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
-import com.lingdonge.core.reflect.Console;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -16,8 +16,8 @@ import java.util.List;
  *
  * @author Looly
  */
+@Slf4j
 public class StringUtilsTest {
-    private static final Logger logger = LoggerFactory.getLogger(StringUtilsTest.class);
 
     @Test
     public void isBlankTest() {
@@ -36,21 +36,21 @@ public class StringUtilsTest {
     public void cleanBlankTest() {
         //包含：制表符、英文空格、不间断空白符、全角空格
         String str = "	 你 好　";
-        String cleanBlank = StringUtils.cleanBlank(str);
+        String cleanBlank = StrUtil.cleanBlank(str);
         Assert.assertEquals("你好", cleanBlank);
     }
 
     @Test
     public void cutTest() {
         String str = "aaabbbcccdddaadfdfsdfsdf0";
-        String[] cut = StringUtils.cut(str, 4);
+        String[] cut = StrUtil.cut(str, 4);
         Console.log(cut);
     }
 
     @Test
     public void splitTest() {
         String str = "a,b ,c,d,,e";
-        List<String> split = StringUtils.split(str, ',', -1, true, true);
+        List<String> split = StrUtil.split(str, ',', -1, true, true);
         //测试空是否被去掉
         Assert.assertEquals(5, split.size());
         //测试去掉两边空白符是否生效

@@ -1,8 +1,8 @@
 package com.lingdonge.core.lang;
 
 import com.lingdonge.core.encode.Base32;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class Base32Test {
 

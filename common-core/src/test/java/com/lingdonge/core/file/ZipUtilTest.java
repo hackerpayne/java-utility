@@ -14,10 +14,10 @@ public class ZipUtilTest {
 
     public static void main(String[] args) throws IOException {
 
-        ZipOutputStream out = ZipUtil.getZipOutputStream(FileUtil.getFile(Utils.CurrentDir, "multithreading.zip"));
+        ZipOutputStream out = ZipUtil.getZipOutputStream(FileUtil.file(Utils.CurrentDir, "multithreading.zip"));
 
         // 添加文件进来
-        InputStream stream = FileUtil.getInputStream(FileUtil.getFile(Utils.CurrentDir, "pom.xml"));
+        InputStream stream = FileUtil.getInputStream(FileUtil.file(Utils.CurrentDir, "pom.xml"));
         out.putNextEntry(new ZipEntry("pom.xml"));
         IOUtils.copy(stream, out);
         out.flush();

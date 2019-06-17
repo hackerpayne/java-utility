@@ -1,6 +1,6 @@
 package com.lingdonge.core.encode;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 public class Base62Test {
 

@@ -6,13 +6,14 @@ import com.alibaba.fastjson.TypeReference;
 import com.google.common.collect.Maps;
 import com.lingdonge.core.http.RequestUtil;
 import com.lingdonge.core.http.UrlUtils;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.security.*;
-import java.util.*;
+import java.security.KeyPair;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RSASignUtilTest {
 

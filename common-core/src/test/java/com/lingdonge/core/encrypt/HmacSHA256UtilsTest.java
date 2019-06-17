@@ -1,7 +1,7 @@
 package com.lingdonge.core.encrypt;
 
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 public class HmacSHA256UtilsTest {
 

@@ -1,10 +1,5 @@
 package com.lingdonge.core.lang;
 
-import com.lingdonge.core.util.ValidateUtil;
-import com.lingdonge.core.exceptions.ValidateException;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 /**
  * 验证器单元测试
  *
@@ -32,14 +27,14 @@ public class ValidatorTest {
 //        Assert.assertFalse(ValidateUtil.isBirthday("2015.02.29"));
 //    }
 
-    @Test
-    public void isCitizenIdTest() {
-        boolean b = ValidateUtil.isCitizenId("150218199012123389");
-        Assert.assertTrue(b);
-    }
-
-    //	@Test(expected=ValidateException.class)
-    public void validateTest() throws ValidateException {
-        ValidateUtil.validateChinese("我是一段zhongwen", "内容中包含非中文");
-    }
+//    @Test
+//    public void isCitizenIdTest() {
+//        boolean b = ValidateUtil.isCitizenId("150218199012123389");
+//        Assert.assertTrue(b);
+//    }
+//
+//    //	@Test(expected=ValidateException.class)
+//    public void validateTest() throws ValidateException {
+//        ValidateUtil.validateChinese("我是一段zhongwen", "内容中包含非中文");
+//    }
 }

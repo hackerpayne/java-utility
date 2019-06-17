@@ -1,5 +1,6 @@
 package com.lingdonge.spring.web;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.net.HttpHeaders;
@@ -415,7 +416,25 @@ public class SpringRequestUtil extends RequestUtil {
 
 //            response.getWriter().write(string);
 
-        } catch (IOException e) {
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * 输出Excel的头信息
+     *
+     * @param response
+     * @param fileName
+     */
+    public static void writeExcel(HttpServletResponse response, String fileName) {
+        try {
+            response.setContentType("application/msexcel");
+            response.setHeader("Content-Disposition", "attachment;filename=" + StrUtil.utf8Bytes(fileName));
+            response.addHeader("Pargam", "no-cache");
+            response.addHeader("Cache-Control", "no-cache");
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -604,7 +623,7 @@ public class SpringRequestUtil extends RequestUtil {
      */
     public ModelAndView redirect302(String url) {
         RedirectView red = new RedirectView(url, true);
-        red.setStatusCode(HttpStatus.MOVED_TEMPORARILY);
+        red.setStatusCode(HttpStatus.FOUND);
         return new ModelAndView(red);
     }
 

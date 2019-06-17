@@ -1,7 +1,7 @@
 package com.lingdonge.core.encrypt;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 public class Md5UtilTest {
     @Test
@@ -31,7 +31,6 @@ public class Md5UtilTest {
     }
 
     public void testNewMd5() {
-
 
 
     }

@@ -1,8 +1,9 @@
 package com.lingdonge.core.file.tests;
 
+import cn.hutool.core.util.StrUtil;
+import com.lingdonge.core.dates.DateUtil;
 import com.lingdonge.core.file.FileUtil;
 import com.lingdonge.core.util.StringUtils;
-import com.lingdonge.core.dates.DateUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.slf4j.Logger;
@@ -49,7 +50,7 @@ public class ParseNginxLogToDB {
         for (File file : files) {
             pos++;
             if (file.getAbsolutePath().contains("DS_Store")) continue;
-            logger.info(StringUtils.format("读取文件【{}/{}】：{}", pos, files.size(), file.getAbsolutePath()));
+            logger.info(StrUtil.format("读取文件【{}/{}】：{}", pos, files.size(), file.getAbsolutePath()));
 
             try {
                 process(file);
@@ -113,7 +114,7 @@ public class ParseNginxLogToDB {
                 matcher = pattern.matcher(line);
 
                 if (!matcher.find()) {
-                    logger.info(StringUtils.format("匹配文件{}，第{}行，失败", file.getPath(), pos));
+                    logger.info(StrUtil.format("匹配文件{}，第{}行，失败", file.getPath(), pos));
                     ipAddr = "";
                     userAgent = "";
                 } else {
@@ -133,7 +134,7 @@ public class ParseNginxLogToDB {
 
             }
 
-            logger.info(StringUtils.format("读取文件：{}结束，共计{}行", file, pos));
+            logger.info(StrUtil.format("读取文件：{}结束，共计{}行", file, pos));
         } catch (IOException e) {
             logger.error("读取文件：" + file.getPath() + "，发生异常", e);
         } finally {

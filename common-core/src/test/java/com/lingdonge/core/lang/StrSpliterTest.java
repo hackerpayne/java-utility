@@ -1,8 +1,8 @@
 package com.lingdonge.core.lang;
 
-import com.lingdonge.core.util.StrSpliter;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import cn.hutool.core.text.StrSpliter;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.List;
 

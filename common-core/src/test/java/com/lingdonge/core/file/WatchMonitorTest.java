@@ -1,7 +1,7 @@
 package com.lingdonge.core.file;
 
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * 文件监听单元测试

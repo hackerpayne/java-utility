@@ -2,16 +2,13 @@ package com.lingdonge.core.file;
 
 import com.google.common.base.Joiner;
 import com.lingdonge.core.file.csv.CsvHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.annotations.Test;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 
 import java.util.ArrayList;
 
+@Slf4j
 public class CsvHelperTest {
-
-    private static final Logger logger = LoggerFactory.getLogger(CsvHelperTest.class);
-
 //    @Test
 //    public void testReadLine() throws Exception {
 //        CsvHelper csv = new CsvHelper(FileUtil.getFile(Utils.CurrentDir, "logs", "39健康网外链.csv").getAbsolutePath());

@@ -2,7 +2,7 @@ package com.lingdonge.core.algorithm;
 
 import com.lingdonge.core.file.FileUtil;
 import com.lingdonge.core.util.Utils;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.Set;
 
@@ -12,7 +12,7 @@ public class SensitivewordFilterTest {
     public void test() {
 
         System.out.println(Utils.CurrentDir);
-        SensitivewordFilter filter = new SensitivewordFilter(FileUtil.getFile(Utils.CurrentDir, "logs", "blackwords.txt").getAbsolutePath());
+        SensitivewordFilter filter = new SensitivewordFilter(FileUtil.file(Utils.CurrentDir, "logs", "blackwords.txt").getAbsolutePath());
         System.out.println("敏感词的数量：" + filter.sensitiveWordMap.size());
         String string = "这是一个色情和暴力相关的文章的一些数据";
 

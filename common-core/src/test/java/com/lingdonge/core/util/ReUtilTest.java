@@ -1,11 +1,11 @@
 package com.lingdonge.core.util;
 
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.ReUtil;
 import com.google.common.base.Splitter;
-import com.lingdonge.core.collection.CollectionUtil;
-import com.lingdonge.core.regex.ReUtil;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +61,7 @@ public class ReUtilTest {
     public void findAllTest() {
         // 查找所有匹配文本
         List<String> resultFindAll = ReUtil.findAll("\\w{2}", content, 0, new ArrayList<String>());
-        ArrayList<String> expected = CollectionUtil.newArrayList("ZZ", "Za", "aa", "bb", "bc", "cc", "12", "34");
+        ArrayList<String> expected = CollUtil.newArrayList("ZZ", "Za", "aa", "bb", "bc", "cc", "12", "34");
         Assert.assertEquals(expected, resultFindAll);
     }
 

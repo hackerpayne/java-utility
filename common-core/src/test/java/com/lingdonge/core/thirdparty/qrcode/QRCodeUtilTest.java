@@ -19,7 +19,7 @@ public class QRCodeUtilTest {
 
         try {
             //生成二维码图片，并返回图片路径
-            String pathName = QRCodeUtil.generateQRCode(text, width, height, format, FileUtil.getFile(Utils.CurrentDir, "ok.png"));
+            String pathName = QRCodeUtil.generateQRCode(text, width, height, format, FileUtil.file(Utils.CurrentDir, "ok.png"));
             System.out.println("生成二维码的图片路径： " + pathName);
 
             String content = QRCodeUtil.parseQRCode(pathName);

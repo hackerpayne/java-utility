@@ -1,7 +1,7 @@
 package com.lingdonge.core.sys;
 
 import com.lingdonge.core.util.Utils;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * Created by Kyle on 16/10/12.

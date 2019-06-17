@@ -1,9 +1,9 @@
 package com.lingdonge.core.util;
 
 
-import com.lingdonge.core.reflect.Console;
-import com.lingdonge.core.reflect.TypeUtil;
-import org.testng.annotations.Test;
+import cn.hutool.core.lang.Console;
+import cn.hutool.core.util.TypeUtil;
+import org.junit.Test;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

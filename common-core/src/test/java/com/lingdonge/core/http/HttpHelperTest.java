@@ -1,18 +1,16 @@
 package com.lingdonge.core.http;
 
 import com.lingdonge.core.captcha.CaptchaFrame;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.annotations.Test;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 
 import java.awt.image.BufferedImage;
 
 /**
  * Created by kyle on 17/4/12.
  */
+@Slf4j
 public class HttpHelperTest {
-
-    private static final Logger logger = LoggerFactory.getLogger(HttpHelperTest.class);
 
     private HttpHelper http;
 
@@ -23,10 +21,9 @@ public class HttpHelperTest {
 
 //        ImageIO.write(img, "png", new File("result.png"));
 
-
         //显示输入框，输入用户验证码
         String input = new CaptchaFrame(img).getUserInput();
-        logger.info("验证码为：" + input);
+        log.info("验证码为：" + input);
     }
 
 }

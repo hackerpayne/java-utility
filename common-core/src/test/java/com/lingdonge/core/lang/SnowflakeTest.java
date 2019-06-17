@@ -2,8 +2,8 @@ package com.lingdonge.core.lang;
 
 
 import com.lingdonge.core.algorithm.Snowflake;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.HashSet;
 

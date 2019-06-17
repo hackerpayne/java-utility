@@ -1,6 +1,6 @@
 package com.lingdonge.core.util;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * Created by kyle on 17/5/7.

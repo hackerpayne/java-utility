@@ -1,6 +1,6 @@
 package com.lingdonge.core.http;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 public class HtmlUtilTest {
 

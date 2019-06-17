@@ -1,11 +1,11 @@
 package com.lingdonge.core.util;
 
 
-import com.lingdonge.core.reflect.Console;
+import cn.hutool.core.lang.Console;
 import com.lingdonge.core.encode.CharsetUtil;
 import com.lingdonge.core.encode.HexUtil;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * HexUtil单元测试

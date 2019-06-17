@@ -1,11 +1,11 @@
 package com.lingdonge.core.util;
 
 
+import cn.hutool.core.util.ReUtil;
 import com.lingdonge.core.http.net.NetUtil;
 import com.lingdonge.core.regex.PatternPool;
-import com.lingdonge.core.regex.ReUtil;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.net.InetAddress;
 

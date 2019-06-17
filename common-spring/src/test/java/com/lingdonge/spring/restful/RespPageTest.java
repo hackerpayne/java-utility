@@ -10,7 +10,7 @@ public class RespPageTest {
     @Test
     public void testFailResult() throws Exception {
         System.out.println("失败结果");
-        System.out.println(RespPage.fail(ResultCode.SuccessCode, "TestResutl"));
+//        System.out.println(RespPage.fail(ResultCode.SuccessCode, "TestResutl"));
     }
 
 
@@ -31,7 +31,7 @@ public class RespPageTest {
         listData.add(modelTest);
 
         System.out.println("失败结果2");
-        System.out.println(RespPage.fail(ResultCode.SuccessCode, "TestResutl", listData));
+//        System.out.println(RespPage.fail(ResultCode.SuccessCode, "TestResutl", listData));
     }
 
     @Test

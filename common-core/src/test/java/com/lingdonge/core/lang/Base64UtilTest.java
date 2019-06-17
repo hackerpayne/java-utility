@@ -1,10 +1,10 @@
 package com.lingdonge.core.lang;
 
 
-import com.lingdonge.core.util.StringUtils;
+import cn.hutool.core.util.StrUtil;
 import com.lingdonge.core.encode.Base64Util;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 public class Base64UtilTest {
 
@@ -21,7 +21,7 @@ public class Base64UtilTest {
     @Test
     public void urlSafeEncodeAndDecodeTest() {
         String a = "伦家需要安全感55";
-        String encode = StringUtils.utf8Str(Base64Util.encode(a));
+        String encode = StrUtil.utf8Str(Base64Util.encode(a));
         Assert.assertEquals("5Lym5a626ZyA6KaB5a6J5YWo5oSfNTU", encode);
 
         String decodeStr = Base64Util.decode(encode);
