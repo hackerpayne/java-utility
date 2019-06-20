@@ -1,12 +1,15 @@
-package com.lingdonge.redis;
+package com.lingdonge.redis.service;
 
+import com.lingdonge.redis.ClientThread;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 
 
 @Slf4j
 public class JedisHelperTest {
 
-    public static void main(String[] args) {
+    @Test
+    public void testJedis() {
 
 //        logger.info("开始进行测试");
 

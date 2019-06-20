@@ -1,6 +1,6 @@
 package com.lingdonge.redis.configuration.custom;
 
-import com.lingdonge.redis.RedisConfigUtil;
+import com.lingdonge.redis.util.RedisConnUtil;
 import com.lingdonge.redis.service.RedisClusterUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class RedisClusterAutoConfiguration {
      */
     @Bean
     public RedisClusterConfiguration redisClusterConfiguration() {
-        return RedisConfigUtil.buildRedisClusterConfiguration(redisProperties);
+        return RedisConnUtil.buildRedisClusterConfiguration(redisProperties);
     }
 
     /**
@@ -40,7 +40,7 @@ public class RedisClusterAutoConfiguration {
      */
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
-        return new JedisConnectionFactory(redisClusterConfiguration(), RedisConfigUtil.getJedisPoolConfig(redisProperties));
+        return new JedisConnectionFactory(redisClusterConfiguration(), RedisConnUtil.getJedisPoolConfig(redisProperties));
     }
 
     /**
@@ -50,7 +50,7 @@ public class RedisClusterAutoConfiguration {
      */
     @Bean
     public JedisCluster jedisCluster() {
-        return new JedisCluster(RedisConfigUtil.getClusterNodes(redisProperties), RedisConfigUtil.getJedisPoolGenericConfig(redisProperties));
+        return new JedisCluster(RedisConnUtil.getClusterNodes(redisProperties), RedisConnUtil.getJedisPoolGenericConfig(redisProperties));
     }
 
     /**

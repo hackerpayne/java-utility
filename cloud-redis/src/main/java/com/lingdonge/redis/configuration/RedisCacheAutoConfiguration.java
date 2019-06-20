@@ -1,6 +1,6 @@
 package com.lingdonge.redis.configuration;
 
-import com.lingdonge.redis.RedisConfigUtil;
+import com.lingdonge.redis.util.RedisConnUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -27,7 +27,7 @@ public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
     @Override
     public KeyGenerator keyGenerator() {
         log.info("<<<<<<<<<<<<<<< 加载 RedisCacheConfig.keyGenerator自定义生成Key  >>>>>>>>>>>>>>>>>>");
-        return RedisConfigUtil.getCacheKeyGenerater();
+        return RedisConnUtil.getCacheKeyGenerater();
     }
 
     /**
@@ -38,7 +38,7 @@ public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
      */
     @Bean
     public RedisCacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
-        return RedisConfigUtil.getCacheManager(redisConnectionFactory);
+        return RedisConnUtil.getCacheManager(redisConnectionFactory);
     }
 
 

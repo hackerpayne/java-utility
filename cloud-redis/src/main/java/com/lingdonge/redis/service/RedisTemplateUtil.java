@@ -1,6 +1,6 @@
 package com.lingdonge.redis.service;
 
-import com.lingdonge.redis.RedisConfigUtil;
+import com.lingdonge.redis.util.RedisConnUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.dao.DataAccessException;
@@ -31,7 +31,7 @@ public class RedisTemplateUtil {
      * @param redisProperties
      */
     public RedisTemplateUtil(RedisProperties redisProperties) {
-        this.redisTemplate = RedisConfigUtil.getRedisTemplateFromJedis(redisProperties);
+        this.redisTemplate = RedisConnUtil.getRedisTemplateFromJedis(redisProperties);
         this.afterPropertySet();//注入和生成实例
     }
 

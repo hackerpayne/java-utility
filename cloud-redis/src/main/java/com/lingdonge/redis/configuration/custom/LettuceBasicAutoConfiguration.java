@@ -1,6 +1,6 @@
 package com.lingdonge.redis.configuration.custom;
 
-import com.lingdonge.redis.RedisConfigUtil;
+import com.lingdonge.redis.util.RedisConnUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -32,7 +32,7 @@ public class LettuceBasicAutoConfiguration {
      */
     @Bean
     public LettuceConnectionFactory lettuceConnectionFactory() {
-        return RedisConfigUtil.getLettuceConnectionFactory(redisProperties);
+        return RedisConnUtil.getLettuceConnectionFactory(redisProperties);
     }
 
     /**
@@ -44,7 +44,7 @@ public class LettuceBasicAutoConfiguration {
     @Bean
     public RedisTemplate redisTemplate(LettuceConnectionFactory connectionFactory) {
         log.info("<<<<<<<<<<<<<<< 加载 RedisTemplate 服务 >>>>>>>>>>>>>>>>>>");
-        return RedisConfigUtil.getRedisTemplate(connectionFactory);
+        return RedisConnUtil.getRedisTemplate(connectionFactory);
 
     }
 

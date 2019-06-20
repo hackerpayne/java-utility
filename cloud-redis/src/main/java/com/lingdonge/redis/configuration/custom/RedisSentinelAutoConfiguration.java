@@ -1,6 +1,6 @@
 package com.lingdonge.redis.configuration.custom;
 
-import com.lingdonge.redis.RedisConfigUtil;
+import com.lingdonge.redis.util.RedisConnUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
@@ -30,7 +30,7 @@ public class RedisSentinelAutoConfiguration {
      */
     @Bean
     public RedisSentinelConfiguration sentinelConfiguration() {
-        return RedisConfigUtil.buildRedisSentinelConfiguration(redisProperties);
+        return RedisConnUtil.buildRedisSentinelConfiguration(redisProperties);
     }
 
     /**
@@ -40,7 +40,7 @@ public class RedisSentinelAutoConfiguration {
      */
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
-        return new JedisConnectionFactory(sentinelConfiguration(), RedisConfigUtil.getJedisPoolConfig(redisProperties));
+        return new JedisConnectionFactory(sentinelConfiguration(), RedisConnUtil.getJedisPoolConfig(redisProperties));
     }
 
     /**
@@ -51,6 +51,6 @@ public class RedisSentinelAutoConfiguration {
     @Bean
     public RedisTemplate redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         log.info("<<<<<<<<<<<<<<< 加载 RedisTemplate 服务 >>>>>>>>>>>>>>>>>>");
-        return RedisConfigUtil.getRedisTemplate(redisConnectionFactory);
+        return RedisConnUtil.getRedisTemplate(redisConnectionFactory);
     }
 }

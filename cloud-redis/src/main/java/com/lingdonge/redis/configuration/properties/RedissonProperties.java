@@ -10,7 +10,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * 设置Redisson配置
  */
 @ConfigurationProperties(prefix = "redisson")
-//@ConditionalOnProperty("redisson.password")
 @Getter
 @Setter
 public class RedissonProperties {

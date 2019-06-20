@@ -2,7 +2,7 @@ package com.lingdonge.redis.service;
 
 import com.alibaba.fastjson.JSON;
 import com.lingdonge.core.reflect.BeanUtil;
-import com.lingdonge.redis.RedisConfigUtil;
+import com.lingdonge.redis.util.RedisConnUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
@@ -64,7 +64,7 @@ public class RedisPoolUtil {
 //        pool = new JedisPool(config, properties.getHost(), properties.getPort(), properties.getTimeout(), properties.getPassword(), properties.getDatabase());
 
         // Spring 2.x
-        pool = new JedisPool(RedisConfigUtil.getJedisPoolGenericConfig(properties), properties.getHost(), properties.getPort(), ((int) (properties.getTimeout().toMillis())), properties.getPassword(), properties.getDatabase());
+        pool = new JedisPool(RedisConnUtil.getJedisPoolGenericConfig(properties), properties.getHost(), properties.getPort(), ((int) (properties.getTimeout().toMillis())), properties.getPassword(), properties.getDatabase());
     }
 
     /**

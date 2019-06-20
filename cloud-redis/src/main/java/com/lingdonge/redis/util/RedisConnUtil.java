@@ -1,8 +1,10 @@
-package com.lingdonge.redis;
+package com.lingdonge.redis.util;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.lingdonge.core.reflect.OptionalUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
@@ -33,7 +35,7 @@ import java.util.Set;
 /**
  * Redis配置生成类
  */
-public class RedisConfigUtil {
+public class RedisConnUtil {
 
     /**
      * 取出Cluster里面的节点
@@ -130,10 +132,20 @@ public class RedisConfigUtil {
      */
     public static GenericObjectPoolConfig getLettucePoolConfig(RedisProperties redisProperties) {
         GenericObjectPoolConfig genericObjectPoolConfig = new GenericObjectPoolConfig();
-        genericObjectPoolConfig.setMaxIdle(redisProperties.getLettuce().getPool().getMaxIdle());
-        genericObjectPoolConfig.setMinIdle(redisProperties.getLettuce().getPool().getMinIdle());
-        genericObjectPoolConfig.setMaxTotal(redisProperties.getLettuce().getPool().getMaxActive());
-        genericObjectPoolConfig.setMaxWaitMillis(redisProperties.getLettuce().getPool().getMaxWait().toMillis());
+
+        if (null != redisProperties.getLettuce() && null != redisProperties.getLettuce().getPool()) {
+            genericObjectPoolConfig.setMaxIdle(redisProperties.getLettuce().getPool().getMaxIdle());
+            genericObjectPoolConfig.setMinIdle(redisProperties.getLettuce().getPool().getMinIdle());
+            genericObjectPoolConfig.setMaxTotal(redisProperties.getLettuce().getPool().getMaxActive());
+            genericObjectPoolConfig.setMaxWaitMillis(redisProperties.getLettuce().getPool().getMaxWait().toMillis());
+        } else {
+            RedisProperties.Pool pool = new RedisProperties.Pool();
+            genericObjectPoolConfig.setMaxIdle(pool.getMaxIdle());
+            genericObjectPoolConfig.setMinIdle(pool.getMinIdle());
+            genericObjectPoolConfig.setMaxTotal(pool.getMaxActive());
+            genericObjectPoolConfig.setMaxWaitMillis(pool.getMaxWait().toMillis());
+        }
+
         return genericObjectPoolConfig;
     }
 
@@ -145,10 +157,19 @@ public class RedisConfigUtil {
      */
     public static GenericObjectPoolConfig getJedisPoolGenericConfig(RedisProperties redisProperties) {
         GenericObjectPoolConfig genericObjectPoolConfig = new GenericObjectPoolConfig();
-        genericObjectPoolConfig.setMaxIdle(redisProperties.getJedis().getPool().getMaxIdle());
-        genericObjectPoolConfig.setMinIdle(redisProperties.getJedis().getPool().getMinIdle());
-        genericObjectPoolConfig.setMaxTotal(redisProperties.getJedis().getPool().getMaxActive());
-        genericObjectPoolConfig.setMaxWaitMillis(redisProperties.getJedis().getPool().getMaxWait().toMillis());
+        if (null != redisProperties.getJedis() && null != redisProperties.getJedis().getPool()) {
+            genericObjectPoolConfig.setMaxIdle(redisProperties.getJedis().getPool().getMaxIdle());
+            genericObjectPoolConfig.setMinIdle(redisProperties.getJedis().getPool().getMinIdle());
+            genericObjectPoolConfig.setMaxTotal(redisProperties.getJedis().getPool().getMaxActive());
+            genericObjectPoolConfig.setMaxWaitMillis(redisProperties.getJedis().getPool().getMaxWait().toMillis());
+        } else { // 没有配置使用默认设置
+            RedisProperties.Pool pool = new RedisProperties.Pool();
+            genericObjectPoolConfig.setMaxIdle(pool.getMaxIdle());
+            genericObjectPoolConfig.setMinIdle(pool.getMinIdle());
+            genericObjectPoolConfig.setMaxTotal(pool.getMaxActive());
+            genericObjectPoolConfig.setMaxWaitMillis(pool.getMaxWait().toMillis());
+        }
+
         return genericObjectPoolConfig;
     }
 
@@ -239,6 +260,19 @@ public class RedisConfigUtil {
     }
 
     /**
+     * 从配置文件中创建Redis模板
+     *
+     * @param redisProperties
+     * @return
+     */
+    public static RedisTemplate getRedisTemplate(RedisProperties redisProperties) {
+        if (redisProperties.getLettuce() != null) {
+            return getRedisTemplateFromLettuce(redisProperties);
+        }
+        return getRedisTemplateFromJedis(redisProperties);
+    }
+
+    /**
      * 根据连接池生成RedisTemplate
      * 适配Jedis和Lettuce
      * <p>
@@ -273,7 +307,7 @@ public class RedisConfigUtil {
 
         redisTemplate.setConnectionFactory(redisConnectionFactory); // 配置连接池
 
-        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = RedisConfigUtil.getJackson2JsonSerializer();
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = RedisConnUtil.getJackson2JsonSerializer();
 
         // 设置字符串的序列化方式
         redisTemplate.setKeySerializer(new StringRedisSerializer());// 配置Key的序列化方式，Long类型不可以出现，否则会出现异常信息;
@@ -320,11 +354,12 @@ public class RedisConfigUtil {
      */
     public static LettuceConnectionFactory getLettuceConnectionFactory(RedisProperties redisProperties) {
         LettuceClientConfiguration clientConfig = LettucePoolingClientConfiguration.builder()
-                .commandTimeout(Duration.ofMillis(redisProperties.getTimeout().toMillis()))
+                .commandTimeout(Duration.ofMillis(null != redisProperties.getTimeout() ? redisProperties.getTimeout().toMillis() : 10 * 1000))
                 .poolConfig(getLettucePoolConfig(redisProperties))
                 .build();
-        LettuceConnectionFactory factory = new LettuceConnectionFactory(getStandaloneConfiguration(redisProperties), clientConfig);
-        return factory;
+        LettuceConnectionFactory lettuceConnectionFactor = new LettuceConnectionFactory(getStandaloneConfiguration(redisProperties), clientConfig);
+        lettuceConnectionFactor.afterPropertiesSet();
+        return lettuceConnectionFactor;
     }
 
     /**
@@ -338,9 +373,9 @@ public class RedisConfigUtil {
         JedisConnectionFactory connectionFactory = null;
 
 //        if (null != redisProperties.getSentinel()) { // 使用哨兵模式创建连接池
-//            connectionFactory = new JedisConnectionFactory(RedisConfigUtil.buildRedisSentinelConfiguration(redisProperties));
+//            connectionFactory = new JedisConnectionFactory(RedisConnUtil.buildRedisSentinelConfiguration(redisProperties));
 //        } else if (null != redisProperties.getCluster()) {
-//            connectionFactory = new JedisConnectionFactory(RedisConfigUtil.buildRedisClusterConfiguration(redisProperties));
+//            connectionFactory = new JedisConnectionFactory(RedisConnUtil.buildRedisClusterConfiguration(redisProperties));
 //        } else {
 //            connectionFactory = new JedisConnectionFactory();
 //        }
@@ -367,7 +402,7 @@ public class RedisConfigUtil {
         jedisClientConfiguration.poolConfig(getJedisPoolConfig(redisProperties));
 
         connectionFactory = new JedisConnectionFactory(getStandaloneConfiguration(redisProperties), jedisClientConfiguration.build());
-
+        connectionFactory.afterPropertiesSet();
         return connectionFactory;
     }
 
@@ -386,6 +421,11 @@ public class RedisConfigUtil {
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+
+        // 解决jackson2无法反序列化LocalDateTime的问题
+        om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        om.registerModule(new JavaTimeModule());
+
         jackson2JsonRedisSerializer.setObjectMapper(om);
 
         return jackson2JsonRedisSerializer;

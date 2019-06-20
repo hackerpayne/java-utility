@@ -1,15 +1,17 @@
 package com.lingdonge.redis.ratelimit;
 
 import com.lingdonge.core.dates.SystemClock;
-import com.lingdonge.redis.RedisConfigUtil;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
  * 收集的一些限流用法
  */
+@Slf4j
 public class RedisRateLimitUtil {
 
     private RedisTemplate redisTemplate;
@@ -75,5 +77,49 @@ public class RedisRateLimitUtil {
         return true;
     }
 
+
+    /**
+     * @param redisKey
+     * @param seconds
+     * @param times
+     * @return
+     */
+    public boolean freLimit(String redisKey, Integer seconds, Integer times) {
+        boolean result = false;
+//定义redis操作
+        ZSetOperations<String, String> opsForZSet = redisTemplate.opsForZSet();
+
+        Long endTime = System.currentTimeMillis() / 1000;
+//设置最后一次发送
+        Long startTime = endTime - seconds;
+//移出之前已无效的记录
+//当前redis中有效总条数
+        Long count = opsForZSet.count(redisKey, startTime, endTime);
+//如果条数大于或等于条数限制，则抛出异常，发送太多次
+        if (count >= times) {
+            log.info("规定时间：{}秒内，请求次数：{}过多", seconds, count);
+            return result;
+        }
+        String value = UUID.randomUUID().toString().replaceAll("-", "");
+//向set中添加新纪录
+        result = opsForZSet.add(redisKey, value, endTime);
+        if (!result) {
+            log.info("add redis set error, key:{}, score:{}", opsForZSet, endTime);
+            return result;
+        }
+//当前有效的总条数
+        count = opsForZSet.count(redisKey, startTime, endTime);
+        if (count >= times) {
+            opsForZSet.removeRangeByScore(redisKey, 0, startTime);
+            Long rank = opsForZSet.rank(redisKey, value);
+            if (rank < times) {
+                return true;
+            } else {
+                opsForZSet.remove(redisKey, value);
+                return false;
+            }
+        }
+        return result;
+    }
 
 }

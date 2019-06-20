@@ -1,6 +1,6 @@
 package com.lingdonge.redis.ratelimit;
 
-import com.lingdonge.redis.RedisConfigUtil;
+import com.lingdonge.redis.util.RedisConnUtil;
 import org.junit.Test;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -13,7 +13,7 @@ public class RedisRateLimitUtilTest {
         RedisProperties redisProperties = new RedisProperties();
         redisProperties.setHost("localhost");
         redisProperties.setPassword("123456");
-        RedisTemplate redisTemplate = RedisConfigUtil.getRedisTemplateFromJedis(redisProperties);
+        RedisTemplate redisTemplate = RedisConnUtil.getRedisTemplateFromJedis(redisProperties);
         rateLimitUtil = new RedisRateLimitUtil(redisTemplate);
     }
 

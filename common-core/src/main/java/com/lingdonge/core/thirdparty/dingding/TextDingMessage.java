@@ -9,12 +9,24 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ *
  */
 @Data
 public class TextDingMessage implements IDingDingMessage {
 
+    /**
+     * 内容
+     */
     private String text;
+
+    /**
+     * 手机号列表
+     */
     private List<String> atMobiles;
+
+    /**
+     * 是否所有人收到
+     */
     private boolean isAtAll;
 
     public TextDingMessage(String text) {

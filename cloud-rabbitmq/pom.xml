@@ -53,11 +53,20 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- 使Jackson支持Jsr310规范，可以正常使用LocalDateTime和LocalDate和LocalTime -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.9.9</version>
+            <optional>true</optional>
+        </dependency>
+
         <dependency>
             <groupId>com.lingdonge</groupId>
             <artifactId>common-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+
 
     </dependencies>
 

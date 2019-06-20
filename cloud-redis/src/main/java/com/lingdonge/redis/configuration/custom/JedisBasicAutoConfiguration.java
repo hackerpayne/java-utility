@@ -1,6 +1,6 @@
 package com.lingdonge.redis.configuration.custom;
 
-import com.lingdonge.redis.RedisConfigUtil;
+import com.lingdonge.redis.util.RedisConnUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +29,7 @@ public class JedisBasicAutoConfiguration {
      */
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
-        return RedisConfigUtil.getJedisConnectionFactory(redisProperties);
+        return RedisConnUtil.getJedisConnectionFactory(redisProperties);
     }
 
 

@@ -1,6 +1,6 @@
 package com.lingdonge.redis.configuration;
 
-import com.lingdonge.redis.RedisConfigUtil;
+import com.lingdonge.redis.util.RedisConnUtil;
 import com.lingdonge.redis.service.RedisTemplateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +28,7 @@ public class RedisBasicAutoConfiguration {
     @Bean
     public RedisTemplate redisTemplate() {
         log.info("<<<<<<<<<<<<<<< 加载 RedisTemplate 服务 >>>>>>>>>>>>>>>>>>");
-        return RedisConfigUtil.getRedisTemplate(redisConnectionFactory);
+        return RedisConnUtil.getRedisTemplate(redisConnectionFactory);
     }
 
     /**

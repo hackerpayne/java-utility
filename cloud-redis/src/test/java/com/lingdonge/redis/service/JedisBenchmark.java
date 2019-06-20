@@ -1,6 +1,5 @@
-package com.lingdonge.redis;
+package com.lingdonge.redis.service;
 
-import com.lingdonge.core.convert.ConvertUtil;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -37,7 +36,7 @@ public class JedisBenchmark {
                         Jedis j = pool.getResource();
                         final String key = "foo" + i;
                         // redisUtil.set(key, key);
-                        j.set(key.getBytes(), ConvertUtil.serialize(temp));
+//                        j.set(key.getBytes(), StrUtil.bytes(temp));
                         j.close();
                     }
                 }

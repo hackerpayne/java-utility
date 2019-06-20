@@ -1,5 +1,8 @@
 package com.lingdonge.rabbit.configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.lingdonge.rabbit.service.RabbitMQUtils;
 import com.lingdonge.rabbit.service.RabbitTemplateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +46,14 @@ public class RabbitMQAutoConfiguration {
      */
     @Bean
     public MessageConverter messageConverter() {
-        return new Jackson2JsonMessageConverter();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // 解决jackson2无法反序列化LocalDateTime的问题
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.registerModule(new JavaTimeModule());
+
+        return new Jackson2JsonMessageConverter(objectMapper);
     }
 
     /**
