@@ -29,18 +29,9 @@ public class EasyPOITest {
      * @param pojoClass Excel对象Class
      * @param dataSet   Excel对象数据List
      */
-    public static Workbook exportBigExcel(ExportParams entity, Class<?> pojoClass,
-                                          Collection<?> dataSet) {
-
+    public static Workbook exportBigExcel(ExportParams entity, Class<?> pojoClass, Collection<?> dataSet) {
         ExcelBatchExportService batchExportService = ExcelBatchExportService.getExcelBatchExportService(entity, pojoClass);
-
         return batchExportService.appendData(dataSet);
-
-    }
-
-    public static void closeExportBigExcel() {
-        ExcelBatchExportService batchExportService = ExcelBatchExportService.getExcelBatchExportService(null, null);
-        batchExportService.closeExportBigExcel();
     }
 
     public void bigDataExport() throws Exception {

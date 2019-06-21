@@ -11,10 +11,6 @@ import java.util.Map;
 
 public class ExcelUtilTest {
 
-    public void testReadFile() {
-
-    }
-
     @Test
     public void testRead() throws Exception {
         String file = "/Users/kyle/Downloads/名录/上海地区，/上海地区/上海/上海000/上海000().xls";
@@ -27,7 +23,7 @@ public class ExcelUtilTest {
 
     public static void main(String[] args) throws Exception {
 //        Workbook workbook = ExcelHelper.createWorkbookByFile(FileUtil.getFile(Utils.CurrentDir,"logs","50万影视动漫1102.xlsx").getAbsolutePath());
-        Workbook workbook = ExcelHelper.createWorkbookByFile(FileUtil.getFile(Utils.CurrentDir, "logs", "考勤枚举案例.xlsx").getAbsolutePath());
+        Workbook workbook = ExcelHelper.createWorkbookByFile(FileUtil.file(Utils.CurrentDir, "logs", "考勤枚举案例.xlsx").getAbsolutePath());
 //        Workbook workbook = ExcelHelper.createWorkbookByFile("/Users/kyle/项目Project/百度贴吧合作-NC/关键词列表/nc关键词1030.xlsx");
 
         System.out.println(workbook);

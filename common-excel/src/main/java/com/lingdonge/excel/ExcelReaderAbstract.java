@@ -236,6 +236,7 @@ public abstract class ExcelReaderAbstract extends DefaultHandler {
      * @param length
      * @throws SAXException
      */
+    @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         //得到单元格内容的值
         lastContents += new String(ch, start, length);

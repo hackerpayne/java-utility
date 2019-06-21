@@ -52,14 +52,23 @@ public class ExcelHelper {
         return sb.toString();
     }
 
+    /**
+     * 读取Sheet表数据
+     *
+     * @param wb
+     * @param sb
+     * @param isXls
+     * @return
+     * @throws Exception
+     */
     private static StringBuilder readSheet(Workbook wb, StringBuilder sb, boolean isXls) throws Exception {
         for (Sheet sheet : wb) {
             for (Row r : sheet) {
                 for (Cell cell : r) {
-                    if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
+                    if (cell.getCellType() == CellType.STRING) {
                         sb.append(cell.getStringCellValue());
                         sb.append(" ");
-                    } else if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                    } else if (cell.getCellType() == CellType.NUMERIC) {
                         if (isXls) {
                             DataFormatter formatter = new DataFormatter();
                             sb.append(formatter.formatCellValue(cell));
@@ -531,7 +540,7 @@ public class ExcelHelper {
      */
     private static void setCellValue(Cell cell, String value) {
 //        cell.setCellType(Cell.CELL_TYPE_STRING);
-        cell.setCellType(CellType.STRING);
+//        cell.setCellType(CellType.STRING);
         //cell.setEncoding(HSSFCell.ENCODING_UTF_16);
         cell.setCellValue(value);
     }

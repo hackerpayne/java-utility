@@ -1,6 +1,6 @@
 package com.lingdonge.excel;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
@@ -16,13 +16,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static org.apache.poi.ss.usermodel.CellType.*;
+
 /**
  * Excel 工具类
- *
+ * <p>
  * 代码来源：https://my.oschina.net/yzbty32/blog/1822701
  * https://www.cnblogs.com/yizhang/p/7244917.html
- *
  */
+@Slf4j
 public class ExcelUtil {
 
     private Workbook workbook;
@@ -39,6 +41,12 @@ public class ExcelUtil {
         this.workbook = workboook;
     }
 
+    /**
+     * @param is
+     * @param version
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     public ExcelUtil(InputStream is, String version) throws FileNotFoundException, IOException {
         if ("2003".equals(version)) {
             workbook = new HSSFWorkbook(is);
@@ -585,10 +593,10 @@ public class ExcelUtil {
             return null;
         }
         switch (cell.getCellType()) {
-            case Cell.CELL_TYPE_BOOLEAN:
+            case BOOLEAN:
                 strCell = String.valueOf(cell.getBooleanCellValue());
                 break;
-            case Cell.CELL_TYPE_NUMERIC:
+            case NUMERIC:
                 if (HSSFDateUtil.isCellDateFormatted(cell)) {
                     Date date = cell.getDateCellValue();
                     if (pattern != null) {
@@ -600,10 +608,10 @@ public class ExcelUtil {
                     break;
                 }
                 // 不是日期格式，则防止当数字过长时以科学计数法显示
-                cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+                cell.setCellType(STRING);
                 strCell = cell.toString();
                 break;
-            case Cell.CELL_TYPE_STRING:
+            case STRING:
                 strCell = cell.getStringCellValue();
                 break;
             default:

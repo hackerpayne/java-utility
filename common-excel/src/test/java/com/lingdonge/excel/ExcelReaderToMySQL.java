@@ -32,6 +32,7 @@ public class ExcelReaderToMySQL extends ExcelReaderAbstract {
     private String tableName = "temp_table";
     private boolean create = true;
 
+    @Override
     public void optRows(int sheetIndex, int curRow, List<String> rowlist) throws SQLException {
         if (sheetIndex == 0 && curRow == 0) {
             StringBuffer preSql = new StringBuffer("insert into " + tableName
