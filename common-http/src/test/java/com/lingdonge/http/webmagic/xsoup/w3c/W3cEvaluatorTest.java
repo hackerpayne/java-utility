@@ -2,7 +2,7 @@ package com.lingdonge.http.webmagic.xsoup.w3c;
 
 import com.lingdonge.http.xsoup.Xsoup;
 import org.jsoup.Jsoup;
-import org.testng.annotations.Test;
+import org.junit.Test;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -232,7 +232,7 @@ public class W3cEvaluatorTest {
 
 //        assertThat(getNodeValue(document, "//div[@id='multithreading'] | //div[@id='test2']")).isEqualTo(expectedDiv2);
 
-        document = Xsoup.convertDocument(Jsoup.parse(html+html2));
+        document = Xsoup.convertDocument(Jsoup.parse(html + html2));
 
 //        assertThat(getNodeListValue(document, "//div[@id='multithreading'] | //div[@id='test2']")).contains(expectedDiv1,expectedDiv2);
 

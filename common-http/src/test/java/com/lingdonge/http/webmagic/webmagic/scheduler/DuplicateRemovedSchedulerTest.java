@@ -4,12 +4,12 @@ package com.lingdonge.http.webmagic.webmagic.scheduler;
 import com.lingdonge.http.webmagic.Request;
 import com.lingdonge.http.webmagic.Task;
 import com.lingdonge.http.webmagic.scheduler.DuplicateRemovedScheduler;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * @author code4crafter@gmail.com
- *         Date: 17/3/11
- *         Time: 上午11:26
+ * Date: 17/3/11
+ * Time: 上午11:26
  */
 //@RunWith(MockitoJUnitRunner.class)
 public class DuplicateRemovedSchedulerTest {

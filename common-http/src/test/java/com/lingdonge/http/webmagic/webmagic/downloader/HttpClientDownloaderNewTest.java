@@ -1,5 +1,6 @@
 package com.lingdonge.http.webmagic.webmagic.downloader;
 
+import cn.hutool.core.util.StrUtil;
 import com.lingdonge.core.bean.common.ModelProxy;
 import com.lingdonge.core.dates.TimeCounter;
 import com.lingdonge.core.http.DownloadUtil;
@@ -67,7 +68,7 @@ public class HttpClientDownloaderNewTest {
 
         Integer MAXTRY = 3;
         for (Integer pageCur = 1; pageCur <= 50; pageCur++) {
-            request = new Request(StringUtils.format("http://club.jd.com/discussion/getProductPageImageCommentList.action?productId={}&isShadowSku=0&page={}&pageSize=10&_=1524124843628", productId, pageCur));
+            request = new Request(StrUtil.format("http://club.jd.com/discussion/getProductPageImageCommentList.action?productId={}&isShadowSku=0&page={}&pageSize=10&_=1524124843628", productId, pageCur));
 
             int redo = 0;     //重试次数
             while (redo < MAXTRY + 1) {     //MAXTRY为最大重试次数

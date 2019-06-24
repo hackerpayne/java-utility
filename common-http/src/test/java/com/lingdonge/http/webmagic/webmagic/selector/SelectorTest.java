@@ -2,7 +2,7 @@ package com.lingdonge.http.webmagic.webmagic.selector;
 
 import com.lingdonge.http.webmagic.selector.Html;
 import com.lingdonge.http.webmagic.selector.Selectable;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.List;
 

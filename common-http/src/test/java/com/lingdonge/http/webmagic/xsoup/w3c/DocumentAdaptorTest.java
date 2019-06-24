@@ -2,7 +2,7 @@ package com.lingdonge.http.webmagic.xsoup.w3c;
 
 import com.lingdonge.http.xsoup.w3c.DocumentAdaptor;
 import org.jsoup.Jsoup;
-import org.testng.annotations.Test;
+import org.junit.Test;
 import org.w3c.dom.Document;
 
 import javax.xml.xpath.XPath;

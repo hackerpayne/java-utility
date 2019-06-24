@@ -6,7 +6,7 @@ import com.lingdonge.http.webmagic.Site;
 import com.lingdonge.http.webmagic.Task;
 import com.lingdonge.http.webmagic.downloader.HttpClientDownloader;
 import com.lingdonge.http.webmagic.selector.Html;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
 
@@ -25,7 +25,7 @@ public class HttpClientDownloaderTest {
 //        assertTrue(!html.getFirstSourceText().isEmpty());
     }
 
-//    @Test(expected = IllegalArgumentException.class)
+    //    @Test(expected = IllegalArgumentException.class)
     public void testDownloaderInIllegalUrl() throws UnsupportedEncodingException {
         HttpClientDownloader httpClientDownloader = new HttpClientDownloader();
         httpClientDownloader.download("http://www.oschina.net/>");

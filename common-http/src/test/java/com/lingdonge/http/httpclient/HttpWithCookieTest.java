@@ -41,7 +41,7 @@ public class HttpWithCookieTest {
         HttpGet httpGet = new HttpGet("www.baidu.com");
         try {
             HttpResponse httpResponse = closeableHttpClient.execute(httpGet, httpClientContext);// 传递Cookie
-            return HttpResultUtil.responseToStr(httpResponse, Charset.forName("utf-8"));
+            return HttpClientUtil.handleResponseToStr(httpResponse, Charset.forName("utf-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,7 +63,7 @@ public class HttpWithCookieTest {
         HttpGet httpGet = new HttpGet("www.baidu.com");
         try {
             HttpResponse httpResponse = closeableHttpClient.execute(httpGet);// 传递Cookie
-            return HttpResultUtil.responseToStr(httpResponse, Charset.forName("utf-8"));
+            return HttpClientUtil.handleResponseToStr(httpResponse, Charset.forName("utf-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }

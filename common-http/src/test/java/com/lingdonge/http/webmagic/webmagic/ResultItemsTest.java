@@ -2,7 +2,7 @@ package com.lingdonge.http.webmagic.webmagic;
 
 
 import com.lingdonge.http.webmagic.ResultItems;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * @author code4crafter@gmail.com

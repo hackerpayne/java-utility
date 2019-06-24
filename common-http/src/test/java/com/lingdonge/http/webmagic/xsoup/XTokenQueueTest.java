@@ -1,7 +1,7 @@
 package com.lingdonge.http.webmagic.xsoup;
 
 import com.lingdonge.http.xsoup.XTokenQueue;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.List;
 

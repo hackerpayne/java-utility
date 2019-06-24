@@ -1,6 +1,6 @@
 package com.lingdonge.http.webmagic.webmagic.selector;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * @author code4crafter@gmail.com <br>

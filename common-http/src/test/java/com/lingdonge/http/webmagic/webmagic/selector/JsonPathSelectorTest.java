@@ -3,7 +3,7 @@ package com.lingdonge.http.webmagic.webmagic.selector;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.lingdonge.http.webmagic.selector.JsonPathSelector;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -47,8 +47,8 @@ public class JsonPathSelectorTest {
 //        assertThat(list).contains("Sayings of the Century");
         jsonPathSelector = new JsonPathSelector("$.store.book[?(@.category == 'reference')]");
         select = jsonPathSelector.select(text);
-        JSONObject object1= JSON.parseObject(select);
-        JSONObject object2= JSON.parseObject("{\"author\":\"Nigel Rees\",\"title\":\"Sayings of the Century\",\"category\":\"reference\",\"price\":8.95}");
+        JSONObject object1 = JSON.parseObject(select);
+        JSONObject object2 = JSON.parseObject("{\"author\":\"Nigel Rees\",\"title\":\"Sayings of the Century\",\"category\":\"reference\",\"price\":8.95}");
 //        assertThat(object1).isEqualTo(object2);
     }
 

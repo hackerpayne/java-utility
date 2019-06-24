@@ -9,13 +9,25 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.IOException;
-
 /**
  * 使用Jsoup做HTTP请求
  */
 @Slf4j
 public class JsoupHttpUtil {
+
+    /**
+     * 获取HTML结果
+     *
+     * @param url
+     * @return
+     */
+    public static String getHtmlStr(String url) {
+        Document document = getHtml(url);
+        if (null != document) {
+            return document.html();
+        }
+        return null;
+    }
 
     /**
      * 使用默认UA及3次重试
@@ -77,30 +89,6 @@ public class JsoupHttpUtil {
         return doc;
     }
 
-    public static String getHtmlStr(String url) throws IOException {
-        //获取 Cookie
-        Connection.Response res = Jsoup.connect(url)
-                .method(Connection.Method.GET)
-                .execute();
-//        String sessionId = res.cookie(sessionName);
-//        System.err.println(sessionId);
-
-        //登录请求提交
-        Connection.Response login = Jsoup.connect("loginAction.do")
-//                .header("Cookie", sessionName + "=" + sessionId)  //携带刚才的 Cookie 信息
-                .data("zjh", "账号", "mm", "密码")
-                //这里的 zjh 和 mm 就是登录页面 form 表单的 name
-                .method(Connection.Method.POST)
-                .execute();
-
-        //此时 sessionId 为可用状态
-        Document scoreDoc = Jsoup.connect(url)
-//                .cookie(sessionName, sessionId)
-                .get();
-        System.err.println(scoreDoc);
-
-        return scoreDoc.body().html();
-    }
 
     /**
      * 使用默认信息采集数据

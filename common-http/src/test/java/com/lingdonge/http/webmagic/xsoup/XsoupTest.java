@@ -7,7 +7,7 @@ import com.lingdonge.http.xsoup.xevaluator.XPathParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.List;
 

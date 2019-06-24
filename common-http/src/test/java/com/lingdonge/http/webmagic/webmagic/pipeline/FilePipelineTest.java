@@ -6,8 +6,8 @@ import com.lingdonge.http.webmagic.ResultItems;
 import com.lingdonge.http.webmagic.Site;
 import com.lingdonge.http.webmagic.Task;
 import com.lingdonge.http.webmagic.pipeline.FilePipeline;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.util.UUID;
 
@@ -38,6 +38,7 @@ public class FilePipelineTest {
             }
         };
     }
+
     @Test
     public void testProcess() {
         FilePipeline filePipeline = new FilePipeline();

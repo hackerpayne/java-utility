@@ -6,7 +6,7 @@ import com.lingdonge.http.webmagic.Request;
 import com.lingdonge.http.webmagic.Site;
 import com.lingdonge.http.webmagic.Task;
 import com.lingdonge.http.webmagic.downloader.HttpClientDownloader;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * @author code4crafter@gmail.com

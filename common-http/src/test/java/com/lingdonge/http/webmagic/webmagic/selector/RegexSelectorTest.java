@@ -2,14 +2,14 @@ package com.lingdonge.http.webmagic.webmagic.selector;
 
 
 import com.lingdonge.http.webmagic.selector.RegexSelector;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * @author code4crafter@gmail.com <br>
  */
 public class RegexSelectorTest {
 
-//    @Test(expected = IllegalArgumentException.class)
+    //    @Test(expected = IllegalArgumentException.class)
     public void testRegexWithSingleLeftBracket() {
         String regex = "\\d+(";
         new RegexSelector(regex);
