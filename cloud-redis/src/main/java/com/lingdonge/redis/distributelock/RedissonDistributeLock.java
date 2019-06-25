@@ -1,16 +1,15 @@
 package com.lingdonge.redis.distributelock;
 
-import com.lingdonge.redis.configuration.properties.RedissonProperties;
-import org.apache.commons.lang3.StringUtils;
-import org.redisson.Redisson;
+import com.lingdonge.redis.util.RedissonUtil;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
-import org.redisson.config.Config;
-import org.redisson.config.SentinelServersConfig;
-import org.redisson.config.SingleServerConfig;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 基于Redisson实现的分布式锁
+ */
 public class RedissonDistributeLock {
 
     private RedissonClient redissonClient;
@@ -21,35 +20,10 @@ public class RedissonDistributeLock {
     /**
      * 可以通过配置来固定设置
      *
-     * @param redissonProperties
+     * @param redisProperties
      */
-    public RedissonDistributeLock(RedissonProperties redissonProperties) {
-
-        Config config = new Config();
-
-        if (StringUtils.isNotEmpty(redissonProperties.getMasterName())) { // 集群模式自动装配
-            SentinelServersConfig serverConfig = config.useSentinelServers().addSentinelAddress(redissonProperties.getSentinelAddresses())
-                    .setMasterName(redissonProperties.getMasterName())
-                    .setTimeout(redissonProperties.getTimeout())
-                    .setMasterConnectionPoolSize(redissonProperties.getMasterConnectionPoolSize())
-                    .setSlaveConnectionPoolSize(redissonProperties.getSlaveConnectionPoolSize());
-
-            if (StringUtils.isNotBlank(redissonProperties.getPassword())) {
-                serverConfig.setPassword(redissonProperties.getPassword());
-            }
-        } else { // 单机模式自动装配
-            SingleServerConfig serverConfig = config.useSingleServer()
-                    .setAddress(redissonProperties.getAddress())
-                    .setTimeout(redissonProperties.getTimeout())
-                    .setConnectionPoolSize(redissonProperties.getConnectionPoolSize())
-                    .setConnectionMinimumIdleSize(redissonProperties.getConnectionMinimumIdleSize());
-
-            if (StringUtils.isNotBlank(redissonProperties.getPassword())) {
-                serverConfig.setPassword(redissonProperties.getPassword());
-            }
-        }
-
-        redissonClient = Redisson.create(config);
+    public RedissonDistributeLock(RedisProperties redisProperties) {
+        redissonClient = RedissonUtil.getRedissonClient(redisProperties);
     }
 
     public void testTryLock() {

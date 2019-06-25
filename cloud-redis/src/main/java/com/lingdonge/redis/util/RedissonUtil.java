@@ -1,13 +1,14 @@
 package com.lingdonge.redis.util;
 
-import com.lingdonge.redis.configuration.properties.RedissonProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
+import org.redisson.config.ClusterServersConfig;
 import org.redisson.config.Config;
 import org.redisson.config.SentinelServersConfig;
 import org.redisson.config.SingleServerConfig;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 
 @Slf4j
 public class RedissonUtil {
@@ -15,33 +16,49 @@ public class RedissonUtil {
     /**
      * 获取RedissonClient连接器
      *
-     * @param redissonProperties
+     * @param redisProperties
      * @return
      */
-    public static RedissonClient getRedissonClient(RedissonProperties redissonProperties) {
+    public static RedissonClient getRedissonClient(RedisProperties redisProperties) {
 
         Config config = new Config();
 
-        if (StringUtils.isNotEmpty(redissonProperties.getMasterName())) { // 集群模式自动装配
-            SentinelServersConfig serverConfig = config.useSentinelServers().addSentinelAddress(redissonProperties.getSentinelAddresses())
-                    .setMasterName(redissonProperties.getMasterName())
-                    .setTimeout(redissonProperties.getTimeout())
-                    .setMasterConnectionPoolSize(redissonProperties.getMasterConnectionPoolSize())
-                    .setSlaveConnectionPoolSize(redissonProperties.getSlaveConnectionPoolSize());
+        long timeout = null != redisProperties.getTimeout() ? redisProperties.getTimeout().toMillis() : 10 * 1000;
+        int poolSize = 10;
 
-            if (StringUtils.isNotBlank(redissonProperties.getPassword())) {
-                serverConfig.setPassword(redissonProperties.getPassword());
+        if (null != redisProperties.getCluster()) {
+            ClusterServersConfig serversConfig = config.useClusterServers()
+                    .setScanInterval(2000) // 集群状态扫描间隔时间，单位是毫秒
+                    .addNodeAddress(redisProperties.getCluster().getNodes().toArray(new String[0])) // 添加节点列表
+                    .setMasterConnectionPoolSize(poolSize)
+                    .setSlaveConnectionPoolSize(poolSize)
+                    .setConnectTimeout((int) timeout);
+
+            if (StringUtils.isNotBlank(redisProperties.getPassword())) {
+                serversConfig.setPassword(redisProperties.getPassword());
             }
-        } else { // 单机模式自动装配
+        } else if (null != redisProperties.getSentinel()) {
+            SentinelServersConfig serverConfig = config.useSentinelServers()
+                    .addSentinelAddress(redisProperties.getSentinel().getNodes().toArray(new String[0]))
+                    .setMasterName(redisProperties.getSentinel().getMaster())
+                    .setTimeout((int) timeout)
+                    .setMasterConnectionPoolSize(poolSize)
+                    .setSlaveConnectionPoolSize(poolSize);
+
+            if (StringUtils.isNotBlank(redisProperties.getPassword())) {
+                serverConfig.setPassword(redisProperties.getPassword());
+            }
+        } else {// 单机模式自动装配
             SingleServerConfig serverConfig = config.useSingleServer()
-                    .setAddress(redissonProperties.getAddress())
-                    .setTimeout(redissonProperties.getTimeout())
-                    .setConnectionPoolSize(redissonProperties.getConnectionPoolSize())
-                    .setConnectionMinimumIdleSize(redissonProperties.getConnectionMinimumIdleSize());
+                    .setAddress(redisProperties.getHost())
+                    .setTimeout(((int) (redisProperties.getTimeout().getSeconds())))
+                    .setConnectionPoolSize(poolSize)
+                    .setConnectionMinimumIdleSize(poolSize);
 
-            if (StringUtils.isNotBlank(redissonProperties.getPassword())) {
-                serverConfig.setPassword(redissonProperties.getPassword());
+            if (StringUtils.isNotBlank(redisProperties.getPassword())) {
+                serverConfig.setPassword(redisProperties.getPassword());
             }
+
         }
 
         return Redisson.create(config);
