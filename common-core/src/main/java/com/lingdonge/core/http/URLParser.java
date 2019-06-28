@@ -72,6 +72,15 @@ public class URLParser {
     }
 
     /**
+     * 获取Path路径部份
+     *
+     * @return
+     */
+    public String getPath() {
+        return this.uri.getPath();
+    }
+
+    /**
      * 获取URL请求字符串信息
      *
      * @return
