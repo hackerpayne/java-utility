@@ -287,6 +287,11 @@ public class LocalDateUtil {
      * @return
      */
     public static LocalDateTime fromUnixTime(long timestamp) {
+
+        if (String.valueOf(timestamp).length() == 10) { // 适配10位数长度的时间戳
+            timestamp = timestamp * 1000;
+        }
+
         Instant instant = Instant.ofEpochMilli(timestamp);
         return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     }

@@ -90,6 +90,16 @@ public class URLParser {
     }
 
     /**
+     * 获取URL中的参数信息
+     *
+     * @param params
+     * @return
+     */
+    public String getParam(String... params) {
+        return UrlUtils.getUrlPara(this.getQueryStr(), params);
+    }
+
+    /**
      * 获取URL请求片段信息Fragment
      *
      * @return

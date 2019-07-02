@@ -119,6 +119,11 @@ public class LocalDateUtilTest {
 
     @Test
     public void fromUnixTime() {
+
+        long time = 1561965215926L;
+        long time2 = 1561965215L;
+        System.out.println(LocalDateUtil.fromUnixTime(time));
+        System.out.println(LocalDateUtil.fromUnixTime(time2));
     }
 
     @Test

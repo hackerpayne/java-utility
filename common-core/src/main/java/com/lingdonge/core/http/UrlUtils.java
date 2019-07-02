@@ -50,20 +50,28 @@ public class UrlUtils {
      * 比如：url=www.ok.com/?sid=1&aid=2 可以直接获取 getUrlPara(url,"sid"); //直接取出某个参数值
      *
      * @param url
-     * @param param
+     * @param params
      * @return
      */
-    public static String getUrlPara(String url, String param) {
+    public static String getUrlPara(String url, String... params) {
         String value = "";
-        if (org.apache.commons.lang3.StringUtils.isBlank(url)) {
+        if (StringUtils.isBlank(url)) {
             return value;
         }
         Map<String, String> m = getUrlPara(url);
-        try {
-            value = java.net.URLDecoder.decode(m.get(param), "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            log.error(e.getMessage());
+        for (String param : params) {
+            try {
+                String item = m.get(param);
+                if (StringUtils.isEmpty(item)) {
+                    continue;
+                }
+                value = URLDecoder.decode(item, "utf-8");
+                break;
+            } catch (UnsupportedEncodingException e) {
+                log.error(e.getMessage());
+            }
         }
+
         return value;
     }
 
@@ -93,7 +101,7 @@ public class UrlUtils {
                 mapResult.put(arrSplitEqual[0], arrSplitEqual[1]);
 
             } else {
-                if (arrSplitEqual[0] != "") {
+                if (!arrSplitEqual[0].equals("")) {
                     //只有参数没有值，不加入
                     mapResult.put(arrSplitEqual[0], "");
                 }
@@ -159,7 +167,7 @@ public class UrlUtils {
     public static String decode(String url, String charset) {
 
         try {
-            url = URLDecoder.decode(url, org.apache.commons.lang3.StringUtils.isNotEmpty(charset) ? charset : "UTF-8");
+            url = URLDecoder.decode(url, StringUtils.isNotEmpty(charset) ? charset : "UTF-8");
         } catch (UnsupportedEncodingException e) {
             log.error("decodeUrl trigger error ", e);
             throw new UtilException(e);
