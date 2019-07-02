@@ -1,7 +1,6 @@
 package com.lingdonge.core.thirdparty.shorturl.shorten;
 
-import com.lingdonge.core.thirdparty.shorturl.ShortUrlUtil;
-import com.lingdonge.core.thirdparty.shorturl.ShortenService;
+import com.lingdonge.core.thirdparty.shorturl.util.ShortUrlUtil;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -13,21 +12,32 @@ import java.util.concurrent.atomic.AtomicLong;
  * <p>
  * 优点：就是简单好理解，永不重复。但是短码的长度不固定，随着 id 变大从一位长度开始递增。如果非要让短码长度固定也可以就是让 id 从指定的数字开始递增就可以了。百度短网址用的这种算法。上文说的开源短网址项目 YOURLS 也是采用了这种算法。
  */
-public class ShortenUrlIncrGenerator implements ShortenService {
+public class ShortenUrlIncrByMemory implements ShortenUrlInterface {
 
     private AtomicLong sequence = new AtomicLong(0);
 
+    /**
+     * 使用内存递增生成短址
+     *
+     * @param longUrl
+     * @return
+     */
     @Override
     public String shorten(String longUrl) {
-        long myseq = sequence.incrementAndGet();
-        String shortUrl = ShortUrlUtil.to62RadixString(myseq);
-        return shortUrl;
+        return shorten(longUrl, 1);
     }
 
+    /**
+     * 使用内存递增生成短网址
+     *
+     * @param longUrl
+     * @param shortLength
+     * @return
+     */
     @Override
     public String shorten(String longUrl, Integer shortLength) {
         long myseq = sequence.incrementAndGet();
-        String shortUrl = ShortUrlUtil.to62RadixString(myseq);
+        String shortUrl = ShortUrlUtil.shortenBy62Radix(myseq);
         return shortUrl;
     }
 

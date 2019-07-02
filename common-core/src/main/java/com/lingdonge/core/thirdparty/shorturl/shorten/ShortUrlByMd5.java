@@ -1,7 +1,6 @@
 package com.lingdonge.core.thirdparty.shorturl.shorten;
 
-import com.lingdonge.core.thirdparty.shorturl.ShortUrlUtil;
-import com.lingdonge.core.thirdparty.shorturl.ShortenService;
+import com.lingdonge.core.thirdparty.shorturl.util.ShortUrlUtil;
 
 /**
  * Java版短网址(ShortUrl)的算法
@@ -14,7 +13,7 @@ import com.lingdonge.core.thirdparty.shorturl.ShortenService;
  * eg: http://6du.in/0W13as
  * 优点：存在碰撞（重复）的可能性，虽然几率很小。短码位数是比较固定的。不会从一位长度递增到多位的。据说微博使用的这种算法。
  */
-public class ShortUrlMd5Generator implements ShortenService {
+public class ShortUrlByMd5 implements ShortenUrlInterface {
 
     /**
      * 默认使用5位长度转换短址
@@ -24,12 +23,12 @@ public class ShortUrlMd5Generator implements ShortenService {
      */
     @Override
     public String shorten(String longUrl) {
-        return ShortUrlUtil.shorten(longUrl, 5);
+        return ShortUrlUtil.shortenByMd5(longUrl, 5);
     }
 
     @Override
     public String shorten(String longUrl, Integer shortLength) {
-        return ShortUrlUtil.shorten(longUrl, 6);
+        return ShortUrlUtil.shortenByMd5(longUrl, 6);
     }
 
 }

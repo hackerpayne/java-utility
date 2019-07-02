@@ -96,7 +96,7 @@ public class URLParser {
      * @return
      */
     public String getParam(String... params) {
-        return UrlUtils.getUrlPara(this.getQueryStr(), params);
+        return UrlUtils.getUrlPara(this.uri.toString(), params);
     }
 
     /**

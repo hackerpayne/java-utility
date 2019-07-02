@@ -1,18 +1,24 @@
 package com.lingdonge.core.thirdparty.shorturl;
 
+import com.lingdonge.core.thirdparty.shorturl.shorten.ShortenUrlInterface;
+import com.lingdonge.core.thirdparty.shorturl.stores.ShortUrlStoreInterface;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 @Slf4j
 public class ShortUrlService {
 
-    private StoreService storeService;
+    private ShortUrlStoreInterface shortUrlStoreInterface;
 
-    private ShortenService shortenService;
+    private ShortenUrlInterface shortenUrlInterface;
 
-    public ShortUrlService(StoreService storeService, ShortenService shortenService) {
-        this.storeService = storeService;
-        this.shortenService = shortenService;
+    /**
+     * @param shortUrlStoreInterface
+     * @param shortenUrlInterface
+     */
+    public ShortUrlService(ShortUrlStoreInterface shortUrlStoreInterface, ShortenUrlInterface shortenUrlInterface) {
+        this.shortUrlStoreInterface = shortUrlStoreInterface;
+        this.shortenUrlInterface = shortenUrlInterface;
     }
 
     /**
@@ -22,13 +28,13 @@ public class ShortUrlService {
      * @return
      */
     public String convertShort(String longUrl) {
-        String shortUrl = this.storeService.getDataByLongUrl(longUrl);
+        String shortUrl = this.shortUrlStoreInterface.getByLongUrl(longUrl);
         if (StringUtils.isEmpty(shortUrl)) {
-            shortUrl = this.shortenService.shorten(longUrl);
+            shortUrl = this.shortenUrlInterface.shorten(longUrl);
             if (StringUtils.isEmpty(shortUrl)) {
                 log.error("Cannot convert long url to short url");
             } else {
-                this.storeService.saveShortUrl(longUrl, shortUrl);
+                this.shortUrlStoreInterface.saveShortUrl(longUrl, shortUrl);
             }
         }
         return shortUrl;
@@ -42,7 +48,7 @@ public class ShortUrlService {
      * @return
      */
     public String lookupLong(String shortUrl) {
-        return "";
+        return this.shortUrlStoreInterface.getByShortUrl(shortUrl);
     }
 
 }

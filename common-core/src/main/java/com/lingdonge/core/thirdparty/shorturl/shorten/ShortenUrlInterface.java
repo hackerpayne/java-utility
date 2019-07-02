@@ -1,9 +1,9 @@
-package com.lingdonge.core.thirdparty.shorturl;
+package com.lingdonge.core.thirdparty.shorturl.shorten;
 
 /**
  * 缩短服务
  */
-public interface ShortenService {
+public interface ShortenUrlInterface {
 
     /**
      * 长网址缩短服务

@@ -1,14 +1,15 @@
 package com.lingdonge.core.thirdparty.shorturl.stores;
 
-import com.lingdonge.core.thirdparty.shorturl.StoreService;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class MapStoreServiceImpl implements StoreService {
+/**
+ * 使用内存Map做为存储器，读取和返回短址信息
+ */
+public class ShortUrlStoreByMap implements ShortUrlStoreInterface {
 
     private Map<String, String> longShortUrlMap = new ConcurrentHashMap<String, String>();
 
@@ -16,6 +17,13 @@ public class MapStoreServiceImpl implements StoreService {
 
     private ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
+    /**
+     * 保存短址对应的长网址到Map里面
+     *
+     * @param longUrl
+     * @param shortUrl
+     * @return
+     */
     @Override
     public Boolean saveShortUrl(String longUrl, String shortUrl) {
         Lock writeLock = readWriteLock.writeLock();
@@ -30,8 +38,14 @@ public class MapStoreServiceImpl implements StoreService {
         return true;
     }
 
+    /**
+     * 根据短址查长网址
+     *
+     * @param shortUrl
+     * @return
+     */
     @Override
-    public String getDataByShortUrl(String shortUrl) {
+    public String getByShortUrl(String shortUrl) {
         String longUrl = null;
         Lock readLock = readWriteLock.readLock();
         try {
@@ -44,8 +58,14 @@ public class MapStoreServiceImpl implements StoreService {
         return longUrl;
     }
 
+    /**
+     * 根据长网址反查短网址
+     *
+     * @param longUrl
+     * @return
+     */
     @Override
-    public String getDataByLongUrl(String longUrl) {
+    public String getByLongUrl(String longUrl) {
         String shortUrl = null;
         Lock readLock = readWriteLock.readLock();
         try {

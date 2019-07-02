@@ -2,14 +2,12 @@ package com.lingdonge.core.http;
 
 import cn.hutool.core.exceptions.UtilException;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.URLUtil;
 import com.lingdonge.core.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
+import java.net.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,18 +29,27 @@ public class UrlUtils {
      * @author lzf
      */
     public static String getUrlQueryString(String strURL) {
-        String strAllParam = null;
-        String[] arrSplit = null;
-        strURL = strURL.trim().toLowerCase();
-        arrSplit = strURL.split("[?]");
-        if (strURL.length() > 1) {
-            if (arrSplit.length > 1) {
-                for (int i = 1; i < arrSplit.length; i++) {
-                    strAllParam = arrSplit[i];
-                }
-            }
-        }
-        return strAllParam;
+
+        URI uri = URLUtil.toURI(strURL);
+        return uri.getQuery();
+
+//        String strAllParam = null;
+//        String[] arrSplit = null;
+//        strURL = strURL.trim().toLowerCase();
+//        if (StringUtils.isEmpty(strURL)) {
+//            return null;
+//        }
+//        arrSplit = strURL.split("[?]");
+//        if (strURL.length() > 1) {
+//            if (arrSplit.length > 1) {
+//                for (int i = 1; i < arrSplit.length; i++) {
+//                    strAllParam = arrSplit[i];
+//                }
+//            }
+//        } else {
+//            strAllParam = strURL;
+//        }
+//        return strAllParam;
     }
 
     /**

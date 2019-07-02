@@ -1,6 +1,7 @@
 package com.lingdonge.core.http;
 
 
+import cn.hutool.core.util.URLUtil;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -35,7 +36,8 @@ public class URLParserTest {
 
     @Test
     public void parseQuery() throws Exception {
-
+        URLParser parser = new URLParser("http://www.track.com/track_log_simple.html?source=101&aid=hahah#index");
+        System.out.println(parser.getParam("sid", "aid", "source"));
     }
 
     @Test

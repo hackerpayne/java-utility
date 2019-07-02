@@ -1,10 +1,13 @@
-package com.lingdonge.core.thirdparty.shorturl;
+package com.lingdonge.core.thirdparty.shorturl.util;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.stream.IntStream;
 
+/**
+ * 短址缩短算法相关
+ */
 public class ShortUrlUtil {
 
     static char[] DIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
@@ -30,10 +33,11 @@ public class ShortUrlUtil {
      * 基数最好从1万起，1万大概是3位数的短址
      * 1、字符打乱，显示不会有序
      * 2、为了适配自定义短址，可以在发生冲突时，把冲突短址的自增ID拿出来算短址
+     *
      * @param seq
      * @return
      */
-    public static String to62RadixString(long seq) {
+    public static String shortenBy62Radix(long seq) {
         StringBuilder sBuilder = new StringBuilder();
         while (true) {
             int remainder = (int) (seq % 62);
@@ -54,7 +58,7 @@ public class ShortUrlUtil {
      * @param urlLength 生成长度，只能为5或者6
      * @return
      */
-    public static String shorten(String longUrl, int urlLength) {
+    public static String shortenByMd5(String longUrl, int urlLength) {
         if (urlLength < 0 || urlLength > 6) {
             throw new IllegalArgumentException("the length of url must be between 0 and 6");
         }
@@ -78,17 +82,4 @@ public class ShortUrlUtil {
         return null;
     }
 
-    public static void main(String[] args) {
-        String sLongUrl = "http://www.young-sun.com"; // 3BD768E58042156E54626860E241E999
-
-        IntStream.range(1, 10).forEach(i -> {
-
-            String shortUrl = to62RadixString(i + 10000000);
-            System.out.println("算法一：[" + i + "] is " + shortUrl);
-            System.out.println("算法二：[" + i + "] is " + shorten(sLongUrl, 5));
-            System.out.println("----------------------");
-        });
-
-
-    }
 }
