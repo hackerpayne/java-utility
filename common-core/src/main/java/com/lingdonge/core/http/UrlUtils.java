@@ -91,11 +91,14 @@ public class UrlUtils {
     public static Map<String, String> getUrlPara(String url) {
         Map<String, String> mapResult = new HashMap<String, String>();
 
-        if (url == null) {
+        if (StringUtils.isEmpty(url)) {
             return mapResult;
         }
 
         url = getUrlQueryString(url);
+        if (StringUtils.isEmpty(url)) {
+            return mapResult;
+        }
 
         //每个键值为一组
         String[] arrSplit = url.split("[&]");
