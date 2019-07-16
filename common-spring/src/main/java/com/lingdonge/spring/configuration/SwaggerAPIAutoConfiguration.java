@@ -28,6 +28,7 @@ import java.util.List;
 @EnableSwagger2
 @EnableSwaggerBootstrapUI // 使用增强UI
 //@ConditionalOnExpression("${swagger.enable:true}") // 生产环境配置
+//@Profile({"test","local","localhost","test"})
 @Slf4j
 public class SwaggerAPIAutoConfiguration {
 

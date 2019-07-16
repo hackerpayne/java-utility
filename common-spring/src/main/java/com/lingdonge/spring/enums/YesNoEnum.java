@@ -24,11 +24,11 @@ public enum YesNoEnum {
 
     public static String getName(Integer value) {
         for (YesNoEnum item : YesNoEnum.values()) {
-            if (value != null && item.value.equals(value)) {
+            if (item.value.equals(value)) {
                 return item.name;
             }
         }
-        return "未知类型-" + value;
+        return null;
     }
 
     public static List<NameValue> getItemList() {

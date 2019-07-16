@@ -1,6 +1,12 @@
 package com.lingdonge.spring.enums;
 
 
+import com.lingdonge.core.bean.base.NameValue;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * ContentType请求类型，常规下只有4种：
  * 1、Json请求
@@ -42,6 +48,10 @@ public enum ContentTypeEnum {
             }
         }
         return null;
+    }
+
+    public static List<NameValue> getItemList() {
+        return Arrays.stream(values()).map(item -> new NameValue(item.name, item.value)).collect(Collectors.toList());
     }
 
 }
