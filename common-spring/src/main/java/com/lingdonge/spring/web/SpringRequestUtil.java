@@ -23,6 +23,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.*;
@@ -602,6 +603,41 @@ public class SpringRequestUtil extends RequestUtil {
         return paramMap;
     }
 
+    /**
+     * 通用请求格式转换，自动转换Json和Form请求到Map里面
+     *
+     * @param httpServletRequest
+     * @return
+     */
+    public static Map<String, String> getHttpRequestParam(HttpServletRequest httpServletRequest) {
+        Map<String, String> params = new HashMap<>();
+        try {
+            Map<String, String[]> requestParams = httpServletRequest.getParameterMap();
+            if (requestParams != null && !requestParams.isEmpty()) {
+                requestParams.forEach((key, value) -> params.put(key, value[0]));
+            } else {
+                StringBuilder paramSb = new StringBuilder();
+                try {
+                    String str = "";
+                    BufferedReader br = httpServletRequest.getReader();
+                    while ((str = br.readLine()) != null) {
+                        paramSb.append(str);
+                    }
+                } catch (Exception e) {
+                    System.out.println("httpServletRequest get requestbody error, cause : " + e);
+                }
+                if (paramSb.length() > 0) {
+                    JSONObject paramJsonObject = JSON.parseObject(paramSb.toString());
+                    if (paramJsonObject != null && !paramJsonObject.isEmpty()) {
+                        paramJsonObject.forEach((key, value) -> params.put(key, String.valueOf(value)));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("commonHttpRequestParamConvert error, cause : " + e);
+        }
+        return params;
+    }
 
     /**
      * 301永久跳转到指定URL，URL默认为相对路径
