@@ -1,11 +1,12 @@
 package com.lingdonge.redis.queue;
 
-import com.lingdonge.redis.configuration.properties.RedissonProperties;
 import com.lingdonge.redis.util.RedissonUtil;
 import org.redisson.api.RDelayedQueue;
 import org.redisson.api.RQueue;
 import org.redisson.api.RedissonClient;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class RedissonDelayQueueUtilTest {
@@ -13,10 +14,10 @@ public class RedissonDelayQueueUtilTest {
     RedissonClient redissonClient;
 
     public void init() {
-        RedissonProperties redissonProperties = new RedissonProperties();
-        redissonProperties.setAddress("127.0.0.1");
+        RedisProperties redissonProperties = new RedisProperties();
+        redissonProperties.setHost("127.0.0.1");
         redissonProperties.setPassword("hackerpayne:hackerpayne");
-        redissonProperties.setTimeout(1000);
+        redissonProperties.setTimeout(Duration.ofSeconds(1000));
         redissonProperties.setDatabase(3);
         redissonClient = RedissonUtil.getRedissonClient(redissonProperties);
     }

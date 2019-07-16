@@ -54,5 +54,12 @@ public class UrlUtilsTest {
         System.out.println(UrlUtils.getHost(url));
     }
 
+    @Test
+    public void testEncode() {
+        String url = "https://www.baidu.com/baidu?wd=java+url+encode+%E4%B8%AD%E6%96%87&tn=monline_4_dg&ie=utf-8";
+        System.out.println("URL编码结果为：");
+        System.out.println(UrlUtils.decode(url, "utf-8"));
+    }
+
 
 }

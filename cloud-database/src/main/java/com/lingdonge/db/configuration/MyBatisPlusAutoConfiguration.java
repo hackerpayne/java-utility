@@ -1,23 +1,14 @@
 package com.lingdonge.db.configuration;
 
-import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
-import com.baomidou.mybatisplus.core.injector.ISqlInjector;
-import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
-import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.plugin.Interceptor;
-import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.context.annotation.Profile;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**
@@ -26,7 +17,7 @@ import javax.sql.DataSource;
  * ﻿mybatis-plus分页插件;文档:http://mp.baomidou.com
  */
 @Configuration
-@EnableConfigurationProperties(MybatisPlusProperties.class)
+//@EnableConfigurationProperties(MybatisPlusProperties.class)
 @AutoConfigureAfter(DataSource.class)
 @Slf4j
 public class MyBatisPlusAutoConfiguration {
@@ -65,26 +56,13 @@ public class MyBatisPlusAutoConfiguration {
      *
      * @return
      */
+    @Profile({"local", "localhost", "test", "dev"})// 指定环境打印SQL日志
     @Bean
     public PerformanceInterceptor performanceInterceptor() {
         PerformanceInterceptor performanceInterceptor = new PerformanceInterceptor();
         // SQL是否格式化 默认false
         performanceInterceptor.setFormat(true);
         return performanceInterceptor;
-    }
-
-    /**
-     * 开启逻辑删除功能，使用时：
-     * <p>
-     * 添加@TableLogic注解到
-     * private Integer deleted;
-     * 使用时：
-     * 删除时 update user set deleted=1 where id =1 and deleted=0
-     * 查找时 select * from user where deleted=0
-     */
-    @Bean
-    public ISqlInjector sqlInjector() {
-        return new LogicSqlInjector();
     }
 
     /**
@@ -105,27 +83,6 @@ public class MyBatisPlusAutoConfiguration {
     public OptimisticLockerInterceptor optimisticLockerInterceptor() {
         return new OptimisticLockerInterceptor();
     }
-
-   /*
-    * oracle数据库配置JdbcTypeForNull
-    * 参考：https://gitee.com/baomidou/mybatisplus-boot-starter/issues/IHS8X
-    不需要这样配置了，参考 yml:
-    mybatis-plus:
-      confuguration
-        dbc-type-for-null: 'null'
-   @Bean
-   public ConfigurationCustomizer configurationCustomizer(){
-       return new MybatisPlusCustomizers();
-   }
-
-   class MybatisPlusCustomizers implements ConfigurationCustomizer {
-
-       @Override
-       public void customize(org.apache.ibatis.session.Configuration configuration) {
-           configuration.setJdbcTypeForNull(JdbcType.NULL);
-       }
-   }
-   */
 
 
 }

@@ -7,9 +7,9 @@ public class DesEncryptUtilTest {
     @Test
     public void test() {
         // 待加密的内容
-        String content = "test";
+        String content = "d85178ffb65259f3ee58df426d2f8e26";
         // DES 的加密KEy
-        String desKey = "13881cf5bc03416e7e852827485e3eee";
+        String desKey = "12345678";
         System.out.println("密　钥：" + desKey);
         System.out.println("加密前：" + content);
         System.out.println("============================");

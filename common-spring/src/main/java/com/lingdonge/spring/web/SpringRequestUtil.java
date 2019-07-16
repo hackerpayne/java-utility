@@ -609,7 +609,7 @@ public class SpringRequestUtil extends RequestUtil {
      * @param url
      * @return
      */
-    public ModelAndView redirect301(String url) {
+    public static ModelAndView redirect301(String url) {
         RedirectView red = new RedirectView(url, true);
         red.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
         return new ModelAndView(red);
@@ -621,7 +621,7 @@ public class SpringRequestUtil extends RequestUtil {
      * @param url
      * @return
      */
-    public ModelAndView redirect302(String url) {
+    public static ModelAndView redirect302(String url) {
         RedirectView red = new RedirectView(url, true);
         red.setStatusCode(HttpStatus.FOUND);
         return new ModelAndView(red);

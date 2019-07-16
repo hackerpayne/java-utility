@@ -1,5 +1,6 @@
 package com.lingdonge.spring.configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,7 @@ import javax.validation.ValidatorFactory;
  * 2、然后就可以使用了
  */
 @Configuration
+@Slf4j
 public class HibernateValidatorAutoConfiguration {
 
     @Bean
@@ -28,6 +30,9 @@ public class HibernateValidatorAutoConfiguration {
 
     @Bean
     public Validator validator() {
+
+        log.info("<<<<<<<<<<<<<<< 启用 Hibernate FastFail 快速失败模式 >>>>>>>>>>>>>>>>>>");
+
         ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class)
                 .configure()
                 .addProperty("hibernate.validator.fail_fast", "true")

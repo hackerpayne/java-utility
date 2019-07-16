@@ -149,7 +149,7 @@ public class UrlUtils {
      */
     public static String encode(String url, String charset) {
         try {
-            url = URLEncoder.encode(url, org.apache.commons.lang3.StringUtils.isNotEmpty(charset) ? charset : "UTF-8");
+            url = URLEncoder.encode(url,StringUtils.isNotEmpty(charset) ? charset : "UTF-8");
         } catch (UnsupportedEncodingException e) {
             log.error("encode trigger error ", e);
             throw new UtilException(e);

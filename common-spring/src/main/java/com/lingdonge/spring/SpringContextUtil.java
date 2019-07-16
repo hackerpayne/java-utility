@@ -57,7 +57,7 @@ public class SpringContextUtil implements ApplicationContextAware {
 //        }
 
 //        log.info("========ApplicationContext配置成功,applicationContext=" + applicationContext + "========");
-        log.info("<<<<<<<<<<<<<<< ApplicationContext配置成功 >>>>>>>>>>>>>>>>>>");
+        log.info("<<<<<<<<<<<<<<< 加载 SpringApplicationContext >>>>>>>>>>>>>>>>>>");
 
     }
 

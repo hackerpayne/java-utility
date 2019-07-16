@@ -2,8 +2,9 @@ package com.lingdonge.spring.enums;
 
 import com.lingdonge.core.bean.base.NameValue;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public enum YesNoEnum {
     NO(0, "否"),
@@ -23,7 +24,7 @@ public enum YesNoEnum {
 
     public static String getName(Integer value) {
         for (YesNoEnum item : YesNoEnum.values()) {
-            if (value != null && item.value == value) {
+            if (value != null && item.value.equals(value)) {
                 return item.name;
             }
         }
@@ -31,10 +32,6 @@ public enum YesNoEnum {
     }
 
     public static List<NameValue> getItemList() {
-        List<NameValue> dataList = new ArrayList<NameValue>();
-        for (YesNoEnum item : YesNoEnum.values()) {
-            dataList.add(new NameValue(item.name, item.value));
-        }
-        return dataList;
+        return Arrays.stream(values()).map(item -> new NameValue(item.name, item.value)).collect(Collectors.toList());
     }
 }
