@@ -7,6 +7,8 @@ import orestes.bloomfilter.BloomFilter;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.ConcurrentMap;
 
 /**
@@ -77,15 +79,67 @@ public class RedisBloomFilterService {
     }
 
     /**
-     * 简单添加
+     * 不带过期时间的Add添加
      *
      * @param redisKey
      * @param item
      * @return
      */
     public boolean add(String redisKey, String item) {
+        return add(redisKey, item, null);
+    }
+
+    /**
+     * 简单添加
+     *
+     * @param redisKey
+     * @param item
+     * @param expireSeconds 过期时间，单位秒
+     * @return
+     */
+    public boolean add(String redisKey, String item, Long expireSeconds) {
         BloomFilter bloomFilterRedis = getBloomFilter(redisKey);
+        if (null != expireSeconds) { // 如果设置了过期时间，就让其能自动过期
+            redisService.expire(redisKey, expireSeconds);
+        }
         return bloomFilterRedis.add(item);
+    }
+
+    /**
+     * @param redisKey
+     * @param itemList
+     * @return
+     */
+    public List<Boolean> add(String redisKey, Collection<String> itemList) {
+        return add(redisKey, itemList, null);
+    }
+
+    /**
+     * 批量添加数据到布隆过滤器
+     *
+     * @param redisKey
+     * @param itemList
+     * @param expireSeconds 过期时间，单位秒
+     * @return
+     */
+    public List<Boolean> add(String redisKey, Collection<String> itemList, Long expireSeconds) {
+        BloomFilter bloomFilterRedis = getBloomFilter(redisKey);
+        if (null != expireSeconds) { // 如果设置了过期时间，就让其能自动过期
+            redisService.expire(redisKey, expireSeconds);
+        }
+        return bloomFilterRedis.addAll(itemList);
+    }
+
+    /**
+     * 手动设置过期时间
+     *
+     * @param redisKey
+     * @param expireSeconds
+     */
+    public void expire(String redisKey, Long expireSeconds) {
+        if (null != expireSeconds) { // 如果设置了过期时间，就让其能自动过期
+            redisService.expire(redisKey, expireSeconds);
+        }
     }
 
     /**
