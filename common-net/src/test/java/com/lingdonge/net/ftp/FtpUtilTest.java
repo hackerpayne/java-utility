@@ -1,4 +1,4 @@
-package com.lingdonge.core.http.ftp;
+package com.lingdonge.net.ftp;
 
 import org.junit.Test;
 
@@ -31,5 +31,6 @@ public class FtpUtilTest {
         boolean flag = ftputil.deleteFile("/2015/06/04/va.jpg");
         System.out.println(flag);
     }
+
 
 }

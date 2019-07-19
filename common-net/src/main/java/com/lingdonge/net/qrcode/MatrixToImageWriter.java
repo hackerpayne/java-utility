@@ -1,4 +1,4 @@
-package com.lingdonge.core.thirdparty.qrcode;
+package com.lingdonge.net.qrcode;
 
 import com.google.zxing.common.BitMatrix;
 

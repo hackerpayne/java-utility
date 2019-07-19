@@ -1,4 +1,4 @@
-package com.lingdonge.core.http.mail.entity;
+package com.lingdonge.net.mail.entity;
 
 public enum EnumRecieveType {
     /**

@@ -1,8 +1,8 @@
-package com.lingdonge.core.http.mail;
+package com.lingdonge.net.mail;
 
 import com.lingdonge.core.file.PropertiesUtils;
-import com.lingdonge.core.http.mail.entity.MailEntity;
-import com.lingdonge.core.http.mail.entity.UserAuthentication;
+import com.lingdonge.net.mail.entity.MailEntity;
+import com.lingdonge.net.mail.entity.UserAuthentication;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;

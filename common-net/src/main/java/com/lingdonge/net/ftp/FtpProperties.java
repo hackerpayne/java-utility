@@ -1,4 +1,4 @@
-package com.lingdonge.core.http.ftp;
+package com.lingdonge.net.ftp;
 
 import com.lingdonge.core.bean.base.BaseEntity;
 import lombok.Data;

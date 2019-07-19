@@ -149,41 +149,18 @@
             <version>3.1.0</version>
         </dependency>
 
-        <!-- Disruptor 高并发无锁队列 -->
-        <dependency>
-            <groupId>com.lmax</groupId>
-            <artifactId>disruptor</artifactId>
-            <version>3.3.2</version>
-            <optional>true</optional>
-        </dependency>
-
         <!-- 网络操作类 -->
         <dependency>
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
             <version>3.6</version>
-            <optional>true</optional>
         </dependency>
 
-        <!-- ZXing二维码生成 -->
+        <!-- Disruptor 高并发无锁队列 -->
         <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>core</artifactId>
-            <version>3.3.1</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>javase</artifactId>
-            <version>3.3.0</version>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- JavaxMail邮件发送支持 -->
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>javax.mail</artifactId>
-            <version>1.6.0</version>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>3.3.2</version>
             <optional>true</optional>
         </dependency>
 

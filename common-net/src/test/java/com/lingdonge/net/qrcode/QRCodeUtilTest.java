@@ -1,11 +1,12 @@
-package com.lingdonge.core.thirdparty.qrcode;
+package com.lingdonge.net.qrcode;
 
 import com.lingdonge.core.file.FileUtil;
 import com.lingdonge.core.util.Utils;
 import org.junit.Test;
 
-public class QRCodeUtilTest {
+import static org.junit.Assert.*;
 
+public class QRCodeUtilTest {
     @Test
     public void test() {
 

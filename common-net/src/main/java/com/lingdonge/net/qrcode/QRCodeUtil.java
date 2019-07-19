@@ -1,10 +1,8 @@
-package com.lingdonge.core.thirdparty.qrcode;
+package com.lingdonge.net.qrcode;
 
 import com.google.zxing.*;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
-import com.lingdonge.core.file.FileUtil;
-import com.lingdonge.core.util.Utils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

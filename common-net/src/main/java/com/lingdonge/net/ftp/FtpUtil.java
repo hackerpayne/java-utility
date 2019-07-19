@@ -1,4 +1,4 @@
-package com.lingdonge.core.http.ftp;
+package com.lingdonge.net.ftp;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;

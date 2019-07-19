@@ -1,8 +1,8 @@
-package com.lingdonge.core.http.mail;
+package com.lingdonge.net.mail;
 
 import com.google.common.collect.Lists;
-import com.lingdonge.core.http.mail.entity.MailEntity;
-import com.lingdonge.core.http.mail.entity.RecieveAccount;
+import com.lingdonge.net.mail.entity.MailEntity;
+import com.lingdonge.net.mail.entity.RecieveAccount;
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.pop3.POP3Folder;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +15,6 @@ import java.io.*;
 import java.security.Security;
 import java.util.List;
 import java.util.Properties;
-
-import static com.lingdonge.core.http.mail.entity.EnumRecieveType.POP3;
 
 /**
  * 邮件的收取类

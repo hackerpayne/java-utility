@@ -1,4 +1,4 @@
-package com.lingdonge.core.http.mail.entity;
+package com.lingdonge.net.mail.entity;
 
 import com.lingdonge.core.bean.base.BaseEntity;
 import com.lingdonge.core.file.FileUtil;

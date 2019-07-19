@@ -1,15 +1,12 @@
-package com.lingdonge.core.http.mail;
+package com.lingdonge.net.mail;
 
-import com.lingdonge.core.http.mail.entity.MailEntity;
-import com.lingdonge.core.http.mail.entity.RecieveAccount;
 import org.junit.Test;
 
 import java.util.List;
 
-import static com.lingdonge.core.http.mail.entity.EnumRecieveType.POP3;
+import static org.junit.Assert.*;
 
 public class ReceiveMailHandlerTest {
-
 
     @Test
     public void testSendMail() {
@@ -35,5 +32,4 @@ public class ReceiveMailHandlerTest {
 
         System.out.println(listUnreadMails.size());
     }
-
 }
