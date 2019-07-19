@@ -113,7 +113,17 @@ public class LocalDateUtil {
      * @return
      */
     public static String getDate(LocalDate localDate) {
-        return getDate(localDate, "yyyy-MM-dd");
+        return getDate(localDate, DatePattern.DATE_FORMAT);
+    }
+
+    /**
+     * 获取紧密格式的日期
+     *
+     * @param localDate
+     * @return
+     */
+    public static String getDateSimple(LocalDate localDate) {
+        return getDate(localDate, DatePattern.DATE_SIMPLE_FORMAT);
     }
 
     /**
