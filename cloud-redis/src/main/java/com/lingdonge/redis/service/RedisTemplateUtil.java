@@ -149,9 +149,10 @@ public class RedisTemplateUtil {
      * @param key
      * @return
      */
-    @Deprecated
-    public Long getIncrValue(final String key) {
-        return (Long) redisTemplate.execute((RedisCallback<Long>) connection -> {
+    public Number getNumber(final String key) {
+//        ValueOperations<String, Number> valueOperations = redisTemplate.opsForValue();
+//        return valueOperations.get(key);
+        return (Number) redisTemplate.execute((RedisCallback<Number>) connection -> {
             RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
             byte[] rowkey = serializer.serialize(key);
             byte[] rowval = connection.get(rowkey);

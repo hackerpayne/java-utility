@@ -119,6 +119,15 @@ public class LocalDateUtil {
     /**
      * 获取紧密格式的日期
      *
+     * @return
+     */
+    public static String getDateSimple() {
+        return DateTimeFormatter.ofPattern(DatePattern.DATE_SIMPLE_FORMAT).format(LocalDate.now());
+    }
+
+    /**
+     * 获取紧密格式的日期
+     *
      * @param localDate
      * @return
      */

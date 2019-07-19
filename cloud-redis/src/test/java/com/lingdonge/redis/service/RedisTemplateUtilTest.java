@@ -46,14 +46,19 @@ public class RedisTemplateUtilTest {
     public void testInteger() {
         init();
 
-        Long incre = redisTemplateUtil.incr("test:test", 1);
-        log.info("添加结果：{}", incre);
+//        Long incre = redisTemplateUtil.incr("test:test2", 1);
+//        log.info("添加结果：{}", incre);
 
-        Long getIncre = (Long) redisTemplateUtil.get("test:test");
-        log.info("获取Incre之后的结果1：{}", getIncre);
+        redisTemplateUtil.set("test:test2", 10);
 
-        Long getIncre2 = redisTemplateUtil.getIncrValue("test:test");
+//        Long getIncre = (Long) redisTemplateUtil.get("test:test2");
+//        log.info("获取Incre之后的结果1：{}", getIncre);
+
+        Long getIncre2 = redisTemplateUtil.getNumber("test:test2").longValue();
         log.info("获取Incre之后的结果2：{}", getIncre2);
+
+        Integer getIncre3 = redisTemplateUtil.getNumber("test:test2").intValue();
+        log.info("获取Incre之后的结果3：{}", getIncre3);
     }
 
 }
