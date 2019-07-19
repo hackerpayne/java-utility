@@ -2,7 +2,7 @@ package com.lingdonge.spring.configuration;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import com.lingdonge.spring.configuration.properties.CORSProperties;
+import com.lingdonge.spring.configuration.properties.CorsProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ import java.util.List;
  * paths:
  */
 //@Configuration
-@EnableConfigurationProperties(CORSProperties.class) // 开启指定类的配置
+@EnableConfigurationProperties(CorsProperties.class) // 开启指定类的配置
 //@ConditionalOnBean(CORSMakerConfiguration.Marker.class) //只有在开启注解的时候才会使用
 //@ConditionalOnProperty(name = "cors.enabled")// 必须开启cors.set才会使用此配置
 @ConditionalOnWebApplication //必须是Web项目
@@ -36,7 +36,7 @@ import java.util.List;
 public class CorsAutoConfiguration {
 
     @Autowired
-    private CORSProperties properties;
+    private CorsProperties properties;
 
     /**
      * 不用nginx来实现反向代理(前后端分离)支持第三方项目跨域引用

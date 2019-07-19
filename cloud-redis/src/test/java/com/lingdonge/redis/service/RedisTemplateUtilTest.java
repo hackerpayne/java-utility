@@ -1,16 +1,14 @@
 package com.lingdonge.redis.service;
 
-import com.lingdonge.redis.SpringBaseTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 
 import java.util.List;
 
-@EnableAutoConfiguration
+//@EnableAutoConfiguration
 @Slf4j
-public class RedisTemplateUtilTest extends SpringBaseTest {
+public class RedisTemplateUtilTest {
 
     private RedisTemplateUtil redisTemplateUtil;
 
@@ -42,6 +40,20 @@ public class RedisTemplateUtilTest extends SpringBaseTest {
             System.out.println(cursor);
         }
 
+    }
+
+    @Test
+    public void testInteger() {
+        init();
+
+        Long incre = redisTemplateUtil.incr("test:test", 1);
+        log.info("添加结果：{}", incre);
+
+        Long getIncre = (Long) redisTemplateUtil.get("test:test");
+        log.info("获取Incre之后的结果1：{}", getIncre);
+
+        Long getIncre2 = redisTemplateUtil.getIncrValue("test:test");
+        log.info("获取Incre之后的结果2：{}", getIncre2);
     }
 
 }

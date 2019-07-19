@@ -1,6 +1,5 @@
 package com.lingdonge.spring.configuration.properties;
 
-
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -13,7 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "cors")
 @Data
-public class CORSProperties {
+public class CorsProperties {
 
     /**
      *

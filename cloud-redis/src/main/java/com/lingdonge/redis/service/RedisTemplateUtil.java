@@ -7,7 +7,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
 import java.util.*;
@@ -15,6 +14,11 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 封装RedisTemplate的实现
+ * StringRedisTemplate和RedisTemplate的区别：
+ * 1、StringRedisTemplate继承了RedisTemplate。
+ * 2、RedisTemplate是一个泛型类，而StringRedisTemplate则不是。
+ * 3、StringRedisTemplate只能对key=String，value=String的键值对进行操作，RedisTemplate可以对任何类型的key-value键值对操作。
+ * 4、各自序列化的方式不同，但最终都是得到了一个字节数组，殊途同归，StringRedisTemplate使用的是StringRedisSerializer类；RedisTemplate使用的是JdkSerializationRedisSerializer类。反序列化，则是一个得到String，一个得到Object
  */
 @Slf4j
 public class RedisTemplateUtil {
@@ -31,7 +35,7 @@ public class RedisTemplateUtil {
      * @param redisProperties
      */
     public RedisTemplateUtil(RedisProperties redisProperties) {
-        this.redisTemplate = RedisConnUtil.getRedisTemplateFromJedis(redisProperties);
+        this.redisTemplate = RedisConnUtil.getRedisTemplate(redisProperties);
         this.afterPropertySet();//注入和生成实例
     }
 
@@ -92,6 +96,16 @@ public class RedisTemplateUtil {
     }
 
     /**
+     * 普通缓存获取
+     *
+     * @param key 键
+     * @return 值
+     */
+    public Object get(String key) {
+        return key == null ? null : redisTemplate.opsForValue().get(key);
+    }
+
+    /**
      * @param key
      * @param <T>
      * @return
@@ -124,24 +138,94 @@ public class RedisTemplateUtil {
     }
 
     /**
+     * 从Redis中获取Long型的数据
+     * 说明：在Redis存Long或者incr之后的结果时，由于设置了序列化规则，所以取出来的是Object对象，在转换时，会造成数据错误。需要使用此方便获取Long型的数据
+     * 具体会抛错：存入Long对象取出Integer对象，ClassCastException: java.lang.Integer cannot be cast to java.lang.Long。
+     * 原因：RedisTemplate默认使用的Json序列化工具，会把结果反序列化为Object类型，所以这里便是问题的根源所在，对于数值类型，取出后统一转为Object,导致泛型类型丢失，数值自动转为了Integer类型也就不奇怪了。
+     * 影响：Jackson2JsonRedisSerializer 都会影响
+     * 参考：https://blog.csdn.net/zhanngle/article/details/51363762
+     * https://blog.csdn.net/weixin_33881041/article/details/91472219
+     *
+     * @param key
+     * @return
+     */
+    @Deprecated
+    public Long getIncrValue(final String key) {
+        return (Long) redisTemplate.execute((RedisCallback<Long>) connection -> {
+            RedisSerializer<String> serializer = redisTemplate.getStringSerializer();
+            byte[] rowkey = serializer.serialize(key);
+            byte[] rowval = connection.get(rowkey);
+            try {
+                String val = serializer.deserialize(rowval);
+                return Long.parseLong(val);
+            } catch (Exception e) {
+                return 0L;
+            }
+        });
+    }
+
+    /**
+     * 普通缓存放入
+     *
+     * @param key   键
+     * @param value 值
+     * @return true成功 false失败
+     */
+    public boolean set(String key, Object value) {
+        try {
+            redisTemplate.opsForValue().set(key, value);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    /**
      * 保存String值，带过期时间
      *
      * @param key
      * @param value
-     * @param expireTime 多少秒后过期，指定过期的秒数，非指定时间过期
+     * @param expireSeconds 多少秒后过期，指定过期的秒数，非指定时间过期
      * @return
      */
-    public boolean set(String key, Object value, Long expireTime) {
+    public boolean set(String key, Object value, Long expireSeconds) {
         boolean result = false;
         try {
-            ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
-            operations.set(key, value);
-            redisTemplate.expire(key, expireTime, TimeUnit.SECONDS);
+            redisTemplate.opsForValue().set(key, value);
+
+            if (expireSeconds > 0) {
+                redisTemplate.expire(key, expireSeconds, TimeUnit.SECONDS);
+            }
+
             result = true;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Redis使用set异常：");
         }
         return result;
+    }
+
+    /**
+     * 普通缓存放入并设置时间
+     *
+     * @param key   键
+     * @param value 值
+     * @param time  时间(秒) time要大于0 如果time小于等于0 将设置无限期
+     * @return true成功 false 失败
+     */
+    public boolean set(String key, Object value, long time) {
+        try {
+            if (time > 0) {
+                redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
+            } else {
+                set(key, value);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /**
@@ -167,23 +251,21 @@ public class RedisTemplateUtil {
     }
 
     /**
-     * 删除一个或多个值
-     *
-     * @param keys
+     * @param key
      */
-    public void remove(String... keys) {
-        for (String key : keys) {
-            remove(key);
+    public void delete(String key) {
+        if (exists(key)) {
+            redisTemplate.delete(key);
         }
     }
 
     /**
-     * @param key
+     * 删除一个或多个值
+     *
+     * @param keys
      */
-    public void remove(String key) {
-        if (exists(key)) {
-            redisTemplate.delete(key);
-        }
+    public Long delete(Collection<String> keys) {
+        return redisTemplate.delete(keys);
     }
 
     /**
@@ -203,7 +285,6 @@ public class RedisTemplateUtil {
     public boolean exists(String key) {
         return redisTemplate.hasKey(key);
     }
-
 
     /**
      * @param key
@@ -264,7 +345,7 @@ public class RedisTemplateUtil {
      * @param key
      * @param value
      */
-    public void add(String key, Object value) {
+    public void sAdd(String key, Object value) {
         SetOperations<String, Object> set = redisTemplate.opsForSet();
         set.add(key, value);
     }
@@ -338,24 +419,6 @@ public class RedisTemplateUtil {
     }
 
     /**
-     * 删除Key
-     *
-     * @param key
-     */
-    public void delete(String key) {
-        redisTemplate.delete(key);
-    }
-
-    /**
-     * 删除多个Key
-     *
-     * @param keys
-     */
-    public void delete(String... keys) {
-        redisTemplate.delete(keys);
-    }
-
-    /**
      * 获取token的有效期---秒
      *
      * @param key
@@ -384,15 +447,10 @@ public class RedisTemplateUtil {
      * @return
      */
     public boolean expire(String key, long time) {
-        try {
-            if (time > 0) {
-                redisTemplate.expire(key, time, TimeUnit.SECONDS);
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        if (time > 0) {
+            return redisTemplate.expire(key, time, TimeUnit.SECONDS);
         }
+        return false;
     }
 
     /**
@@ -405,86 +463,6 @@ public class RedisTemplateUtil {
         return redisTemplate.getExpire(key, TimeUnit.SECONDS);
     }
 
-    /**
-     * 判断key是否存在
-     *
-     * @param key 键
-     * @return true 存在 false不存在
-     */
-    public boolean hasKey(String key) {
-        try {
-            return redisTemplate.hasKey(key);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * 删除缓存
-     *
-     * @param key 可以传一个值 或多个
-     */
-    @SuppressWarnings("unchecked")
-    public void del(String... key) {
-        if (key != null && key.length > 0) {
-            if (key.length == 1) {
-                redisTemplate.delete(key[0]);
-            } else {
-                redisTemplate.delete(CollectionUtils.arrayToList(key));
-            }
-        }
-    }
-
-    /**
-     * 普通缓存获取
-     *
-     * @param key 键
-     * @return 值
-     */
-    public Object get(String key) {
-        return key == null ? null : redisTemplate.opsForValue().get(key);
-    }
-
-    /**
-     * 普通缓存放入
-     *
-     * @param key   键
-     * @param value 值
-     * @return true成功 false失败
-     */
-    public boolean set(String key, Object value) {
-        try {
-            redisTemplate.opsForValue().set(key, value);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
-    }
-
-    /**
-     * 普通缓存放入并设置时间
-     *
-     * @param key   键
-     * @param value 值
-     * @param time  时间(秒) time要大于0 如果time小于等于0 将设置无限期
-     * @return true成功 false 失败
-     */
-    public boolean set(String key, Object value, long time) {
-        try {
-            if (time > 0) {
-                redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
-            } else {
-                set(key, value);
-            }
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
     /**
      * 递增

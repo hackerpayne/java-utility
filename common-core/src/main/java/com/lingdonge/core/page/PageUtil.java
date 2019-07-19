@@ -1,11 +1,24 @@
 package com.lingdonge.core.page;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 /**
  * 分页工具类
- *
  */
 public class PageUtil {
 
+    /**
+     * 获取分页列表
+     *
+     * @param start
+     * @param end
+     * @return
+     */
+    public static List<Integer> getPageOfRange(Integer start, Integer end) {
+        return IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
+    }
 
     /**
      * 将页数和每页条目数转换为开始位置和结束位置<br>
@@ -38,7 +51,7 @@ public class PageUtil {
      * 根据总数计算总页数
      *
      * @param totalCount 总数
-     * @param pageSize 每页数据量
+     * @param pageSize   每页数据量
      * @return 总页数
      */
     public static int totalPage(int totalCount, int pageSize) {
@@ -48,7 +61,4 @@ public class PageUtil {
         return totalCount % pageSize == 0 ? (totalCount / pageSize) : (totalCount / pageSize + 1);
     }
 
-    public static void main(String[] args) {
-        System.out.println(totalPage(0,10));
-    }
 }

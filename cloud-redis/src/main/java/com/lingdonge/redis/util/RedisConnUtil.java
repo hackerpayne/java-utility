@@ -1,9 +1,12 @@
 package com.lingdonge.redis.util;
 
+import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.lingdonge.core.reflect.OptionalUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -285,11 +288,11 @@ public class RedisConnUtil {
      * JacksonJsonRedisSerializer：使用Jackson 1，将对象序列化为JSON；
      * Jackson2JsonRedisSerializer：使用Jackson 2，将对象序列化为JSON；
      * JdkSerializationRedisSerializer：使用Java序列化；
-     * OxmSerializer：使用Spring O/X映射的编排器和解排器（marshaler和unmarshaler）实
-     * 现序列化，用于XML序列化；
+     * OxmSerializer：使用Spring O/X映射的编排器和解排器（marshaler和unmarshaler）实现序列化，用于XML序列化；
      * StringRedisSerializer：序列化String类型的key和value。
      * <p>
-     * ﻿RedisTemplate会默认使用JdkSerializationRedisSerializer，这意味着key和value都会通过Java进行序列化。StringRedisTemplate默认会使用StringRedisSerializer
+     * ﻿RedisTemplate会默认使用JdkSerializationRedisSerializer，这意味着key和value都会通过Java进行序列化。
+     * StringRedisTemplate默认会使用StringRedisSerializer
      *
      * @param redisConnectionFactory
      * @return
@@ -307,18 +310,19 @@ public class RedisConnUtil {
 
         redisTemplate.setConnectionFactory(redisConnectionFactory); // 配置连接池
 
-        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = RedisConnUtil.getJackson2JsonSerializer();
+        // 设置序列化方式
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = getJackson2JsonSerializer();
+//        FastJsonRedisSerializer<Object> fastJsonRedisSerializer = getFastJsonRedisSerializer();
 
         // 设置字符串的序列化方式
         redisTemplate.setKeySerializer(new StringRedisSerializer());// 配置Key的序列化方式，Long类型不可以出现，否则会出现异常信息;
-        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer); // 设置Value的序列化方式，采用了自定义的JackSon做
+        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer); // 设置Value的序列化方式
 
         // 设置Hash的序列化方式
         //如果不配置Serializer，那么存储的时候缺省使用String，如果用User类型存储，那么会提示错误User can't cast to String！
 //     redisTemplate.setHashKeySerializer(redisSerializer);
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
-//        redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
 
         // 开启事务支持
 //        redisTemplate.setEnableTransactionSupport(true); // 设置开启事务
@@ -409,6 +413,8 @@ public class RedisConnUtil {
     /**
      * 生成Jackson序列化
      * 需要引入Jackson的依赖 jackson-databind
+     * 注：Jackson有Bug：
+     * 1、
      *
      * @return
      */
@@ -426,9 +432,31 @@ public class RedisConnUtil {
         om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         om.registerModule(new JavaTimeModule());
 
+        // 序列换成json时,将所有的long变成string,因为js中得数字类型不能包含所有的java long值
+        SimpleModule simpleModule = new SimpleModule();
+        simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
+        simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
+        om.registerModule(simpleModule);
+
         jackson2JsonRedisSerializer.setObjectMapper(om);
 
         return jackson2JsonRedisSerializer;
+    }
+
+    /**
+     * 使用FastJson做为序列化工具
+     *
+     * @return
+     */
+    public static FastJsonRedisSerializer getFastJsonRedisSerializer() {
+        FastJsonRedisSerializer<Object> fastJsonRedisSerializer = new FastJsonRedisSerializer<>(Object.class);//JSONObject
+        // 全局开启AutoType，不建议使用
+        // ParserConfig.getGlobalInstance().setAutoTypeSupport(true);
+
+        // 建议使用这种方式，小范围指定白名单
+        // ParserConfig.getGlobalInstance().addAccept("com.xiaolyuh.");
+
+        return fastJsonRedisSerializer;
     }
 
     /**
