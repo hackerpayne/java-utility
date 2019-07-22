@@ -1,5 +1,4 @@
-package com.lingdonge.db.extension;
-
+package com.lingdonge.db.mybatisplus.extension;
 
 import com.google.common.base.CaseFormat;
 import com.lingdonge.db.annotation.Invisible;
@@ -13,13 +12,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 自定义Update注解,用于动态生成Update语句
- * 使用时：
- *
- * @Update("update admin_role (#{roleDO}) where id=#{id}")
- * @Lang(SimpleUpdateLangDriver.class)
+ * 自定义Insert注解,用于动态生成Insert语句
+ * 使用示例：
+ * @Insert("insert into admin_role (#{roleDO})")
+ * @Lang(SimpleInsertLangDriver.class)
  */
-public class SimpleUpdateLangDriver extends XMLLanguageDriver implements LanguageDriver {
+public class SimpleInsertLangDriver extends XMLLanguageDriver implements LanguageDriver {
 
     /**
      * Pattern静态申明
@@ -27,7 +25,7 @@ public class SimpleUpdateLangDriver extends XMLLanguageDriver implements Languag
     private final Pattern inPattern = Pattern.compile("\\(#\\{(\\w+)\\}\\)");
 
     /**
-     * 实现自定义Update注解
+     * 实现自定义Insert注解
      *
      * @param configuration 配置参数
      * @param script        入参
@@ -40,19 +38,20 @@ public class SimpleUpdateLangDriver extends XMLLanguageDriver implements Languag
         Matcher matcher = inPattern.matcher(script);
         if (matcher.find()) {
             StringBuilder sb = new StringBuilder();
-            sb.append("<set>");
+            StringBuilder tmp = new StringBuilder();
+            sb.append("(");
 
             for (Field field : parameterType.getDeclaredFields()) {
-                // 排除被Invisble修饰的变量
                 if (!field.isAnnotationPresent(Invisible.class)) {
-                    String tmp = "<if test=\"_field != null\">_column=#{_field},</if>";
-                    sb.append(tmp.replaceAll("_field", field.getName()).replaceAll("_column",
-                            CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, field.getName())));
+                    sb.append(CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, field.getName()) + ",");
+                    tmp.append("#{" + field.getName() + "},");
                 }
             }
 
             sb.deleteCharAt(sb.lastIndexOf(","));
-            sb.append("</set>");
+            tmp.deleteCharAt(tmp.lastIndexOf(","));
+            sb.append(") values ("
+                    + tmp.toString() + ")");
 
             script = matcher.replaceAll(sb.toString());
             script = "<script>" + script + "</script>";

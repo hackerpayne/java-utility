@@ -1,4 +1,4 @@
-package com.lingdonge.db.db;
+package com.lingdonge.db.jdbc;
 
 import com.lingdonge.core.file.PropertiesUtils;
 import com.lingdonge.core.util.Utils;

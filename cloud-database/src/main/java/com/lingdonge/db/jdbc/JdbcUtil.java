@@ -1,4 +1,4 @@
-package com.lingdonge.db.db;
+package com.lingdonge.db.jdbc;
 
 import java.io.IOException;
 import java.sql.*;

@@ -1,4 +1,4 @@
-package com.lingdonge.db.mybatisplus;
+package com.lingdonge.db.mybatisplus.Injector;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
@@ -17,14 +17,14 @@ public class SelectNewPageInjector extends AbstractMethod {
         String sqlMethod = "queryPages";
         String sql = String.format(sqlScript, tableInfo.getTableName(), tableInfo.getKeyColumn(), tableInfo.getTableName(), sqlWhereEntityWrapper(true, tableInfo), tableInfo.getKeyColumn(), tableInfo.getKeyColumn(), tableInfo.getKeyColumn());
 
-        if (tableInfo.getTableName().contains("channel_user_info")){
+        if (tableInfo.getTableName().contains("channel_user_info")) {
             System.out.println("sql语句为：" + sql);
         }
         SqlSource sqlSource = languageDriver.createSqlSource(configuration, sql, modelClass);
 
 //        return this.addMappedStatement(mapperClass, sqlMethod, sqlSource, tableInfo);
         /* 返回 resultMap 映射结果集 */
-        return this.addSelectMappedStatement(mapperClass, sqlMethod, sqlSource, modelClass, tableInfo);
+        return this.addSelectMappedStatementForTable(mapperClass, sqlMethod, sqlSource, tableInfo);
 //        return addSelectMappedStatement(mapperClass,sqlMethod,sqlSource,modelClass,tableInfo);
 //        return addMappedStatement(mapperClass, sqlMethod, sqlSource, SqlCommandType.SELECT, null,
 //                null, tableInfo, new NoKeyGenerator(), null, null);

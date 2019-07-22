@@ -1,4 +1,4 @@
-package com.lingdonge.mongodb;
+package com.lingdonge.mongodb.util;
 
 import com.lingdonge.mongodb.configuration.MongodbProperties;
 import com.mongodb.MongoClient;

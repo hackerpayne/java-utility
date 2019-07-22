@@ -44,17 +44,17 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.1.1</version>
+            <version>3.1.2</version>
             <optional>true</optional>
         </dependency>
 
         <!-- MyBatis-分页插件 https://github.com/pagehelper/Mybatis-PageHelper 使用 -->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>5.1.4</version>
-            <optional>true</optional>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.pagehelper</groupId>-->
+<!--            <artifactId>pagehelper</artifactId>-->
+<!--            <version>5.1.4</version>-->
+<!--            <optional>true</optional>-->
+<!--        </dependency>-->
 
         <!--FastSQL支持，以实现我的自定义SQL http://fastsql.top-->
         <dependency>
@@ -83,13 +83,6 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.1.16</version>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
             <optional>true</optional>
         </dependency>
 

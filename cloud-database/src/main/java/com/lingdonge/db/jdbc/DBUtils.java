@@ -1,4 +1,4 @@
-package com.lingdonge.db.db;
+package com.lingdonge.db.jdbc;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;

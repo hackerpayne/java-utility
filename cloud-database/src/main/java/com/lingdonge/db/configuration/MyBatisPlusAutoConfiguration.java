@@ -1,15 +1,25 @@
 package com.lingdonge.db.configuration;
 
+import com.baomidou.mybatisplus.core.parser.ISqlParser;
+import com.baomidou.mybatisplus.extension.parsers.DynamicTableNameParser;
+import com.baomidou.mybatisplus.extension.parsers.ITableNameHandler;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * MyBatic自动加载配置
@@ -72,7 +82,28 @@ public class MyBatisPlusAutoConfiguration {
      */
     @Bean
     public PaginationInterceptor paginationInterceptor() {
-        return new PaginationInterceptor();
+        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+
+//        ITableNameHandler myTableNameHandler = new ITableNameHandler() {
+//            @Override
+//            public String dynamicTableName(MetaObject metaObject, String sql, String tableName) {
+//                String newTableName = tableName + "_" + DateTimeFormatter.ofPattern("yyyyMM").format(LocalDate.now());
+//                log.debug("动态表名：{}，{}", newTableName, sql);
+//                return newTableName;
+//            }
+//        };
+//
+//        Map<String, ITableNameHandler> tableNameHandlerMap = new HashMap<>();
+//        tableNameHandlerMap.put("tongdun_score", myTableNameHandler); // sms_log 与类名保持一致
+//
+//        DynamicTableNameParser dynamicTableNameParser = new DynamicTableNameParser();
+//        dynamicTableNameParser.setTableNameHandlerMap(tableNameHandlerMap);
+//
+//        List<ISqlParser> sqlParserList = new ArrayList<>();
+//        sqlParserList.add(dynamicTableNameParser);
+//        paginationInterceptor.setSqlParserList(sqlParserList);
+
+        return paginationInterceptor;
     }
 
     /**

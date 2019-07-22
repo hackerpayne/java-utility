@@ -1,4 +1,4 @@
-package com.lingdonge.db.db;
+package com.lingdonge.db.jdbc;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,10 +18,13 @@ public class ConnectionUtils {
 
     //数据库用户名
     private static String USERNAME = "root";
+
     //数据库密码
     private static String PASSWORD = "yanzi";
+
     //驱动信息
     private static String DRIVER = "com.mysql.jdbc.Driver";
+
     //数据库地址
     private static String URL = "jdbc:mysql://localhost:3306/mydb";
 

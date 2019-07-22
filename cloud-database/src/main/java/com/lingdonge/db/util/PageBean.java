@@ -1,4 +1,4 @@
-package com.lingdonge.db.db;
+package com.lingdonge.db.util;
 
 import java.io.Serializable;
 import java.util.List;

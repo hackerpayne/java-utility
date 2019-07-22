@@ -1,4 +1,4 @@
-package com.lingdonge.db.db;
+package com.lingdonge.db.jdbc;
 
 import cn.hutool.core.util.StrUtil;
 import com.lingdonge.core.bean.common.ModelArticle;

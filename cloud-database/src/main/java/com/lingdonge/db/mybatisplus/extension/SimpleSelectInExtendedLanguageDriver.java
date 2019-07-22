@@ -1,4 +1,4 @@
-package com.lingdonge.db.extension;
+package com.lingdonge.db.mybatisplus.extension;
 
 import org.apache.ibatis.mapping.SqlSource;
 import org.apache.ibatis.scripting.LanguageDriver;

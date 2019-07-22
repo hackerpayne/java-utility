@@ -1,7 +1,6 @@
 package com.lingdonge.db.jdbc;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.StrUtil;
 import com.google.common.collect.Lists;
 import com.lingdonge.core.bean.base.BaseEntity;
 import com.lingdonge.core.bean.base.ModelPair;
@@ -37,19 +36,10 @@ import java.util.Map;
 @Slf4j
 public class JdbcTemplateUtil extends BaseEntity {
 
-    private String tableName;
-
     private JdbcTemplate jdbcTemplate;
 
     public JdbcTemplateUtil() {
 
-    }
-
-    /**
-     * @param tableName
-     */
-    public JdbcTemplateUtil(String tableName) {
-        this(null, tableName);
     }
 
     /**
@@ -65,7 +55,6 @@ public class JdbcTemplateUtil extends BaseEntity {
      */
     public JdbcTemplateUtil(JdbcTemplate jdbcTemplate, String tableName) {
         this.jdbcTemplate = jdbcTemplate;
-        this.tableName = SqlBuilder.buildTableName(tableName.trim());
     }
 
     /**
@@ -113,7 +102,7 @@ public class JdbcTemplateUtil extends BaseEntity {
      *
      * @param map 字段和Value值，放入Map中入库
      */
-    public Integer insert(Map<String, Object> map) {
+    public Integer insert(String tableName, Map<String, Object> map) {
         Pair<String, Object[]> pair = SqlBuilder.buildInsert(tableName, map);
         return getJdbcTemplate().update(pair.getKey(), pair.getValue());
     }
@@ -123,7 +112,7 @@ public class JdbcTemplateUtil extends BaseEntity {
      *
      * @param listData
      */
-    public int[] batchInsert(final List<Map<String, Object>> listData) {
+    public int[] batchInsert(String tableName, final List<Map<String, Object>> listData) {
         Pair<String, List<Object[]>> pair = SqlBuilder.buildBatchInsert(tableName, listData);
         return jdbcTemplate.batchUpdate(pair.getKey(), pair.getValue());
     }
@@ -292,8 +281,8 @@ public class JdbcTemplateUtil extends BaseEntity {
      * @param whereMap
      */
     @Transactional(readOnly = false, rollbackFor = Exception.class)
-    public void update(Map<String, Object> map, LinkedHashMap<String, Object> whereMap) {
-        Pair<String, Object[]> pair = SqlBuilder.buildUpdateSql(tableName, map, whereMap);
+    public void update(String tableName, Map<String, Object> map, LinkedHashMap<String, Object> whereMap) {
+        Pair<String, Object[]> pair = SqlBuilder.buildUpdateSql(SqlBuilder.buildTableName(tableName), map, whereMap);
         getJdbcTemplate().update(pair.getKey(), pair.getValue());
     }
 
@@ -345,38 +334,6 @@ public class JdbcTemplateUtil extends BaseEntity {
 
     }
 
-    /**
-     * 修改数据
-     *
-     * @param tableName 表名
-     * @param map       Map存放要修改的数据
-     * @param whereMap  Where条件，将会以And连接
-     */
-    @Transactional(readOnly = false, rollbackFor = Exception.class)
-    public void update(String tableName, Map<String, Object> map, LinkedHashMap<String, Object> whereMap) {
-
-        List<Object> params = new ArrayList<Object>();
-
-        StringBuffer sql = new StringBuffer("update ")
-                .append(tableName).append(" set ");
-
-        StringBuffer temp = new StringBuffer();
-        for (Map.Entry<String, Object> entry : map.entrySet()) {
-            temp.append(NamingUtil.camelToUnderline(entry.getKey())).append("=").append("?,");
-            params.add(entry.getValue());
-        }
-        sql.append(temp.deleteCharAt(temp.length() - 1));
-        if (whereMap != null) {
-            sql.append(" where 1=1 ");
-            for (Map.Entry<String, Object> entry : whereMap.entrySet()) {
-                sql.append(" and ").append(NamingUtil.camelToUnderline(entry.getKey())).append("?");
-                params.add(entry.getValue());
-            }
-        }
-        //sql.append(";");
-
-        getJdbcTemplate().update(sql.toString(), params.toArray());
-    }
 
     /**
      * 批量更新
@@ -385,10 +342,10 @@ public class JdbcTemplateUtil extends BaseEntity {
      * @param whereFields
      * @param list
      */
-    public void updateBatch(String[] fields, LinkedHashMap<String, String> whereFields, final List<Map<String, Object>> list) {
+    public void updateBatch(String tableName, String[] fields, LinkedHashMap<String, String> whereFields, final List<Map<String, Object>> list) {
 
         StringBuffer sql = new StringBuffer("update ")
-                .append(tableName).append(" set ");
+                .append(SqlBuilder.buildTableName(tableName)).append(" set ");
 
         final List<String> paramKeys = new ArrayList<String>();
         StringBuffer temp = new StringBuffer();
@@ -428,20 +385,21 @@ public class JdbcTemplateUtil extends BaseEntity {
      *
      * @param id
      */
-    public Integer delete(Long id) {
+    public Integer delete(String tableName, Long id) {
         StringBuffer sql = new StringBuffer("delete from ")
-                .append(tableName).append(" where id=?;");
+                .append(SqlBuilder.buildTableName(tableName)).append(" where id=?;");
         return getJdbcTemplate().update(sql.toString(), new Object[]{id});
     }
 
     /**
      * 批量删除
      *
+     * @param tableName
      * @param ids
      */
-    public void deleteBatch(final Long[] ids) {
+    public void deleteBatch(String tableName, final Long[] ids) {
         StringBuffer sql = new StringBuffer("delete from ")
-                .append(tableName).append(" where id=?;");
+                .append(SqlBuilder.buildTableName(tableName)).append(" where id=?;");
 
         getJdbcTemplate().batchUpdate(sql.toString(), new BatchPreparedStatementSetter() {
 
@@ -457,33 +415,28 @@ public class JdbcTemplateUtil extends BaseEntity {
         });
     }
 
-
-    public Integer count() {
-        return count("");
-    }
-
     /**
      * 根据条件查询记录总数
      *
      * @param where
      * @return
      */
-    public Integer count(String where) {
+    public Integer count(String tableName, String where) {
         if (StringUtils.isNotEmpty(where)) {
-            return getJdbcTemplate().queryForObject("select count(1) from " + tableName + " where " + where, Integer.class);
+            return getJdbcTemplate().queryForObject("select count(1) from " + SqlBuilder.buildTableName(tableName) + " where " + where, Integer.class);
         }
-        return getJdbcTemplate().queryForObject("select count(1) from " + tableName, Integer.class);
+        return getJdbcTemplate().queryForObject("select count(1) from " + SqlBuilder.buildTableName(tableName), Integer.class);
     }
 
     /**
      * 根据Where条件求Count
      *
+     * @param tableName
      * @param where
      * @return
      */
-    public int count(Map<String, String> where) {
-        StringBuffer sql = new StringBuffer("SELECT COUNT(1) FROM " + tableName)
-                .append(SqlBuilder.buildWhere(where));
+    public int count(String tableName, Map<String, String> where) {
+        StringBuffer sql = new StringBuffer("SELECT COUNT(1) FROM " + SqlBuilder.buildTableName(tableName)).append(SqlBuilder.buildWhere(where));
 
         return getJdbcTemplate().queryForObject(sql.toString(), Integer.class);
     }
@@ -529,8 +482,8 @@ public class JdbcTemplateUtil extends BaseEntity {
      * @param id
      * @return
      */
-    public Map<String, Object> findById(String id) {
-        return getJdbcTemplate().queryForMap("select * from " + this.tableName + " where id=" + id);
+    public Map<String, Object> findById(String tableName, String id) {
+        return getJdbcTemplate().queryForMap("select * from " + SqlBuilder.buildTableName(tableName) + " where id=" + id);
     }
 
     /**
@@ -539,8 +492,8 @@ public class JdbcTemplateUtil extends BaseEntity {
      * @param pageSize
      * @return
      */
-    public Integer getTotalPage(Integer pageSize) {
-        return PageUtil.totalPage(count(), pageSize);
+    public Integer getTotalPage(String tableName, Integer pageSize) {
+        return PageUtil.totalPage(count(tableName, ""), pageSize);
     }
 
     /**
@@ -550,8 +503,8 @@ public class JdbcTemplateUtil extends BaseEntity {
      * @param where
      * @return
      */
-    public Integer getTotalPage(Integer pageSize, String where) {
-        return PageUtil.totalPage(count(where), pageSize);
+    public Integer getTotalPage(String tableName, Integer pageSize, String where) {
+        return PageUtil.totalPage(count(tableName, where), pageSize);
     }
 
     /**
@@ -561,12 +514,8 @@ public class JdbcTemplateUtil extends BaseEntity {
      * @param pageSize
      * @return
      */
-    public List<Map<String, Object>> findByPage(Integer pageNo, Integer pageSize) {
-        pageNo = pageNo > 0 ? pageNo : 1;
-        Integer offset = (pageNo - 1) * pageSize;
-        String sql = StrUtil.format("select * from {} br WHERE br.id>=(SELECT id from {} ORDER BY id asc limit {},1 ) limit {}", this.tableName, this.tableName, offset, pageSize);
-
-        return getJdbcTemplate().queryForList(sql);
+    public List<Map<String, Object>> findByPage(String tableName, Integer pageNo, Integer pageSize) {
+        return getJdbcTemplate().queryForList(SqlBuilder.buildHugePageSql(tableName, pageNo, pageSize));
     }
 
     /**

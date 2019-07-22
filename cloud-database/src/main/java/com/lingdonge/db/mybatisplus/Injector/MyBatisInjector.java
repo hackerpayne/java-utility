@@ -1,4 +1,4 @@
-package com.lingdonge.db.mybatisplus;
+package com.lingdonge.db.mybatisplus.Injector;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.AbstractSqlInjector;
@@ -22,10 +22,9 @@ public class MyBatisInjector extends AbstractSqlInjector {
      * @return
      */
     @Override
-    public List<AbstractMethod> getMethodList() {
+    public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
         return Stream.of(
                 new SelectNewPageInjector()
         ).collect(Collectors.toList());
     }
-
 }

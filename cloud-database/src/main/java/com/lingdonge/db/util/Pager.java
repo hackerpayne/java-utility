@@ -1,7 +1,7 @@
-package com.lingdonge.db.db;
+package com.lingdonge.db.util;
 
 import cn.hutool.core.util.StrUtil;
-import com.lingdonge.db.model.BaseEntity;
+import com.lingdonge.core.bean.base.BaseEntity;
 
 import java.util.List;
 

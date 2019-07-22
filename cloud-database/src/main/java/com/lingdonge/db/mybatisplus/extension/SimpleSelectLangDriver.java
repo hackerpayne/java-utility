@@ -1,4 +1,4 @@
-package com.lingdonge.db.extension;
+package com.lingdonge.db.mybatisplus.extension;
 
 
 import com.google.common.base.CaseFormat;

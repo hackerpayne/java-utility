@@ -1,4 +1,4 @@
-package com.lingdonge.db.util;
+package com.lingdonge.db.jpa.rowmapper;
 
 import org.springframework.jdbc.core.RowMapper;
 

@@ -4,6 +4,7 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.lingdonge.core.bean.common.ModelDBItem;
 import com.lingdonge.core.bean.base.ModelPair;
+import com.lingdonge.db.jdbc.DBUtils;
 import org.junit.Test;
 
 import java.util.List;

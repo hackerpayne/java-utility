@@ -1,8 +1,9 @@
-package com.lingdonge.db.util;
+package com.lingdonge.db.jpa.rowmapper;
 
 import cn.hutool.core.exceptions.UtilException;
 import cn.hutool.core.util.ReflectUtil;
 import com.lingdonge.core.reflect.BeanUtil;
+import com.lingdonge.db.util.NameHandler;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.beans.BeanInfo;
