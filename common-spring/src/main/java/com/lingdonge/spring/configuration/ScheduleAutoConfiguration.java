@@ -1,6 +1,7 @@
 package com.lingdonge.spring.configuration;
 
 import com.lingdonge.spring.configuration.properties.TaskThreadPoolProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +18,7 @@ import javax.annotation.Resource;
 @Configuration
 @EnableConfigurationProperties(TaskThreadPoolProperties.class)
 @EnableScheduling
+@Slf4j
 public class ScheduleAutoConfiguration implements SchedulingConfigurer {
 
     @Resource
@@ -24,6 +26,9 @@ public class ScheduleAutoConfiguration implements SchedulingConfigurer {
 
     @Override
     public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
+
+        log.info("<<<<<<<<<<<<<<< Schedule任务调度的线程池ThreadPool >>>>>>>>>>>>>>>>>>");
+
         taskRegistrar.setScheduler(taskExecutor());
 //        taskRegistrar.setCronTasks();
 //        taskRegistrar.setFixedDelayTasks();

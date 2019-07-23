@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>utility-parent</artifactId>
+        <groupId>com.lingdonge</groupId>
+        <version>3.0.4</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>cloud-xxl-job</artifactId>
+    <name>${project.artifactId}</name>
+    <packaging>jar</packaging>
+    <description>XXL-Job分布式调度系统</description>
+
+    <properties>
+        <xxl.version>2.1.0</xxl.version>
+    </properties>
+
+    <dependencies>
+        <!-- 分布式任务调度 http://repo1.maven.org/maven2/com/xuxueli/xxl-job-core/ -->
+        <dependency>
+            <groupId>com.xuxueli</groupId>
+            <artifactId>xxl-job-core</artifactId>
+            <version>${xxl.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>

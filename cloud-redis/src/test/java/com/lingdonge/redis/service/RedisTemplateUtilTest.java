@@ -49,7 +49,7 @@ public class RedisTemplateUtilTest {
 //        Long incre = redisTemplateUtil.incr("test:test2", 1);
 //        log.info("添加结果：{}", incre);
 
-        redisTemplateUtil.set("test:test2", 10);
+        redisTemplateUtil.set("test:test2", 12343);
 
 //        Long getIncre = (Long) redisTemplateUtil.get("test:test2");
 //        log.info("获取Incre之后的结果1：{}", getIncre);

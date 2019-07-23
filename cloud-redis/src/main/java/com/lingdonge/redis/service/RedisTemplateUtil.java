@@ -2,6 +2,7 @@ package com.lingdonge.redis.service;
 
 import com.lingdonge.redis.util.RedisConnUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -158,7 +159,7 @@ public class RedisTemplateUtil {
             byte[] rowval = connection.get(rowkey);
             try {
                 String val = serializer.deserialize(rowval);
-                return Long.parseLong(val);
+                return NumberUtils.createNumber(val);
             } catch (Exception e) {
                 return 0L;
             }

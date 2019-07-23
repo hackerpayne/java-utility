@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * 异步任务线程池配置
  */
 //@Configuration
-@ConfigurationProperties(prefix = "spring.task.pool")
+@ConfigurationProperties(prefix = "spring.task")
 @Data
 public class TaskThreadPoolProperties {
 
