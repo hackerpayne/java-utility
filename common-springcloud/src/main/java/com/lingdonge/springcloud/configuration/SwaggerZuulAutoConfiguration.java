@@ -1,4 +1,4 @@
-package com.lingdonge.spring.configuration;
+package com.lingdonge.springcloud.configuration;
 
 import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import com.lingdonge.spring.configuration.properties.SwaggerProperties;
@@ -28,6 +28,7 @@ public class SwaggerZuulAutoConfiguration implements SwaggerResourcesProvider {
 
     /**
      * 这里继承SwaggerResourcesProvider接口是实现聚合api的关键，另外通过RouteLocator类获取路由列表是实现自动聚合的关键。
+     *
      * @return
      */
     @Override
@@ -52,7 +53,6 @@ public class SwaggerZuulAutoConfiguration implements SwaggerResourcesProvider {
     }
 
     /**
-     *
      * @param name
      * @param location
      * @param version

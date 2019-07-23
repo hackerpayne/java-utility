@@ -1,4 +1,4 @@
-package com.lingdonge.spring.mail;
+package com.lingdonge.net.mail;
 
 public interface MailService {
     /**

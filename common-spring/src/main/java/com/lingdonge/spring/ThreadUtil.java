@@ -1,12 +1,10 @@
-package com.lingdonge.spring.threads;
+package com.lingdonge.spring;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
-@Slf4j
-public class SpringThreadsUtil {
+public class ThreadUtil {
 
     /**
      * 创建ThreadExecutor线程池
@@ -42,4 +40,6 @@ public class SpringThreadsUtil {
 
         return executor;
     }
+
+
 }

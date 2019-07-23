@@ -50,6 +50,12 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- ZXing二维码生成 -->
         <dependency>
             <groupId>com.google.zxing</groupId>

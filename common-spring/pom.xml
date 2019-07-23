@@ -68,36 +68,10 @@
             <optional>true</optional>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-redis</artifactId>
-            <optional>true</optional>
-        </dependency>
-
         <!--暂时先去掉，在使用模板邮件的时候可能会用到-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- zuul 依赖 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- 客户端依赖 -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
             <optional>true</optional>
         </dependency>
 
@@ -106,12 +80,6 @@
             <artifactId>common-core</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-
-        <!--<dependency>-->
-        <!--<groupId>org.springframework.cloud</groupId>-->
-        <!--<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
-        <!--<optional>true</optional>-->
-        <!--</dependency>-->
 
         <!-- Swagger API管理工具 -->
         <dependency>

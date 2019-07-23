@@ -11,6 +11,7 @@ import org.springframework.core.convert.converter.Converter;
  * 使用时：
  */
 public class StringToDateConverter implements Converter<String, Date> {
+
     private static final String dateFormat = "yyyy-MM-dd HH:mm:ss";
     private static final String shortDateFormat = "yyyy-MM-dd";
     private static final String dateFormat2 = "yyyy/MM/dd HH:mm:ss";

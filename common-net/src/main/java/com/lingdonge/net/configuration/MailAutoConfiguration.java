@@ -1,7 +1,7 @@
-package com.lingdonge.spring.configuration;
+package com.lingdonge.net.configuration;
 
-import com.lingdonge.spring.mail.MailService;
-import com.lingdonge.spring.mail.impl.MailServiceImpl;
+import com.lingdonge.net.mail.MailService;
+import com.lingdonge.net.mail.MailServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

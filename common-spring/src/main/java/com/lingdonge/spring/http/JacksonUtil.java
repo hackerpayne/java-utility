@@ -1,30 +1,72 @@
 package com.lingdonge.spring.http;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.converter.json.MappingJacksonValue;
 
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Json 工具类，jackson的一层封装
  */
 @Slf4j
-public class JsonJacksonUtil {
+public class JacksonUtil {
 
-    private static ObjectMapper mapper = new ObjectMapper();
+    private static ObjectMapper mapper = getObjectMapper();
 
-    private JsonJacksonUtil() {
+    private JacksonUtil() {
 
     }
 
     public static ObjectMapper getInstance() {
         return mapper;
+    }
+
+    /**
+     * 获取一个ObjectMapper对象，处理了时间和Long型精度失效的问题
+     *
+     * @return
+     */
+    public static ObjectMapper getObjectMapper() {
+        // 1、解决查询缓存转换异常的问题
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+
+        // 2、序列换成json时,将所有的long变成string,因为js中得数字类型不能包含所有的java long值
+        SimpleModule simpleModule = new SimpleModule();
+        simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
+        simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
+        objectMapper.registerModule(simpleModule);
+
+        // 3、解决jackson2无法反序列化LocalDateTime的问题
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        //不再做统一处理 Springcloud2 fegin 会报日期格式化错误 格式化的日期字段直接加@JsonFormat 注解处理
+        //序列化日期格式
+        //javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
+        //javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer());
+        //javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer());
+
+        //反序列化日期格式
+        //javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
+        //javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer());
+        //javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer());
+
+        objectMapper.registerModule(javaTimeModule);
+
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        objectMapper.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai")); // 默认时区设置为上海
+
+        return objectMapper;
     }
 
     /**

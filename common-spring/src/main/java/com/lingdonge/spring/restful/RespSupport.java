@@ -2,7 +2,7 @@ package com.lingdonge.spring.restful;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lingdonge.core.bean.base.BaseEntity;
-import com.lingdonge.spring.constant.GlobalBaseConstant;
+import com.lingdonge.spring.constant.RespCodeConstant;
 import lombok.Data;
 
 /**
@@ -28,7 +28,7 @@ public class RespSupport extends BaseEntity {
      */
     @JsonIgnore
     public boolean isSuccess() {
-        return this.getCode() == GlobalBaseConstant.SUCCESS_CODE;
+        return this.getCode() == RespCodeConstant.SUCCESS_CODE;
     }
 
 }

@@ -1,6 +1,6 @@
-package com.lingdonge.spring.annotation;
+package com.lingdonge.net.annotation;
 
-import com.lingdonge.spring.configuration.MailAutoConfiguration;
+import com.lingdonge.net.configuration.MailAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

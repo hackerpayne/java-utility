@@ -1,7 +1,6 @@
-package com.lingdonge.spring.mail.impl;
+package com.lingdonge.net.mail;
 
 import com.google.common.base.Splitter;
-import com.lingdonge.spring.mail.MailService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
@@ -21,7 +20,6 @@ import java.io.File;
 public class MailServiceImpl implements MailService {
 
     public MailServiceImpl() {
-
     }
 
     /**

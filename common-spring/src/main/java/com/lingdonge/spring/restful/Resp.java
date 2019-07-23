@@ -1,7 +1,7 @@
 package com.lingdonge.spring.restful;
 
 import com.alibaba.fastjson.JSON;
-import com.lingdonge.spring.constant.GlobalBaseConstant;
+import com.lingdonge.spring.constant.RespCodeConstant;
 
 import java.util.HashMap;
 
@@ -38,7 +38,7 @@ public class Resp<T> extends RespSupport {
      */
     public static <U> Resp<U> fail() {
         Resp<U> resp = new Resp<U>();
-        resp.setCode(GlobalBaseConstant.FAIL_CODE);
+        resp.setCode(RespCodeConstant.FAIL_CODE);
         resp.setMsg("未知错误");
         return resp;
     }
@@ -52,7 +52,7 @@ public class Resp<T> extends RespSupport {
      */
     public static <U> Resp<U> fail(String message) {
         Resp<U> resp = new Resp<U>();
-        resp.setCode(GlobalBaseConstant.FAIL_CODE);
+        resp.setCode(RespCodeConstant.FAIL_CODE);
         resp.setMsg(message);
         return resp;
     }
@@ -97,7 +97,7 @@ public class Resp<T> extends RespSupport {
      */
     public static <U> Resp<U> success() {
         Resp<U> resp = new Resp<U>();
-        resp.setCode(GlobalBaseConstant.SUCCESS_CODE);
+        resp.setCode(RespCodeConstant.SUCCESS_CODE);
         resp.setMsg("");
         return resp;
     }
@@ -111,7 +111,7 @@ public class Resp<T> extends RespSupport {
      */
     public static <U> Resp<U> successWith(String msg) {
         Resp<U> resp = new Resp<U>();
-        resp.setCode(GlobalBaseConstant.SUCCESS_CODE);
+        resp.setCode(RespCodeConstant.SUCCESS_CODE);
         resp.setMsg(msg);
         return resp;
     }
@@ -125,7 +125,7 @@ public class Resp<T> extends RespSupport {
      */
     public static <U> Resp<U> success(U data) {
         Resp<U> resp = new Resp<U>();
-        resp.setCode(GlobalBaseConstant.SUCCESS_CODE);
+        resp.setCode(RespCodeConstant.SUCCESS_CODE);
         resp.setResult(data);
         return resp;
     }
@@ -140,7 +140,7 @@ public class Resp<T> extends RespSupport {
      */
     public static <U> Resp<U> success(String msg, U data) {
         Resp<U> resp = new Resp<U>();
-        resp.setCode(GlobalBaseConstant.SUCCESS_CODE);
+        resp.setCode(RespCodeConstant.SUCCESS_CODE);
         resp.setMsg(msg);
         resp.setResult(data);
         return resp;
