@@ -1,10 +1,15 @@
-package com.lingdonge.spring;
+package com.lingdonge.spring.threads;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.util.concurrent.ThreadPoolExecutor;
 
-public class ThreadUtil {
+/**
+ * Spring的线程池管理工具类
+ */
+@Slf4j
+public class SpringThreadUtil {
 
     /**
      * 创建ThreadExecutor线程池
