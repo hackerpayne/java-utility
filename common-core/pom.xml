@@ -105,18 +105,18 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/commons-dbcp/commons-dbcp -->
-<!--        <dependency>-->
-<!--            <groupId>commons-dbcp</groupId>-->
-<!--            <artifactId>commons-dbcp</artifactId>-->
-<!--            <version>1.4</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>commons-dbcp</groupId>-->
+        <!--            <artifactId>commons-dbcp</artifactId>-->
+        <!--            <version>1.4</version>-->
+        <!--        </dependency>-->
 
         <!-- mysql的驱动的依赖 -->
-<!--        <dependency>-->
-<!--            <groupId>mysql</groupId>-->
-<!--            <artifactId>mysql-connector-java</artifactId>-->
-<!--            <version>5.1.40</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>mysql</groupId>-->
+        <!--            <artifactId>mysql-connector-java</artifactId>-->
+        <!--            <version>5.1.40</version>-->
+        <!--        </dependency>-->
 
         <!-- 序列化资源 -->
         <dependency>
