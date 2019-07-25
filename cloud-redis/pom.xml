@@ -13,6 +13,7 @@
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <description>Redis一键集成</description>
+    <url>http://www.lingdonge.com</url>
 
     <properties>
 

@@ -3,8 +3,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>utility-parent</artifactId>
         <groupId>com.lingdonge</groupId>
+        <artifactId>utility-parent</artifactId>
         <version>3.0.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -13,6 +13,7 @@
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <description>XXL-Job分布式调度系统</description>
+    <url>http://www.lingdonge.com</url>
 
     <properties>
         <xxl.version>2.1.0</xxl.version>
