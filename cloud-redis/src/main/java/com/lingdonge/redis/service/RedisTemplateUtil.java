@@ -2,6 +2,7 @@ package com.lingdonge.redis.service;
 
 import com.lingdonge.redis.util.RedisConnUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.dao.DataAccessException;
@@ -139,6 +140,16 @@ public class RedisTemplateUtil {
     }
 
     /**
+     * 获取Number值，异常和空值使用0
+     *
+     * @param key
+     * @return
+     */
+    public Number getNumber(final String key) {
+        return getNumber(key, 0);
+    }
+
+    /**
      * 从Redis中获取Long型的数据
      * 说明：在Redis存Long或者incr之后的结果时，由于设置了序列化规则，所以取出来的是Object对象，在转换时，会造成数据错误。需要使用此方便获取Long型的数据
      * 具体会抛错：存入Long对象取出Integer对象，ClassCastException: java.lang.Integer cannot be cast to java.lang.Long。
@@ -150,7 +161,7 @@ public class RedisTemplateUtil {
      * @param key
      * @return
      */
-    public Number getNumber(final String key) {
+    public Number getNumber(final String key, Number defaultNumber) {
 //        ValueOperations<String, Number> valueOperations = redisTemplate.opsForValue();
 //        return valueOperations.get(key);
         return (Number) redisTemplate.execute((RedisCallback<Number>) connection -> {
@@ -159,9 +170,13 @@ public class RedisTemplateUtil {
             byte[] rowval = connection.get(rowkey);
             try {
                 String val = serializer.deserialize(rowval);
-                return NumberUtils.createNumber(val);
+                if (StringUtils.isNotEmpty(val)) {
+                    val = val.replace(" ", "").replace("\"", "");
+                }
+                Number value = NumberUtils.createNumber(val);
+                return value == null ? defaultNumber : value;
             } catch (Exception e) {
-                return 0L;
+                return defaultNumber;
             }
         });
     }

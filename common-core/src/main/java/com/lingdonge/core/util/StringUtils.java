@@ -105,11 +105,12 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             } else {
                 String firstName = StringUtils.substring(name, 0, 1);
                 String lastName = StringUtils.substring(name, name.length() - 1, name.length());
-                String starts = "";
+
+                StringBuffer sb = new StringBuffer();
                 for (int i = 1; i < name.length() - 1; i++) {
-                    starts += "*";
+                    sb.append("*");
                 }
-                name = firstName + starts + lastName;
+                name = firstName + sb.toString() + lastName;
             }
         }
         return name;
