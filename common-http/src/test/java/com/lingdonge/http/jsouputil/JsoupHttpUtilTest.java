@@ -13,7 +13,7 @@ public class JsoupHttpUtilTest {
 
     @Test
     public void testGetHtml() {
-        String html = JsoupHttpUtil.getHtmlStr("http://land.rongxiaoyu.com");
+        String html = JsoupHttpUtil.getHtmlStr("http://www.baidu.com");
         log.info("HTML结果为：" + html);
     }
 

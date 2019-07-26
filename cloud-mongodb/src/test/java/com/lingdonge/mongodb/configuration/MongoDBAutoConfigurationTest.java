@@ -1,6 +1,6 @@
 package com.lingdonge.mongodb.configuration;
 
-import com.lingdonge.mongodb.MongodbConnUtil;
+import com.lingdonge.mongodb.util.MongodbConnUtil;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.client.MongoDatabase;

@@ -3,6 +3,7 @@ package com.lingdonge.core.http;
 import cn.hutool.core.exceptions.UtilException;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
+import com.google.common.base.Splitter;
 import com.lingdonge.core.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
@@ -95,30 +96,40 @@ public class UrlUtils {
             return mapResult;
         }
 
-        url = getUrlQueryString(url);
-        if (StringUtils.isEmpty(url)) {
+        String queryStr;
+        if (!url.contains("?")) {
+            queryStr = url;
+        } else {
+            queryStr = getUrlQueryString(url);
+        }
+
+        if (StringUtils.isEmpty(queryStr)) {
             return mapResult;
         }
 
         //每个键值为一组
-        String[] arrSplit = url.split("[&]");
-        for (String strSplit : arrSplit) {
-            String[] arrSplitEqual = strSplit.split("[=]");
+//        String[] arrSplit = queryStr.split("[&]");
+//        for (String strSplit : arrSplit) {
+//            String[] arrSplitEqual = strSplit.split("[=]");
+//
+//            //解析出键值
+//            if (arrSplitEqual.length > 1) {
+//                //正确解析
+//                mapResult.put(arrSplitEqual[0], arrSplitEqual[1]);
+//
+//            } else {
+//                if (!"".equals(arrSplitEqual[0])) {
+//                    //只有参数没有值，不加入
+//                    mapResult.put(arrSplitEqual[0], "");
+//                }
+//            }
+//        }
 
-            //解析出键值
-            if (arrSplitEqual.length > 1) {
-                //正确解析
-                mapResult.put(arrSplitEqual[0], arrSplitEqual[1]);
-
-            } else {
-                if (!arrSplitEqual[0].equals("")) {
-                    //只有参数没有值，不加入
-                    mapResult.put(arrSplitEqual[0], "");
-                }
-            }
-        }
+        mapResult = Splitter.on('&')
+                .trimResults()
+                .withKeyValueSeparator("=")
+                .split(queryStr);
         return mapResult;
-
 
     }
 
@@ -149,7 +160,7 @@ public class UrlUtils {
      */
     public static String encode(String url, String charset) {
         try {
-            url = URLEncoder.encode(url,StringUtils.isNotEmpty(charset) ? charset : "UTF-8");
+            url = URLEncoder.encode(url, StringUtils.isNotEmpty(charset) ? charset : "UTF-8");
         } catch (UnsupportedEncodingException e) {
             log.error("encode trigger error ", e);
             throw new UtilException(e);

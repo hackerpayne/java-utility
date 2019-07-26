@@ -45,6 +45,9 @@
         <module>cloud-rabbitmq</module>
         <module>cloud-mongodb</module>
         <module>cloud-activiti</module>
+        <module>common-net</module>
+        <module>common-springcloud</module>
+        <module>cloud-xxl-job</module>
 
     </modules>
 

@@ -144,15 +144,5 @@ public class FreemarkerUtil {
         return out.toString();
     }
 
-    public static void main(String[] args) throws IOException, TemplateException {
-        String StringTemplate = "${v1}>${f1}";
-        StringWriter out = new StringWriter();
-        Map<String, Object> rootMap = new HashMap<String, Object>();
-        rootMap.put("v1", 2);
-        rootMap.put("f1", 3);
-        rootMap.put("f3", 3);
-        flushStringTemplateData(StringTemplate, out, rootMap);
-        System.out.println(out.toString());
-    }
 
 }

@@ -1,36 +1,25 @@
 package com.lingdonge.spring.configuration;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.fasterxml.jackson.databind.util.Converter;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import lombok.NonNull;
-import org.apache.commons.lang3.StringUtils;
+import com.lingdonge.spring.http.JacksonUtil;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 
 //@Configuration
 public class JacksonAutoConfiguration {
@@ -54,33 +43,12 @@ public class JacksonAutoConfiguration {
      * jackson2 json序列化 null字段输出为空串
      *
      * @return
-     * @author zhaoyang10
      */
     @Bean
     @Primary
     //@ConditionalOnMissingBean(ObjectMapper.class)
     public ObjectMapper serializingObjectMapper() {
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        JavaTimeModule javaTimeModule = new JavaTimeModule();
-        //不再做统一处理 Springcloud2 fegin 会报日期格式化错误 格式化的日期字段直接加@JsonFormat 注解处理
-        //序列化日期格式
-        //javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer());
-        //javaTimeModule.addSerializer(LocalDate.class, new LocalDateSerializer());
-        //javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer());
-
-        //反序列化日期格式
-        //javaTimeModule.addDeserializer(LocalDateTime.class, new LocalDateTimeDeserializer());
-        //javaTimeModule.addDeserializer(LocalDate.class, new LocalDateDeserializer());
-        //javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer());
-
-        objectMapper.registerModule(javaTimeModule);
-
-        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        objectMapper.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-
-        return objectMapper;
+        return JacksonUtil.getObjectMapper();
     }
 
 
@@ -93,23 +61,7 @@ public class JacksonAutoConfiguration {
     @Bean
     public MappingJackson2HttpMessageConverter getMappingJackson2HttpMessageConverter() {
         MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
-
-        // 解决查询缓存转换异常的问题
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-
-        // 解决jackson2无法反序列化LocalDateTime的问题
-        om.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-        om.registerModule(new JavaTimeModule());
-
-        // 序列换成json时,将所有的long变成string,因为js中得数字类型不能包含所有的java long值
-        SimpleModule simpleModule = new SimpleModule();
-        simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
-        simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
-        om.registerModule(simpleModule);
-
-        mappingJackson2HttpMessageConverter.setObjectMapper(om);
+        mappingJackson2HttpMessageConverter.setObjectMapper(serializingObjectMapper());
 
         //设置中文编码格式
         List<MediaType> list = new ArrayList<MediaType>();

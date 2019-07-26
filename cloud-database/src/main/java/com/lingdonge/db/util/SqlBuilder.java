@@ -5,7 +5,6 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.lingdonge.core.reflect.NamingUtil;
 import com.lingdonge.core.util.StringUtils;
-import com.lingdonge.db.db.Pager;
 import javafx.util.Pair;
 import org.apache.commons.collections.MapUtils;
 
@@ -24,6 +23,31 @@ public class SqlBuilder {
      */
     public static String buildTableName(String tableName) {
         return "`" + tableName.replaceAll("#", "") + "`";
+    }
+
+    /**
+     * @param tableName
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public static String buildHugePageSql(String tableName, Integer pageNo, Integer pageSize) {
+        return buildHugePageSql(tableName, "id", pageNo, pageSize);
+    }
+
+    /**
+     * @param tableName
+     * @param keyField  主键字段
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public static String buildHugePageSql(String tableName, String keyField, Integer pageNo, Integer pageSize) {
+        pageNo = pageNo > 0 ? pageNo : 1;
+        Integer offset = (pageNo - 1) * pageSize;
+        String sql = StrUtil.format("select a.* from {} br WHERE br.{}>=(SELECT {} from {} ORDER BY {} asc limit {},1 ) limit {}", tableName, tableName, offset, pageSize);
+
+        return sql;
     }
 
     /**
@@ -60,8 +84,7 @@ public class SqlBuilder {
      */
     public static Pair<String, Object[]> buildUpdateSql(String tableName, Map<String, Object> map, LinkedHashMap<String, Object> whereMap) {
         List<Object> params = new ArrayList<Object>();
-        StringBuffer sql = new StringBuffer("update ");
-        sql.append(buildTableName(tableName)).append(" set ");
+        StringBuffer sql = new StringBuffer("update ").append(buildTableName(tableName)).append(" set ");
 
         StringBuffer temp = new StringBuffer();
         for (Map.Entry<String, Object> entry : map.entrySet()) {

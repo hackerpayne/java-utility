@@ -33,7 +33,7 @@ import java.util.Set;
 public class GlobalHandlerExceptionResolver {
 
     /**
-     * 解决validator的异常
+     * 解决 validator 的异常
      *
      * @param exception
      * @return
@@ -50,6 +50,11 @@ public class GlobalHandlerExceptionResolver {
         return Resp.fail(Joiner.on(",").join(errorMsg));
     }
 
+    /**
+     *
+     * @param exception
+     * @return
+     */
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Resp<String> handle(ValidationException exception) {

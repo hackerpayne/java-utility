@@ -38,10 +38,7 @@ import java.util.regex.Pattern;
 
         @Override
         public boolean isValid(Double value, ConstraintValidatorContext arg1) {
-            if (value == null)
-            //金额是空的，返回true，是因为如果null，则会有@NotNull进行提示
-            //如果这里false的话，那金额是null，@Money中的message也会进行提示
-            //自己可以尝试
+            if (value == null) //金额是空的，返回true，是因为如果null，则会有@NotNull进行提示,如果这里false的话，那金额是null，@Money中的message也会进行提示
             {
                 return true;
             }

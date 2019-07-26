@@ -1,11 +1,11 @@
 package com.lingdonge.spring.validation;
 
-import com.lingdonge.spring.bean.token.JwtUserInfo;
 import org.hibernate.validator.HibernateValidator;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import javax.validation.groups.Default;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,14 +17,20 @@ import java.util.Set;
  * 手动进行校验
  */
 public class ValidationUtil {
+
+    private static Validator validator = getHibernateFastValidator();
+
     /**
      * 开启快速结束模式 failFast (true)
      */
-    private static Validator validator = Validation.byProvider(HibernateValidator.class)
-            .configure()
-            .failFast(false)
-            .buildValidatorFactory()
-            .getValidator();
+    public static Validator getHibernateFastValidator() {
+        ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class)
+                .configure()
+                .failFast(false)
+//                .addProperty("hibernate.validator.fail_fast", "true")
+                .buildValidatorFactory();
+        return validatorFactory.getValidator();
+    }
 
     /**
      * 校验对象
