@@ -13,19 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ShiroAutoConfiguration {
 
-//    @Bean
-//    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
-//        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-//        shiroFilterFactoryBean.setSecurityManager(securityManager);
-//        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-//        //以下是过滤链，按顺序过滤，所以/**需要放最后
-//        //开放的静态资源
-//        filterChainDefinitionMap.put("/favicon.ico", "anon");//网站图标
-//        filterChainDefinitionMap.put("/**", "authc");
-//        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-//        return shiroFilterFactoryBean;
-//    }
-
     @Autowired
     private JwtProperties jwtProperties;
 
