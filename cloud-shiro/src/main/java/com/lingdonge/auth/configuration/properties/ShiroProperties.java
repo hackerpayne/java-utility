@@ -57,4 +57,14 @@ public class ShiroProperties {
      * 密钥
      */
     private String secret = "sdfds6234ds$#@#";
+
+    /**
+     * 未授权的用户登陆链接
+     */
+    private String loginUrl="/login";
+
+    /**
+     * 未授权的用户跳转链接
+     */
+    private String unauthorizeUrl="";
 }

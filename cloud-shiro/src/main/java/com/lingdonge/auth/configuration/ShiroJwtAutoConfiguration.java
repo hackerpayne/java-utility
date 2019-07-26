@@ -144,53 +144,6 @@ public class ShiroJwtAutoConfiguration {
         return securityManager;
     }
 
-    /**
-     * 身份验证过滤器
-     *
-     * @param securityManager
-     * @return
-     */
-    @Bean("shiroFilter")
-    @DependsOn("securityManager")
-    public ShiroFilterFactoryBean shiroFilter(DefaultWebSecurityManager securityManager) {
-
-        log.info("<<<<<<<<<<<<<< Shiro shiroFilter >>>>>>>>>>");
-
-        ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
-        shiroFilter.setSecurityManager(securityManager);
-
-        // 拦截器
-        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-
-        /*
-         * 自定义url规则
-         * http://shiro.apache.org/web.html#urls-
-         */
-        // 1， 相同url规则，后面定义的会覆盖前面定义的(执行的时候只执行最后一个)。
-        // 2， 两个url规则都可以匹配同一个url，只执行第一个
-        // 3、注意是LinkedHashMap 保证有序
-        // 允许用户匿名访问/login(登录接口)
-        filterChainDefinitionMap.put("/auth/**", "anon");// auth下面不需要验证，需要把所有注册登陆的逻辑放到auth下面
-        filterChainDefinitionMap.put("/test/**", "anon");// test测试下面的都不用验证
-        filterChainDefinitionMap.put("/favicon.ico", "anon");
-        filterChainDefinitionMap.put("/v1/callback/**", "anon");//短信回调地址，不能为空
-        filterChainDefinitionMap.put("/kaptcha.jpg", "anon");//图片验证码(kaptcha框架)
-        filterChainDefinitionMap.put("/**", "jwt");
-
-//        filterChainDefinitionMap.put("/**","anon");// 所有均不验证
-
-        shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMap);
-
-        // 添加自己的过滤器并且取名为jwt
-        Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
-//        rm.setTemplate(shiroRedisTemplate);
-
-//        filters.put("jcaptchaValidate",new JcaptchaValidateFilter());
-        filters.put("jwt", new StatelessAccessFilter());// 添加过滤器
-        shiroFilter.setFilters(filters);
-
-        return shiroFilter;
-    }
 
 //    /**
 //     * 凭证匹配器
@@ -273,8 +226,7 @@ public class ShiroJwtAutoConfiguration {
      * @return
      */
     @Bean
-    public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(
-            DefaultWebSecurityManager securityManager) {
+    public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(DefaultWebSecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
         securityManager.setSessionManager(sessionManager());
         authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);

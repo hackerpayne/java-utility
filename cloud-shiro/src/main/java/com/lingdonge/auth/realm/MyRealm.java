@@ -12,6 +12,9 @@ import org.apache.shiro.subject.PrincipalCollection;
 
 import javax.annotation.Resource;
 
+/**
+ * 自定义的CustomRealm继承AuthorizingRealm。并且重写父类中的doGetAuthorizationInfo（权限相关）、doGetAuthenticationInfo（身份认证）这两个方法。
+ */
 @Slf4j
 public class MyRealm extends AuthorizingRealm {
 
@@ -20,6 +23,7 @@ public class MyRealm extends AuthorizingRealm {
 
     /**
      * 授权
+     *
      * @param principalCollection
      * @return
      */
@@ -41,6 +45,7 @@ public class MyRealm extends AuthorizingRealm {
 
     /**
      * 认证
+     *
      * @param authenticationToken
      * @return
      * @throws AuthenticationException
@@ -54,8 +59,7 @@ public class MyRealm extends AuthorizingRealm {
         //从数据库中根据用户名查找用户
         ShiroInfo user = userService.getUser(username);
         if (userService.getUser(username) == null) {
-            throw new UnknownAccountException(
-                    "没有在本系统中找到对应的用户信息。");
+            throw new UnknownAccountException("用户不存在。");
         }
 
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user.getAccount(), user.getPassword(), getName());
