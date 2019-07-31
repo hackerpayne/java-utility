@@ -218,6 +218,16 @@ public class ShiroJwtAutoConfiguration {
 //        return cookieRememberMeManager;
 //    }
 
+    /**
+     * 注解式的权限控制需要配置两个Bean，第一个是AdvisorAutoProxyCreator，代理生成器，需要借助SpringAOP来扫描@RequiresRoles和@RequiresPermissions等注解，生成代理类实现功能增强，从而实现权限控制。需要配合AuthorizationAttributeSourceAdvisor一起使用，否则权限注解无效。
+     * @return
+     */
+    @Bean
+    public DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator autoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        autoProxyCreator.setProxyTargetClass(true);
+        return autoProxyCreator;
+    }
 
     /**
      * 开启shiro aop注解支持. 使用代理方式;所以需要开启代码支持;
