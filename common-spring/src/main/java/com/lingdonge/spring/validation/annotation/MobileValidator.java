@@ -22,12 +22,11 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * 正确的手机号由11位数字组成，第一位为1
  * 第二位为 3、4、5、7、8
  * <p>
- * 使用时：@MobileValidator
+ * 使用时：@MobileValidator(message = "手机号格式不正确")
  */
 @ConstraintComposition(CompositionType.OR)
 @Pattern(regexp = "1\\d{10}")
 @Null
-@Length(min = 0, max = 0)
 @Documented
 @Constraint(validatedBy = {})
 @Target({METHOD, FIELD})
@@ -40,7 +39,7 @@ public @interface MobileValidator {
      *
      * @return
      */
-    String message() default "手机号校验错误";
+    String message() default "手机号格式不正确";
 
     Class<?>[] groups() default {};
 

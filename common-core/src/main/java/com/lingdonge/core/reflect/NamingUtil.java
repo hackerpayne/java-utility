@@ -2,6 +2,9 @@ package com.lingdonge.core.reflect;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * 驼峰转换
  */
@@ -38,6 +41,16 @@ public class NamingUtil {
     }
 
     /**
+     * 利用正则表达式极简转换驼峰到下划线
+     *
+     * @param camelName
+     * @return
+     */
+    public static String camelToUnderlineNew(String camelName) {
+        return camelName.replaceAll("([A-Z]+)", "_$1").toLowerCase();
+    }
+
+    /**
      * 驼峰转下划线  camelToUnderline -> camel_to_underline
      *
      * @param param 驼峰形式的字符串
@@ -64,6 +77,26 @@ public class NamingUtil {
         }
         return temp;
 
+    }
+
+    final static Pattern pattern = Pattern.compile("(_[a-z]{1})");
+
+    /**
+     * 利用正则极简转换下划线为驼峰命名
+     *
+     * @param underlineName
+     * @return
+     */
+    public static String underlineToCamelNew(String underlineName) {
+
+        Matcher matcher = pattern.matcher(underlineName);
+        StringBuffer result = new StringBuffer();
+        while (matcher.find()) {
+            String replacement = matcher.group(1);
+            matcher.appendReplacement(result, replacement.replace("_", "").toUpperCase());
+        }
+        matcher.appendTail(result);
+        return result.toString();
     }
 
     /**

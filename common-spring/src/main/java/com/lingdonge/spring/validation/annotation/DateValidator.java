@@ -1,5 +1,6 @@
 package com.lingdonge.spring.validation.annotation;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 import javax.validation.Constraint;
@@ -72,12 +73,11 @@ public @interface DateValidator {
          */
         @Override
         public boolean isValid(String value, ConstraintValidatorContext context) {
-            if (value == null) {
-                return true;
+
+            if (StringUtils.isEmpty(value)) {
+                return false;
             }
-            if ("".equals(value)) {
-                return true;
-            }
+
             try {
                 Date date = DateUtils.parseDate(value, dateFormat);
                 return date != null;

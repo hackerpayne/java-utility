@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 /**
  * 常用正则表达式集合
- *
  */
 public class PatternPool {
 
@@ -113,6 +112,11 @@ public class PatternPool {
      * 中文字、英文字母、数字和下划线
      */
     public final static Pattern GENERAL_WITH_CHINESE = Pattern.compile("^[\u4E00-\u9FFF\\w]+$");
+
+    /**
+     * 中文、数字、字母
+     */
+    public final static Pattern USER_NAME = Pattern.compile("^[\\u4E00-\\u9FA5A-Za-z0-9\\*]*$");
 
     /**
      * UUID
