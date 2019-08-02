@@ -1,6 +1,5 @@
 package com.lingdonge.spring.bean.request;
 
-import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +15,7 @@ public class RequestMethodItem implements Comparable<RequestMethodItem> {
     /**
      * 请求路径
      */
-    private String path;
+    private String requestUrl;
 
     /**
      * 请求参数
@@ -24,9 +23,19 @@ public class RequestMethodItem implements Comparable<RequestMethodItem> {
     private String requestMethod;
 
     /**
-     * 控制器
+     * 请求类型，主要是判断是否是文件上传用
      */
-    private String controller;
+    private boolean requestHasFile;
+
+    /**
+     * 参数明细
+     */
+    private List<RequestMethodParameter> requestParameters;
+
+//    /**
+//     * 控制器
+//     */
+//    private String controller;
 
     /**
      * 请求方法
@@ -38,10 +47,15 @@ public class RequestMethodItem implements Comparable<RequestMethodItem> {
      */
     private String className;
 
+//    /**
+//     * 完整的请求方法
+//     */
+//    private String methodFull;
+
     /**
-     * 完整的请求方法
+     * 描述内容
      */
-    private String methodFull;
+    private String desc;
 
     /**
      * 返回值类型，为空一般是Form，如果是Json会显示Json值
@@ -49,17 +63,12 @@ public class RequestMethodItem implements Comparable<RequestMethodItem> {
     private String responseType;
 
     /**
-     * 参数明细
+     * 返回数据类型：json/form/string 3种
      */
-    private List<RequestMethodParameter> parameters;
-
-    /**
-     *
-     */
-    private ApiOperation apiOperation;
+    private String responseFormat;
 
     @Override
     public int compareTo(RequestMethodItem o) {
-        return this.getPath().compareTo(o.getPath());
+        return this.getRequestUrl().compareTo(o.getRequestUrl());
     }
 }

@@ -25,5 +25,4 @@ public class MySqlProperties extends BaseEntity {
 
     private int minIdle;
 
-
 }

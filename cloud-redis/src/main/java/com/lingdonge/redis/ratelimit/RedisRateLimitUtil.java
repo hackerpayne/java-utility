@@ -1,7 +1,9 @@
 package com.lingdonge.redis.ratelimit;
 
 import com.lingdonge.core.dates.SystemClock;
+import com.lingdonge.core.encrypt.Md5Util;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 
@@ -16,6 +18,8 @@ public class RedisRateLimitUtil {
 
     private RedisTemplate redisTemplate;
 
+    private String redisPrefix = "";
+
     /**
      * 构造函数
      *
@@ -23,6 +27,15 @@ public class RedisRateLimitUtil {
      */
     public RedisRateLimitUtil(RedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
+    }
+
+    /**
+     * @param redisTemplate
+     * @param redisPrefix
+     */
+    public RedisRateLimitUtil(RedisTemplate redisTemplate, String redisPrefix) {
+        this.redisTemplate = redisTemplate;
+        this.redisPrefix = redisPrefix;
     }
 
     /**
@@ -35,7 +48,14 @@ public class RedisRateLimitUtil {
      * @return
      */
     public boolean acquireByRate(String uuid, Long expireSeconds) {
-        String key = "REDIS_LIMITER_" + uuid.trim();
+        if (StringUtils.isEmpty(uuid)) {
+            return false;
+        }
+        if (uuid.length() > 16) { // 超过16位长度的，以MD5做16位计算
+            uuid = Md5Util.getMd516(uuid);
+        }
+
+        String key = this.redisPrefix + ":LIMITER:" + uuid.trim();
         Long count = redisTemplate.opsForValue().increment(key, 1);
         if (count == 1) {
             redisTemplate.expire(key, expireSeconds, TimeUnit.SECONDS); // 设置过期时间
@@ -58,7 +78,14 @@ public class RedisRateLimitUtil {
      * @return
      */
     public boolean acquireByDuration(String uuid, Long limitSeconds, Long limitFrequency) {
-        String redisKey = "REDIS_LIMITER_RATEBY_" + uuid.trim() + "_" + limitSeconds;
+        if (StringUtils.isEmpty(uuid)) {
+            return false;
+        }
+        if (uuid.length() > 16) { // 超过16位长度的，以MD5做16位计算
+            uuid = Md5Util.getMd516(uuid);
+        }
+
+        String redisKey = this.redisPrefix + ":LIMITER_RATEBY:" + uuid.trim() + ":" + limitSeconds;
         Long listLength = redisTemplate.opsForList().size(redisKey);
         if (listLength < limitFrequency) { // 在次数范围内，直接插入列表左边
 //            System.out.println("当前已经请求次数为：" + listLength);
@@ -66,7 +93,7 @@ public class RedisRateLimitUtil {
         } else {
             Long lastTime = (Long) redisTemplate.opsForList().index(redisKey, 0);// 取出左边上一次时间
 //            System.out.println("上次请求时间：" + lastTime);
-            if ((SystemClock.now() - lastTime) < (limitSeconds * 1000)) { // 当前时间-上次时间，小于时间限制，代表 请求过多，需要休息一段时间
+            if (lastTime != null && (SystemClock.now() - lastTime) < (limitSeconds * 1000)) { // 当前时间-上次时间，小于时间限制，代表 请求过多，需要休息一段时间
 //                System.out.println("limitSeconds范围内，请求过多。");
                 return false;
             } else {
@@ -86,28 +113,31 @@ public class RedisRateLimitUtil {
      */
     public boolean freLimit(String redisKey, Integer seconds, Integer times) {
         boolean result = false;
-//定义redis操作
+
+        //定义redis操作
         ZSetOperations<String, String> opsForZSet = redisTemplate.opsForZSet();
 
         Long endTime = System.currentTimeMillis() / 1000;
-//设置最后一次发送
+        //设置最后一次发送
         Long startTime = endTime - seconds;
-//移出之前已无效的记录
-//当前redis中有效总条数
+
+        //移出之前已无效的记录
+        //当前redis中有效总条数
         Long count = opsForZSet.count(redisKey, startTime, endTime);
-//如果条数大于或等于条数限制，则抛出异常，发送太多次
+
+        //如果条数大于或等于条数限制，则抛出异常，发送太多次
         if (count >= times) {
             log.info("规定时间：{}秒内，请求次数：{}过多", seconds, count);
             return result;
         }
         String value = UUID.randomUUID().toString().replaceAll("-", "");
-//向set中添加新纪录
+        //向set中添加新纪录
         result = opsForZSet.add(redisKey, value, endTime);
         if (!result) {
             log.info("add redis set error, key:{}, score:{}", opsForZSet, endTime);
             return result;
         }
-//当前有效的总条数
+        //当前有效的总条数
         count = opsForZSet.count(redisKey, startTime, endTime);
         if (count >= times) {
             opsForZSet.removeRangeByScore(redisKey, 0, startTime);

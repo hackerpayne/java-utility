@@ -23,4 +23,5 @@ public class RequestMethodParameter extends BaseEntity {
      * 数据类型
      */
     private String type;
+
 }

@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
 import org.springframework.web.servlet.mvc.condition.RequestMethodsRequestCondition;
@@ -37,7 +38,10 @@ public class ControllerUtil {
         return urlList;
     }
 
-
+    /**
+     * @param requestMappingHandlerMapping
+     * @return
+     */
     public static List<Map<String, String>> getAllUrlListMap(RequestMappingHandlerMapping requestMappingHandlerMapping) {
         Map<RequestMappingInfo, HandlerMethod> map = requestMappingHandlerMapping.getHandlerMethods();
 
@@ -88,10 +92,11 @@ public class ControllerUtil {
             requestMethod = requestMethod.replace("[", "").replace("]", "");
 
             // 返回header类型
-            String responseType = requestMappingInfo.getProducesCondition().toString();
-            responseType = responseType.replace("[", "").replace("]", "");
+            String responseFormat = requestMappingInfo.getProducesCondition().toString();
+            responseFormat = responseFormat.replace("[", "").replace("]", "");
 
             // 参数
+            boolean hasFileUploadParameter = false;
             MethodParameter[] methodParameters = handlerMethod.getMethodParameters();
             List<RequestMethodParameter> parameters = Lists.newArrayListWithExpectedSize(methodParameters.length);
             for (MethodParameter methodParameter : methodParameters) {
@@ -102,6 +107,9 @@ public class ControllerUtil {
 
                 // 参数类型
                 Class<?> parameterType = methodParameter.getParameterType();
+                if (parameterType.toString().toLowerCase().contains("MultipartFile".toLowerCase())) {
+                    hasFileUploadParameter = true;
+                }
 
                 // 参数注解
                 Object[] parameterAnnotations = methodParameter.getParameterAnnotations();
@@ -117,7 +125,20 @@ public class ControllerUtil {
             }
 
             // 可以获取自定 注解里面的内容做处理
+            String descrption = "";
             ApiOperation documentAnnotation = handlerMethod.getMethodAnnotation(ApiOperation.class);
+            if (documentAnnotation != null) {
+                descrption = documentAnnotation.value(); // 从Value中获取方法注释
+            }
+
+            // 通过ResponseBody检查返回值类型
+            ResponseBody responseBody = handlerMethod.getMethodAnnotation(ResponseBody.class); // 检查是否有ResponseBody注解
+            if (responseBody != null) {
+                responseFormat = "json";
+            }
+            if (responseFormat.contains("text/html")) {
+                responseFormat = "string";
+            }
 
             String handleMethodStr = handlerMethod.toString();
 
@@ -130,16 +151,27 @@ public class ControllerUtil {
             // 解析完整的方法：解析结果为：com.lingdonge.codegen.controller.TestController.test2
             String methodStr = handleMethodStr.split(" ")[2];
 
+            // 返回值类型，比如 java.lang.String
+            String responseType = handleMethodStr.split(" ")[1];
+
             RequestMethodItem item = new RequestMethodItem();
-            item.setPath(path);
-            item.setRequestMethod(requestMethod);
-            item.setParameters(parameters);
+
+            // 请求信息
+            item.setRequestUrl(path); // 请求URL
+            item.setRequestMethod(requestMethod); // 请求方式
+            item.setRequestHasFile(hasFileUploadParameter); // 是否有上传文件
+            item.setRequestParameters(parameters);
+
+            // 基本信息
             item.setMethod(handlerMethod.getMethod().getName());
             item.setClassName(handlerMethod.getMethod().getDeclaringClass().getName());//类名
-            item.setController(controllerStr);
-            item.setMethodFull(handlerMethod.toString());
-            item.setApiOperation(documentAnnotation);
+//            item.setController(controllerStr);
+//            item.setMethodFull(handlerMethod.toString());
+            item.setDesc(descrption);
+
+            // 返回值信息
             item.setResponseType(responseType);
+            item.setResponseFormat(responseFormat);
 
             listRequestItems.add(item);
         }
