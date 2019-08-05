@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 @Target(value = {ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = IdcardValidator.IdCardValidatorInner.class)
-@interface IdcardValidator {
+public @interface IdcardValidator {
 
     String message() default "不是有效的身份证号码";
 

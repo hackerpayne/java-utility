@@ -21,7 +21,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = UserNameValidator.UserNameValidatorInner.class)
-@interface UserNameValidator {
+public @interface UserNameValidator {
 
     String message() default "用户名格式无效";
 

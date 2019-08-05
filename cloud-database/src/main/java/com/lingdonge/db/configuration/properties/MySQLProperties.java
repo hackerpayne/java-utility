@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Data
 @ConfigurationProperties(prefix = "spring.datasource")
-public class MySqlProperties extends BaseEntity {
+public class MySQLProperties extends BaseEntity {
 
     private String url;
 
