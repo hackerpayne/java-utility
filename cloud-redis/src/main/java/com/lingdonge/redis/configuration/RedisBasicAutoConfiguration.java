@@ -3,6 +3,7 @@ package com.lingdonge.redis.configuration;
 import com.lingdonge.redis.util.RedisConnUtil;
 import com.lingdonge.redis.service.RedisTemplateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;

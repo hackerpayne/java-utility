@@ -5,8 +5,6 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.lingdonge.core.reflect.OptionalUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -23,6 +21,7 @@ import org.springframework.data.redis.connection.lettuce.LettuceClientConfigurat
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -251,6 +250,11 @@ public class RedisConnUtil {
         return getRedisTemplate(jedisConnectionFactory);
     }
 
+    public static StringRedisTemplate getStringRedisTemplateFromJedis(RedisProperties redisProperties) {
+        JedisConnectionFactory jedisConnectionFactory = getJedisConnectionFactory(redisProperties);
+        return getStringRedisTemplate(jedisConnectionFactory);
+    }
+
     /**
      * 根据配置生成Lettuce的RedisTemplate
      *
@@ -260,6 +264,11 @@ public class RedisConnUtil {
     public static RedisTemplate getRedisTemplateFromLettuce(RedisProperties redisProperties) {
         LettuceConnectionFactory lettuceConnectionFactory = getLettuceConnectionFactory(redisProperties);
         return getRedisTemplate(lettuceConnectionFactory);
+    }
+
+    public static StringRedisTemplate getStringRedisTemplateFromLettuce(RedisProperties redisProperties) {
+        LettuceConnectionFactory lettuceConnectionFactory = getLettuceConnectionFactory(redisProperties);
+        return getStringRedisTemplate(lettuceConnectionFactory);
     }
 
     /**
@@ -273,6 +282,19 @@ public class RedisConnUtil {
             return getRedisTemplateFromLettuce(redisProperties);
         }
         return getRedisTemplateFromJedis(redisProperties);
+    }
+
+    /**
+     * 生成StringRedisTemplate
+     *
+     * @param redisProperties
+     * @return
+     */
+    public static StringRedisTemplate getStringRedisTemplate(RedisProperties redisProperties) {
+        if (redisProperties.getLettuce() != null) {
+            return getStringRedisTemplateFromLettuce(redisProperties);
+        }
+        return getStringRedisTemplateFromJedis(redisProperties);
     }
 
     /**
@@ -323,6 +345,23 @@ public class RedisConnUtil {
 //     redisTemplate.setHashKeySerializer(redisSerializer);
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
+
+        // 开启事务支持
+//        redisTemplate.setEnableTransactionSupport(true); // 设置开启事务
+        redisTemplate.afterPropertiesSet();//初始化配置内容
+
+        return redisTemplate;
+    }
+
+    /**
+     * 创建StringRedisTemplate
+     *
+     * @param redisConnectionFactory
+     * @return
+     */
+    public static StringRedisTemplate getStringRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        StringRedisTemplate redisTemplate = new StringRedisTemplate();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
 
         // 开启事务支持
 //        redisTemplate.setEnableTransactionSupport(true); // 设置开启事务
