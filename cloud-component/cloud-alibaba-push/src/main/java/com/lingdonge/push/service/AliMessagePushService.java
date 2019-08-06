@@ -17,11 +17,11 @@ import java.util.Map;
  * 阿里消息推送
  */
 
-public class AliMessagePushUtil {
+public class AliMessagePushService {
 
     private AliPushProperties aliPushProperties;
 
-    public AliMessagePushUtil(AliPushProperties aliPushProperties) {
+    public AliMessagePushService(AliPushProperties aliPushProperties) {
         this.aliPushProperties = aliPushProperties;
     }
 
