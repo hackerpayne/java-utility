@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.lingdonge</groupId>
+        <artifactId>utility-parent</artifactId>
+        <version>3.0.4</version>
+    </parent>
+
+    <artifactId>cloud-core</artifactId>
+    <name>${project.artifactId}</name>
+    <packaging>pom</packaging>
+
+    <description>Core核心公共库</description>
+    <url>http://www.lingdonge.com</url>
+
+    <properties>
+
+    </properties>
+
+    <dependencies>
+
+    </dependencies>
+
+    <modules>
+        <module>common-core</module>
+        <module>common-http</module>
+        <module>common-excel</module>
+        <module>common-net</module>
+    </modules>
+
+</project>

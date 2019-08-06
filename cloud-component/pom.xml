@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.lingdonge</groupId>
+        <artifactId>utility-parent</artifactId>
+        <version>3.0.4</version>
+    </parent>
+
+    <artifactId>cloud-component</artifactId>
+    <name>${project.artifactId}</name>
+    <packaging>pom</packaging>
+
+    <description>Component公共库</description>
+    <url>http://www.lingdonge.com</url>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.lingdonge</groupId>
+            <artifactId>common-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <!--解决很多项目自定义Configuration配置文件的问题-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <modules>
+        <module>cloud-activemq</module>
+        <module>cloud-shiro</module>
+        <module>cloud-quartz</module>
+        <module>cloud-atomikos</module>
+        <module>cloud-cache</module>
+        <module>cloud-redis</module>
+        <module>cloud-database</module>
+        <module>cloud-lucene</module>
+        <module>cloud-rabbitmq</module>
+        <module>cloud-mongodb</module>
+        <module>cloud-activiti</module>
+        <module>cloud-xxl-job</module>
+        <module>cloud-alibaba-oss</module>
+        <module>cloud-alibaba-push</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
