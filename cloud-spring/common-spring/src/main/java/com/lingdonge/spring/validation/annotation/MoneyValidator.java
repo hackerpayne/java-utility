@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 @Target(value = {ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = MoneyValidator.MoneyValidatorInner.class)
-@interface MoneyValidator {
+public @interface MoneyValidator {
 
     String message() default "不是金额形式";
 
