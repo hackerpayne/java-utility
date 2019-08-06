@@ -1,7 +1,6 @@
 package com.lingdonge.push.configuration;
 
 
-import com.lingdonge.push.bean.PushSenderAccount;
 import com.lingdonge.push.configuration.properties.PushProperties;
 import com.lingdonge.push.service.PushCodeSendFactory;
 import com.lingdonge.push.service.PushCodeSender;
@@ -28,15 +27,6 @@ public class MessagePushAutoConfiguration {
         return PushCodeSendFactory.getPushSender(pushProperties.getDefaultSender());
     }
 
-    /**
-     * 获取配置文件中默认的账号信息
-     *
-     * @return
-     */
-    @Bean("pushSenderAccount")
-    public PushSenderAccount getDefaultSmsSendAccount() {
-        return pushProperties.getPushSenderAccount();
-    }
 }
 
 

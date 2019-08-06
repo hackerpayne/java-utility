@@ -46,7 +46,7 @@
         <module>cloud-activiti</module>
         <module>cloud-xxl-job</module>
         <module>cloud-alibaba-oss</module>
-        <module>cloud-alibaba-push</module>
+        <module>cloud-message-push</module>
     </modules>
 
     <dependencyManagement>

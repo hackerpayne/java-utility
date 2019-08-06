@@ -9,7 +9,7 @@ import com.aliyuncs.push.model.v20160801.PushRequest;
 import com.aliyuncs.push.model.v20160801.PushResponse;
 import com.aliyuncs.utils.ParameterHelper;
 import com.lingdonge.push.bean.PushSendResult;
-import com.lingdonge.push.bean.PushSenderAccount;
+import com.lingdonge.push.configuration.properties.PushProperties;
 import com.lingdonge.push.enums.PushSubmitStatus;
 import com.lingdonge.push.service.PushCodeSender;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ import java.util.Map;
 public class AliPushCodeSender implements PushCodeSender {
 
     @Override
-    public PushSendResult messagePush(PushSenderAccount smsSenderAccount, String alias, String notificationTitle,
+    public PushSendResult messagePush(PushProperties smsSenderAccount, String alias, String notificationTitle,
                                       String msgTitle, String msgContent, String extras, Integer deviceType, Integer pushType, Date pushDate) {
         PushSendResult result = new PushSendResult();
         try {
@@ -49,7 +49,7 @@ public class AliPushCodeSender implements PushCodeSender {
      * <p>
      * 参见文档 https://help.aliyun.com/document_detail/48089.html //
      */
-    public static Map<String, String> advancedPush(PushSenderAccount smsSenderAccount, Integer deviceType,
+    public static Map<String, String> advancedPush(PushProperties smsSenderAccount, Integer deviceType,
                                                    Integer pushType, String alias, String title, String content, String jsonObject, Date pushDate)
             throws Exception {
         PushRequest pushRequest = new PushRequest();
@@ -58,8 +58,8 @@ public class AliPushCodeSender implements PushCodeSender {
         // 内容较大的请求，使用POST请求
         pushRequest.setMethod(MethodType.POST);
         // 设备类型:0-iOS,1-Android
-        pushRequest.setAppKey(deviceType == 1 ? Long.valueOf(smsSenderAccount.getAliPushAndroidAppKey())
-                : Long.valueOf(smsSenderAccount.getAliPushIosAppKey()));
+        pushRequest.setAppKey(deviceType == 1 ? Long.valueOf(smsSenderAccount.getAli().getAndroidAppKey())
+                : Long.valueOf(smsSenderAccount.getAli().getIosAppKey()));
         pushRequest.setTarget("ACCOUNT"); // 推送目标: DEVICE:按设备推送 ALIAS : 按别名推送 ACCOUNT:按帐号推送 TAG:按标签推送; ALL: 广播推送
         pushRequest.setTargetValue(alias); // 根据Target来设定，如Target=DEVICE, 则对应的值为 设备id1,设备id2.
         // 消息类型:0-message;1-notice;2-站内信
@@ -78,7 +78,7 @@ public class AliPushCodeSender implements PushCodeSender {
         // pushRequest.setIOSSubtitle(title);// iOS10通知副标题的内容
         pushRequest.setIOSNotificationCategory("iOS10 Notification Category");// 指定iOS10通知Category
         pushRequest.setIOSMutableContent(true);// 是否允许扩展iOS通知内容
-        pushRequest.setIOSApnsEnv(smsSenderAccount.getApnsProduction() ? "PRODUCT" : "DEV");// iOS的通知是通过APNs中心来发送的，需要填写对应的环境信息。"DEV"
+        pushRequest.setIOSApnsEnv(smsSenderAccount.getAli().isIosApnsProduction() ? "PRODUCT" : "DEV");// iOS的通知是通过APNs中心来发送的，需要填写对应的环境信息。"DEV"
         // : 表示开发环境 "PRODUCT" :
         // 表示生产环境
         pushRequest.setIOSRemind(true); // 消息推送时设备不在线（既与移动推送的服务端的长连接通道不通），则这条推送会做为通知，通过苹果的APNs通道送达一次。注意：离线消息转通知仅适用于生产环境
@@ -114,8 +114,7 @@ public class AliPushCodeSender implements PushCodeSender {
         pushRequest.setExpireTime(expireTime);
         pushRequest.setStoreOffline(true); // 离线消息是否保存,若保存, 在推送时候，用户即使不在线，下一次上线则会收到
 
-        DefaultAcsClient client = clientInit(smsSenderAccount.getAliPushAccessKeyId(),
-                smsSenderAccount.getAliPushAccessKeySecret());
+        DefaultAcsClient client = clientInit(smsSenderAccount.getAli().getAccessKeyId(), smsSenderAccount.getAli().getAccessKeySecret());
 
         PushResponse pushResponse = client.getAcsResponse(pushRequest);
         System.out.printf("RequestId: %s, MessageID: %s\n", pushResponse.getRequestId(), pushResponse.getMessageId());

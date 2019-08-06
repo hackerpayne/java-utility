@@ -1,7 +1,7 @@
 package com.lingdonge.push.service;
 
 import com.lingdonge.push.bean.PushSendResult;
-import com.lingdonge.push.bean.PushSenderAccount;
+import com.lingdonge.push.configuration.properties.PushProperties;
 
 import java.util.Date;
 
@@ -21,6 +21,6 @@ public interface PushCodeSender {
      * @param pushDate          定时发送
      * @return
      */
-    PushSendResult messagePush(PushSenderAccount pushSenderAccount, String alias, String notificationTitle, String msgTitle, String msgContent, String extras, Integer deviceType, Integer pushType, Date pushDate);
+    PushSendResult messagePush(PushProperties pushSenderAccount, String alias, String notificationTitle, String msgTitle, String msgContent, String extras, Integer deviceType, Integer pushType, Date pushDate);
 
 }

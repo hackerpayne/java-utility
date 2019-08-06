@@ -1,4 +1,4 @@
-package com.lingdonge.push.service;
+package com.lingdonge.push.service.impl;
 
 import cn.jiguang.common.resp.APIConnectionException;
 import cn.jiguang.common.resp.APIRequestException;
@@ -13,40 +13,39 @@ import cn.jpush.api.push.model.notification.AndroidNotification;
 import cn.jpush.api.push.model.notification.IosAlert;
 import cn.jpush.api.push.model.notification.IosNotification;
 import cn.jpush.api.push.model.notification.Notification;
-import com.lingdonge.push.configuration.properties.JiGuangPushProperties;
+import com.lingdonge.push.bean.PushSendResult;
+import com.lingdonge.push.configuration.properties.PushProperties;
+import com.lingdonge.push.enums.PushSubmitStatus;
+import com.lingdonge.push.service.PushCodeSender;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
- * 极光推送服务
+ * 极光消息推送
  */
+
 @Slf4j
-public class JiGuangPushService {
-
-    private JiGuangPushProperties jiGuangConfig;
-
-    private boolean apnsProduction;
-
-    public JiGuangPushService(JiGuangPushProperties jiGuangPushProperties, boolean apnsProduction) {
-        this.apnsProduction = apnsProduction;
-        this.jiGuangConfig = jiGuangPushProperties;
-    }
-
-    private JPushClient jPushClient = null;
+public class JiGuangCodeSender implements PushCodeSender {
 
     private static final int RESPONSE_OK = 200;
 
-    public JPushClient getJPushClient(Integer deviceType) {
-        if (deviceType == 0) {//ios
-            jPushClient = new JPushClient(jiGuangConfig.getIosMasterSecret(), jiGuangConfig.getIosAppkey());
-        } else if (deviceType == 1) {//android
-            jPushClient = new JPushClient(jiGuangConfig.getAndroidMasterSecret(), jiGuangConfig.getAndroiAppkey());
-        }
+    @Override
+    public PushSendResult messagePush(PushProperties pushSenderAccount, String alias, String notificationTitle, String msgTitle, String msgContent, String extras, Integer deviceType, Integer pushType, Date pushDate) {
+        PushSendResult result = new PushSendResult();
+        try {
+            Map<String, String> map = sendToAliasList(Arrays.asList(alias.split(",")), notificationTitle, msgTitle,
+                    msgContent, extras, deviceType, pushSenderAccount);
+            result.setMessageId(map.get("messageId"));
+            result.setRequestId(map.get("requestId"));
+            result.setSubmitStatus(PushSubmitStatus.SUCCESS); // 提交成功
+            result.setSubmitResult("");// 提交成功一般不需要记状态
 
-        return jPushClient;
+        } catch (Exception e) {
+            result.setSubmitStatus(PushSubmitStatus.FAIL); // 提交失败
+            result.setSubmitResult(e.getMessage()); // 取出失败结果，保存提交失败的原因
+        }
+        return result;
     }
 
     /**
@@ -59,17 +58,17 @@ public class JiGuangPushService {
      * @param extras            扩展字段
      * @param deviceType        设备类型（0：IOS，1：Android）
      */
-    public Map<String, String> sendToAliasList(List<String> alias, String notificationTitle, String msgTitle, String msgContent,
-                                               String extras, Integer deviceType) {
+    public Map<String, String> sendToAliasList(List<String> alias, String notificationTitle, String msgTitle,
+                                               String msgContent, String extras, Integer deviceType, PushProperties pushSenderAccount) {
         PushPayload pushPayload = null;
-        if (deviceType == 0) {//ios
-            pushPayload = buildPushObject_ios_aliasList_alertWithTitle(alias, notificationTitle, msgTitle,
-                    msgContent, extras);
-        } else if (deviceType == 1) {//android用extras数据发送
-            pushPayload = buildPushObject_android_aliasList_alertWithTitle(alias, notificationTitle, msgTitle,
-                    extras, extras);
+        if (deviceType == 0) {// ios
+            pushPayload = buildPushObject_ios_aliasList_alertWithTitle(alias, notificationTitle, msgTitle, msgContent,
+                    extras, pushSenderAccount.getJiGuang().isIosApnsProduction());
+        } else if (deviceType == 1) {// android用extras数据发送
+            pushPayload = buildPushObject_android_aliasList_alertWithTitle(alias, notificationTitle, msgTitle, extras,
+                    extras, pushSenderAccount.getJiGuang().isIosApnsProduction());
         }
-        PushResult pushResult = this.sendPush(pushPayload, deviceType);
+        PushResult pushResult = this.sendPush(pushPayload, deviceType, pushSenderAccount);
 
         Map<String, String> maps = new HashMap<String, String>();
         maps.put("requestId", pushResult.statusCode + "");
@@ -86,11 +85,9 @@ public class JiGuangPushService {
      * @param msgContent        消息内容
      * @param extras            扩展字段
      */
-    public void sendToTagsList(List<String> tagsList, String notificationTitle, String msgTitle, String msgContent,
-                               String extras) {
-        PushPayload pushPayload = buildPushObject_all_tagList_alertWithTitle(tagsList, notificationTitle, msgTitle,
-                msgContent, extras);
-        this.sendPush(pushPayload, null);
+    public void sendToTagsList(List<String> tagsList, String notificationTitle, String msgTitle, String msgContent, String extras, boolean apnsProduction) {
+        PushPayload pushPayload = buildPushObject_all_tagList_alertWithTitle(tagsList, notificationTitle, msgTitle, msgContent, extras, apnsProduction);
+        this.sendPush(pushPayload, null, null);
     }
 
     /**
@@ -101,10 +98,9 @@ public class JiGuangPushService {
      * @param msgContent        消息内容
      * @param extras            扩展字段
      */
-    public void sendToAllAndroid(String notificationTitle, String msgTitle, String msgContent, String extras) {
-        PushPayload pushPayload = buildPushObject_android_all_alertWithTitle(notificationTitle, msgTitle, msgContent,
-                extras);
-        this.sendPush(pushPayload, null);
+    public void sendToAllAndroid(String notificationTitle, String msgTitle, String msgContent, String extras, boolean apnsProduction) {
+        PushPayload pushPayload = buildPushObject_android_all_alertWithTitle(notificationTitle, msgTitle, msgContent, extras, apnsProduction);
+        this.sendPush(pushPayload, null, null);
     }
 
     /**
@@ -115,9 +111,8 @@ public class JiGuangPushService {
      * @param msgContent        消息内容
      * @param extras            扩展字段
      */
-    public PushPayload sendToAllIOS(String notificationTitle, String msgTitle, String msgContent, String extras) {
-        return buildPushObject_ios_all_alertWithTitle(notificationTitle, msgTitle, msgContent,
-                extras);
+    public PushPayload sendToAllIOS(String notificationTitle, String msgTitle, String msgContent, String extras, boolean apnsProduction) {
+        return buildPushObject_ios_all_alertWithTitle(notificationTitle, msgTitle, msgContent, extras, apnsProduction);
 
     }
 
@@ -129,23 +124,28 @@ public class JiGuangPushService {
      * @param msgContent        消息内容
      * @param extras            扩展字段
      */
-    public void sendToAll(String notificationTitle, String msgTitle, String msgContent, String extras) {
-        PushPayload pushPayload = buildPushObject_android_and_ios(notificationTitle, msgTitle, msgContent, extras);
-        this.sendPush(pushPayload, null);
+    public void sendToAll(String notificationTitle, String msgTitle, String msgContent, String extras, boolean apnsProduction) {
+        PushPayload pushPayload = buildPushObject_android_and_ios(notificationTitle, msgTitle, msgContent, extras, apnsProduction);
+        this.sendPush(pushPayload, null, null);
     }
 
-    private PushResult sendPush(PushPayload pushPayload, Integer deviceType) {
+    private PushResult sendPush(PushPayload pushPayload, Integer deviceType, PushProperties pushSenderAccount) {
         log.info("pushPayload={}", pushPayload);
         PushResult pushResult = null;
+        JPushClient jPushClient = null;
         try {
-            pushResult = this.getJPushClient(deviceType).sendPush(pushPayload);
+            if (deviceType == 0) {// ios
+                jPushClient = new JPushClient(pushSenderAccount.getJiGuang().getIosMasterSecret(), pushSenderAccount.getJiGuang().getIosAppKey());
+            } else if (deviceType == 1) {// android
+                jPushClient = new JPushClient(pushSenderAccount.getJiGuang().getAndroidMasterSecret(), pushSenderAccount.getJiGuang().getAndroidAppKey());
+            }
+
+            pushResult = jPushClient.sendPush(pushPayload);
             log.info("" + pushResult);
             if (pushResult.getResponseCode() == RESPONSE_OK) {
                 log.info("push successful, pushPayload={}", pushPayload);
             }
-        } catch (APIConnectionException e) {
-            log.error("push failed: pushPayload={}, exception={}", pushPayload, e);
-        } catch (APIRequestException e) {
+        } catch (APIConnectionException | APIRequestException e) {
             log.error("push failed: pushPayload={}, exception={}", pushPayload, e);
         }
 
@@ -162,7 +162,7 @@ public class JiGuangPushService {
      * @return
      */
     public PushPayload buildPushObject_android_and_ios(String notificationTitle, String msgTitle, String msgContent,
-                                                       String extras) {
+                                                       String extras, boolean apnsProduction) {
         return PushPayload.newBuilder().setPlatform(Platform.android_ios()).setAudience(Audience.all())
                 .setNotification(
                         Notification.newBuilder().setAlert(notificationTitle)
@@ -211,7 +211,7 @@ public class JiGuangPushService {
      * @return
      */
     private PushPayload buildPushObject_all_aliasList_alertWithTitle(List<String> aliasList, String notificationTitle,
-                                                                     String msgTitle, String msgContent, String extras) {
+                                                                     String msgTitle, String msgContent, String extras, boolean apnsProduction) {
         // 创建一个IosAlert对象，可指定APNs的alert、title等字段
         // IosAlert iosAlert = IosAlert.newBuilder().setTitleAndBody("title", "alert
         // body").build();
@@ -272,7 +272,7 @@ public class JiGuangPushService {
      * @return
      */
     private PushPayload buildPushObject_all_tagList_alertWithTitle(List<String> tagsList, String notificationTitle,
-                                                                   String msgTitle, String msgContent, String extras) {
+                                                                   String msgTitle, String msgContent, String extras, boolean apnsProduction) {
         // 创建一个IosAlert对象，可指定APNs的alert、title等字段
         // IosAlert iosAlert = IosAlert.newBuilder().setTitleAndBody("title", "alert
         // body").build();
@@ -331,21 +331,21 @@ public class JiGuangPushService {
      * @param extras
      * @return
      */
-    private PushPayload buildPushObject_android_aliasList_alertWithTitle(List<String> aliasList, String notificationTitle, String msgTitle,
-                                                                         String msgContent, String extras) {
+    private PushPayload buildPushObject_android_aliasList_alertWithTitle(List<String> aliasList,
+                                                                         String notificationTitle, String msgTitle, String msgContent, String extras, boolean apnsProduction) {
         return PushPayload.newBuilder()
                 // 指定要推送的平台，all代表当前应用配置了的所有平台，也可以传android等具体平台
                 .setPlatform(Platform.android())
                 // 指定推送的接收对象，all代表所有人，也可以指定已经设置成功的tag或alias或该应应用客户端调用接口获取到的registration id
                 .setAudience(Audience.alias(aliasList))
                 // jpush的通知，android的由jpush直接下发，iOS的由apns服务器下发，Winphone的由mpns下发
-//				.setNotification(Notification.newBuilder()
-//						// 指定当前推送的android通知
-//						.addPlatformNotification(
-//								AndroidNotification.newBuilder().setAlert(notificationTitle).setTitle(notificationTitle)
-//										// 此字段为透传字段，不会显示在通知栏。用户可以通过此字段来做一些定制需求，如特定的key传要指定跳转的页面（value）
-//										.addExtra("androidNotification extras key", extras).build())
-//						.build())
+//			.setNotification(Notification.newBuilder()
+//					// 指定当前推送的android通知
+//					.addPlatformNotification(
+//							AndroidNotification.newBuilder().setAlert(notificationTitle).setTitle(notificationTitle)
+//									// 此字段为透传字段，不会显示在通知栏。用户可以通过此字段来做一些定制需求，如特定的key传要指定跳转的页面（value）
+//									.addExtra("androidNotification extras key", extras).build())
+//					.build())
                 // Platform指定了哪些平台就会像指定平台中符合推送条件的设备进行推送。 jpush的自定义消息，
                 // sdk默认不做任何处理，不会有通知提示。建议看文档http://docs.jpush.io/guideline/faq/的
                 // [通知与自定义消息有什么区别？]了解通知和自定义消息的区别
@@ -372,7 +372,7 @@ public class JiGuangPushService {
      * @return
      */
     private PushPayload buildPushObject_android_all_alertWithTitle(String notificationTitle, String msgTitle,
-                                                                   String msgContent, String extras) {
+                                                                   String msgContent, String extras, boolean apnsProduction) {
         return PushPayload.newBuilder()
                 // 指定要推送的平台，all代表当前应用配置了的所有平台，也可以传android等具体平台
                 .setPlatform(Platform.android())
@@ -411,9 +411,9 @@ public class JiGuangPushService {
      * @param extras
      * @return
      */
-    private PushPayload buildPushObject_ios_aliasList_alertWithTitle(List<String> aliasList, String notificationTitle, String msgTitle,
-                                                                     String msgContent, String extras) {
-        //通知栏显示推送标题和内容
+    private PushPayload buildPushObject_ios_aliasList_alertWithTitle(List<String> aliasList, String notificationTitle,
+                                                                     String msgTitle, String msgContent, String extras, boolean apnsProduction) {
+        // 通知栏显示推送标题和内容
         IosAlert alert = IosAlert.newBuilder().setTitleAndBody(notificationTitle, null, msgContent).build();
         return PushPayload.newBuilder()
                 // 指定要推送的平台，all代表当前应用配置了的所有平台，也可以传android等具体平台
@@ -441,8 +441,8 @@ public class JiGuangPushService {
                 // Platform指定了哪些平台就会像指定平台中符合推送条件的设备进行推送。 jpush的自定义消息，
                 // sdk默认不做任何处理，不会有通知提示。建议看文档http://docs.jpush.io/guideline/faq/的
                 // [通知与自定义消息有什么区别？]了解通知和自定义消息的区别
-//				.setMessage(Message.newBuilder().setMsgContent(msgContent).setTitle(msgTitle)
-//						.addExtra("message extras key", extras).build())
+//			.setMessage(Message.newBuilder().setMsgContent(msgContent).setTitle(msgTitle)
+//					.addExtra("message extras key", extras).build())
                 .setOptions(Options.newBuilder()
                         // 此字段的值是用来指定本推送要推送的apns环境，false表示开发，true表示生产；对android和自定义消息无意义
                         .setApnsProduction(apnsProduction)
@@ -463,7 +463,7 @@ public class JiGuangPushService {
      * @return
      */
     private PushPayload buildPushObject_ios_all_alertWithTitle(String notificationTitle, String msgTitle,
-                                                               String msgContent, String extras) {
+                                                               String msgContent, String extras, boolean apnsProduction) {
         return PushPayload.newBuilder()
                 // 指定要推送的平台，all代表当前应用配置了的所有平台，也可以传android等具体平台
                 .setPlatform(Platform.ios())
@@ -490,8 +490,8 @@ public class JiGuangPushService {
                 // Platform指定了哪些平台就会像指定平台中符合推送条件的设备进行推送。 jpush的自定义消息，
                 // sdk默认不做任何处理，不会有通知提示。建议看文档http://docs.jpush.io/guideline/faq/的
                 // [通知与自定义消息有什么区别？]了解通知和自定义消息的区别
-//				.setMessage(Message.newBuilder().setMsgContent(msgContent).setTitle(msgTitle)
-//						.addExtra("message extras key", extras).build())
+//			.setMessage(Message.newBuilder().setMsgContent(msgContent).setTitle(msgTitle)
+//					.addExtra("message extras key", extras).build())
                 .setOptions(Options.newBuilder()
                         // 此字段的值是用来指定本推送要推送的apns环境，false表示开发，true表示生产；对android和自定义消息无意义
                         .setApnsProduction(apnsProduction)
@@ -502,12 +502,4 @@ public class JiGuangPushService {
                 .build();
     }
 
-    public static void main(String[] args) {
-//        MyJPushClient jPushUtil = new MyJPushClient();
-//        List<String> aliasList = Arrays.asList("239");
-//        String notificationTitle = "notificationTitle";
-//        String msgTitle = "msgTitle";
-//        String msgContent = "msgContent";
-//        jPushUtil.sendToAliasList(aliasList, notificationTitle, msgTitle, msgContent, "exts");
-    }
 }
