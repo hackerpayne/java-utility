@@ -1,6 +1,5 @@
 package com.lingdonge.core.collection;
 
-
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;

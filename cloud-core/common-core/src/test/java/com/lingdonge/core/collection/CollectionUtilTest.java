@@ -1,11 +1,20 @@
 package com.lingdonge.core.collection;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class CollectionUtilTest {
+
+    @Test
+    public void testSkipList() {
+        CollectionUtil.listSkip(12, "1,2,3,4,5,6,7,8,9,12,12,23,4,5,5", 0);
+        CollectionUtil.listSkip(12, "1,2,3,4,5,6,7,8,9,12,12,23,4,5,5", 1);
+    }
+
 
     @Test
     public void splitList() {

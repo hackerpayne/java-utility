@@ -82,7 +82,7 @@ public class CollectionUtil {
      * @param type
      * @return
      */
-    public static List<String> ListSkip(Integer max_number, String data, int type) {
+    public static List<String> listSkip(Integer max_number, String data, int type) {
         List<String> sts = new ArrayList<String>();
         List<String> list = Arrays.asList(data.split(",")).stream().map(s -> String.valueOf(type == 0 ? DigestUtils.md5Hex(s.trim()).toUpperCase() : s.trim()))
                 .collect(Collectors.toList());
@@ -160,16 +160,17 @@ public class CollectionUtil {
      */
     public static List<String> addStr(List<String> listArray, String head, String foot, boolean ignoreEmpty) {
         for (int i = 0; i < listArray.size(); i++) {
-            if (ignoreEmpty && StringUtils.isEmpty(listArray.get(i))) continue;
-            if (StringUtils.isNotEmpty(head)) listArray.set(i, head + listArray.get(i));
-            if (StringUtils.isNotEmpty(foot)) listArray.set(i, listArray.get(i) + foot);
+            if (ignoreEmpty && StringUtils.isEmpty(listArray.get(i))) {
+                continue;
+            }
+            if (StringUtils.isNotEmpty(head)) {
+                listArray.set(i, head + listArray.get(i));
+            }
+            if (StringUtils.isNotEmpty(foot)) {
+                listArray.set(i, listArray.get(i) + foot);
+            }
         }
         return listArray;
-    }
-
-    public static void main(String[] args) {
-        ListSkip(12, "1,2,3,4,5,6,7,8,9,12,12,23,4,5,5", 0);
-        ListSkip(12, "1,2,3,4,5,6,7,8,9,12,12,23,4,5,5", 1);
     }
 
 
