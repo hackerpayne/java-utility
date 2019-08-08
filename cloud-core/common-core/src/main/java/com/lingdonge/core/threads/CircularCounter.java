@@ -1,6 +1,5 @@
 package com.lingdonge.core.threads;
 
-import com.lingdonge.core.dates.JodaUtil;
 import com.lingdonge.core.dates.LocalDateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

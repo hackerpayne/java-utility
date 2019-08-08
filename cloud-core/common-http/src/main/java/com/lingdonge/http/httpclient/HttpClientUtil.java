@@ -1,8 +1,8 @@
 package com.lingdonge.http.httpclient;
 
 import com.lingdonge.core.http.HttpClientUtils;
-import com.lingdonge.http.HttpRequest;
-import com.lingdonge.http.HttpResult;
+import com.lingdonge.http.bean.HttpRequest;
+import com.lingdonge.http.bean.HttpResult;
 import com.lingdonge.http.util.CharsetUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;

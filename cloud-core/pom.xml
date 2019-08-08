@@ -27,9 +27,11 @@
 
     <modules>
         <module>common-core</module>
-        <module>common-http</module>
+        <module>common-crypto</module>
+        <module>common-spider</module>
         <module>common-excel</module>
         <module>common-net</module>
+        <module>common-http</module>
     </modules>
 
 </project>

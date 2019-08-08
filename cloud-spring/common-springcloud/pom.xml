@@ -16,7 +16,6 @@
     <description>Http请求集成类</description>
 
     <properties>
-        <swagger.version>2.9.2</swagger.version>
     </properties>
 
     <dependencies>
@@ -41,7 +40,6 @@
             <optional>true</optional>
         </dependency>
 
-
         <!-- Swagger API管理工具 -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -60,7 +58,7 @@
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
-            <version>1.9.4</version>
+            <version>${swagger.ui.version}</version>
             <optional>true</optional>
         </dependency>
 

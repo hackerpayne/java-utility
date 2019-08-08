@@ -1,10 +1,10 @@
 package com.lingdonge.http.httpclient;
 
+import com.lingdonge.core.bean.common.ModelProxy;
 import com.lingdonge.core.http.HttpConstant;
 import com.lingdonge.core.http.UrlUtils;
-import com.lingdonge.core.bean.common.ModelProxy;
-import com.lingdonge.http.HttpRequest;
-import com.lingdonge.http.HttpSetting;
+import com.lingdonge.http.bean.HttpRequest;
+import com.lingdonge.http.bean.HttpSetting;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthState;
 import org.apache.http.auth.ChallengeState;

@@ -1,6 +1,6 @@
 package com.lingdonge.http.httpclient;
 
-import com.lingdonge.http.httpclient.utils.HttpClientCreatorUtil;
+import com.lingdonge.http.util.HttpClientCreatorUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.methods.HttpGet;

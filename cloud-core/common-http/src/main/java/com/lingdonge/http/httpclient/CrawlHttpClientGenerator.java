@@ -1,10 +1,10 @@
 package com.lingdonge.http.httpclient;
 
-import com.lingdonge.http.HttpSetting;
+import com.lingdonge.http.bean.HttpSetting;
 import com.lingdonge.http.httpclient.interceptor.GzipInterceptor;
 import com.lingdonge.http.httpclient.strategy.CustomRedirectStrategy;
 import com.lingdonge.http.httpclient.strategy.MyConnectionKeepAliveStrategy;
-import com.lingdonge.http.httpclient.utils.HttpClientCreatorUtil;
+import com.lingdonge.http.util.HttpClientCreatorUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.CookieStore;
 import org.apache.http.config.SocketConfig;

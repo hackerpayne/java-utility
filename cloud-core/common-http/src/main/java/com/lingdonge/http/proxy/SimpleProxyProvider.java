@@ -1,8 +1,8 @@
 package com.lingdonge.http.proxy;
 
 import com.lingdonge.core.bean.common.ModelProxy;
-import com.lingdonge.http.HttpResult;
-import com.lingdonge.http.HttpSetting;
+import com.lingdonge.http.bean.HttpResult;
+import com.lingdonge.http.bean.HttpSetting;
 
 import java.util.ArrayList;
 import java.util.Collections;

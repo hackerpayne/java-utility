@@ -14,6 +14,7 @@
     <url>https://github.com/lingdonge/java-utility</url>
 
     <properties>
+        <!-- 基础配置 -->
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -21,20 +22,28 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
+        <!-- 常用包版本配置 -->
+        <mysql.version>8.0.16</mysql.version>
         <httpclient.version>4.5.5</httpclient.version>
         <swagger.version>2.9.2</swagger.version>
+        <swagger.ui.version>1.9.5</swagger.ui.version>
         <jackson.version>2.9.9</jackson.version>
+        <fastjson.version>4.12</fastjson.version>
         <mybatisplus.version>3.1.2</mybatisplus.version>
+        <hutool.version>4.5.11</hutool.version>
+        <junit.version>4.12</junit.version>
+        <druid.version>1.0.31</druid.version>
 
+        <!-- Spring框架配置 -->
         <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
         <spring.cloud.version>Greenwich.SR2</spring.cloud.version>
         <spring.cloud.netflix>2.1.1.RELEASE</spring.cloud.netflix>
         <spring.alibaba.version>2.1.0.RELEASE</spring.alibaba.version>
 
+        <!-- Docker及插件版本配置 -->
         <docker.plugin.version>1.0.0</docker.plugin.version>
         <docker.image.prefix>mljr-marketing</docker.image.prefix>
-        
-        <junit.version>4.12</junit.version>
+
     </properties>
 
     <modules>
@@ -44,6 +53,27 @@
     </modules>
 
     <dependencies>
+
+        <!-- 基础包，必选 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+
+        <!-- 基础包，必选 -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.0</version>
+        </dependency>
+
+        <!-- HuTool工具基础包 -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-core</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
 
         <!-- logback日志包 -->
         <dependency>
@@ -66,13 +96,6 @@
             <artifactId>lombok</artifactId>
             <version>1.16.18</version>
             <scope>provided</scope>
-        </dependency>
-
-        <!-- javax提供的annotation -->
-        <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>1</version>
         </dependency>
 
         <dependency>

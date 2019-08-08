@@ -1,21 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.lingdonge</groupId>
         <artifactId>cloud-spring</artifactId>
         <version>3.0.4</version>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
     <artifactId>common-spring</artifactId>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <description>Spring常用工具类</description>
-
-    <properties>
-
-    </properties>
 
     <dependencies>
         <dependency>
@@ -93,7 +89,7 @@
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
-            <version>1.9.4</version>
+            <version>${swagger.ui.version}</version>
             <optional>true</optional>
         </dependency>
 
@@ -136,11 +132,12 @@
             <version>${httpclient.version}</version>
             <optional>true</optional>
         </dependency>
-        
+
+        <!-- javax提供的annotation -->
         <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-            <optional>true</optional>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
         </dependency>
 
     </dependencies>

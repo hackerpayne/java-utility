@@ -1,7 +1,7 @@
 package com.lingdonge.redis.ratelimit;
 
 import com.lingdonge.core.dates.SystemClock;
-import com.lingdonge.core.encrypt.Md5Util;
+import com.lingdonge.crypto.encrypt.Md5Util;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;

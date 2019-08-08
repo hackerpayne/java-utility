@@ -6,12 +6,9 @@ import com.lingdonge.core.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 import org.jsoup.safety.Whitelist;
-import org.jsoup.select.Elements;
 
-import java.io.IOException;
 import java.util.List;
 
 /**

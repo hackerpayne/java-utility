@@ -1,11 +1,11 @@
 package com.lingdonge.http.httpclient;
 
+import com.lingdonge.core.bean.common.ModelProxy;
 import com.lingdonge.core.http.HttpClientUtils;
 import com.lingdonge.core.http.HttpConstant;
-import com.lingdonge.core.bean.common.ModelProxy;
-import com.lingdonge.http.HttpRequest;
-import com.lingdonge.http.HttpResult;
-import com.lingdonge.http.HttpSetting;
+import com.lingdonge.http.bean.HttpRequest;
+import com.lingdonge.http.bean.HttpResult;
+import com.lingdonge.http.bean.HttpSetting;
 import com.lingdonge.http.proxy.ProxyProvider;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -164,8 +164,9 @@ public class CrawlHttpClientDownloader {
 
             List<URI> locationList = requestContext.getHttpClientContext().getRedirectLocations();
 
-            if (locationList != null && locationList.size() > 0)
+            if (locationList != null && locationList.size() > 0) {
                 page.setLocationUrl(locationList.get(locationList.size() - 1).toString());
+            }
 
             page.setStatusCode(httpResponse.getStatusLine().getStatusCode());
 

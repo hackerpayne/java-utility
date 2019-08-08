@@ -1,16 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.lingdonge</groupId>
         <artifactId>cloud-core</artifactId>
         <version>3.0.4</version>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
     <artifactId>common-http</artifactId>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <description>Http请求集成类</description>
+
     <dependencies>
 
         <dependency>
@@ -24,14 +28,22 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.9.2</version>
+            <optional>true</optional>
         </dependency>
 
-        <!-- HtmlUnit采集处理类 -->
+        <!-- HuTool工具 Http 工具包 -->
         <dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
-            <artifactId>htmlunit</artifactId>
-            <version>2.32</version>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
+            <version>${hutool.version}</version>
             <optional>true</optional>
+        </dependency>
+
+        <!-- JsonPath解析类 https://github.com/jayway/JsonPath-->
+        <dependency>
+            <groupId>com.jayway.jsonpath</groupId>
+            <artifactId>json-path</artifactId>
+            <version>2.4.0</version>
         </dependency>
 
         <dependency>
@@ -59,72 +71,7 @@
             <version>4.4.8</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>3.9.1</version>
-        </dependency>
-
-        <!-- JsonPath解析类 https://github.com/jayway/JsonPath-->
-        <dependency>
-            <groupId>com.jayway.jsonpath</groupId>
-            <artifactId>json-path</artifactId>
-            <version>2.4.0</version>
-        </dependency>
-
-        <!-- Jedis -->
-        <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>2.9.0</version>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>com.lingdonge</groupId>
-            <artifactId>cloud-redis</artifactId>
-            <version>${project.parent.version}</version>
-            <optional>true</optional>
-        </dependency>
-
-        <!--保存CSV用-->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-csv</artifactId>
-            <version>1.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.maxmind.geoip2</groupId>
-            <artifactId>geoip2</artifactId>
-            <version>2.9.0</version>
-            <!--<exclusions>-->
-            <!--<exclusion>-->
-            <!--<groupId>com.fasterxml.jackson.delayqueue</groupId>-->
-            <!--<artifactId>jackson-databind</artifactId>-->
-            <!--</exclusion>-->
-            <!--</exclusions>-->
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-        </dependency>
 
     </dependencies>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
 
 </project>
