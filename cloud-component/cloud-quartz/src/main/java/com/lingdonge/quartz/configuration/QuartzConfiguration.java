@@ -1,12 +1,11 @@
 package com.lingdonge.quartz.configuration;
 
+import lombok.extern.slf4j.Slf4j;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.ee.servlet.QuartzInitializerListener;
 import org.quartz.spi.JobFactory;
 import org.quartz.spi.TriggerFiredBundle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.ApplicationContext;
@@ -24,9 +23,8 @@ import java.util.Properties;
 
 @Configuration
 @EnableScheduling
+@Slf4j
 public class QuartzConfiguration {
-
-    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Resource
     private QuartzJobFactory quartzJobFactory;
@@ -67,7 +65,7 @@ public class QuartzConfiguration {
     @Bean(name = "schedulerFactory")
     public SchedulerFactoryBean schedulerFactory() throws IOException {
 
-        logger.info("<<<<<<<<<<<<<<< 重写 Quartz SchedulerFactoryBean 处理 >>>>>>>>>>>>>>>>>>");
+        log.info("<<<<<<<<<<<<<<< 重写 Quartz SchedulerFactoryBean 处理 >>>>>>>>>>>>>>>>>>");
 
         SchedulerFactoryBean bean = new SchedulerFactoryBean();
 
@@ -110,7 +108,7 @@ public class QuartzConfiguration {
     public Scheduler scheduler() throws IOException, SchedulerException {
         Scheduler scheduler = schedulerFactory().getScheduler();
 
-        logger.info("<<<<<<<<<<<<<<< 重写 Quartz Scheduler 启动中 >>>>>>>>>>>>>>>>>>");
+        log.info("<<<<<<<<<<<<<<< 重写 Quartz Scheduler 启动中 >>>>>>>>>>>>>>>>>>");
 
         scheduler.start();
         return scheduler;

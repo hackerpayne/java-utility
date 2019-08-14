@@ -2,8 +2,10 @@ package com.lingdonge.redis.ratelimit;
 
 import com.lingdonge.core.dates.SystemClock;
 import com.lingdonge.crypto.encrypt.Md5Util;
+import com.lingdonge.redis.util.RedisConnUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 
@@ -23,18 +25,18 @@ public class RedisRateLimitUtil {
     /**
      * 构造函数
      *
-     * @param redisTemplate
+     * @param redisProperties
      */
-    public RedisRateLimitUtil(RedisTemplate redisTemplate) {
-        this.redisTemplate = redisTemplate;
+    public RedisRateLimitUtil(RedisProperties redisProperties) {
+        this(redisProperties, "");
     }
 
     /**
-     * @param redisTemplate
+     * @param redisProperties
      * @param redisPrefix
      */
-    public RedisRateLimitUtil(RedisTemplate redisTemplate, String redisPrefix) {
-        this.redisTemplate = redisTemplate;
+    public RedisRateLimitUtil(RedisProperties redisProperties, String redisPrefix) {
+        this.redisTemplate = RedisConnUtil.getRedisTemplate(redisProperties);
         this.redisPrefix = redisPrefix;
     }
 
@@ -61,10 +63,7 @@ public class RedisRateLimitUtil {
             redisTemplate.expire(key, expireSeconds, TimeUnit.SECONDS); // 设置过期时间
             return true;
         }
-        if (count > 1) {
-            return false;
-        }
-        return true;
+        return count <= 1;
     }
 
     /**

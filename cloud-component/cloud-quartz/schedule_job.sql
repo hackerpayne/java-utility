@@ -9,7 +9,9 @@ CREATE TABLE `schedule_job`  (
   `cron_expression` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT 'Cron表达示',
   `job_status` tinyint(4) NULL DEFAULT 0 COMMENT '任务状态，0禁用，1启动，2删除',
   `desc` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '任务描述',
-  `created_at` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `updated_at` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-  PRIMARY KEY (`id`) USING BTREE
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `idx_unique`(`job_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci;
+

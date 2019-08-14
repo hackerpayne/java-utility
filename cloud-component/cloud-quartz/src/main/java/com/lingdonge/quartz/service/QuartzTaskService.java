@@ -1,6 +1,6 @@
 package com.lingdonge.quartz.service;
 
-import com.lingdonge.quartz.domain.ScheduleJob;
+import com.lingdonge.quartz.model.ScheduleJob;
 import org.quartz.Job;
 import org.quartz.JobDetail;
 import org.quartz.SchedulerException;

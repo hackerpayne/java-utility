@@ -1,4 +1,4 @@
-package com.lingdonge.spring.enums;
+package com.lingdonge.quartz.enums;
 
 import com.lingdonge.core.bean.base.NameValue;
 
@@ -6,14 +6,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public enum YesNoEnum {
-    NO(0, "否"),
-    YES(1, "是");
+/**
+ * 任务状态，0禁用，1启动，2删除
+ */
+public enum JobStatusEnum {
+    DISABLE(0, "禁用中"),
+    ENABLE(1, "启用中"),
+    DELETED(2, "已删除");
 
     private Integer value;
     private String name;
 
-    YesNoEnum(Integer value, String name) {
+    JobStatusEnum(Integer value, String name) {
         this.value = value;
         this.name = name;
     }
@@ -22,7 +26,7 @@ public enum YesNoEnum {
         return value;
     }
 
-    public static YesNoEnum getItem(Integer value) {
+    public static JobStatusEnum getItem(Integer value) {
         return Stream.of(values()).filter(item -> item.value.equals(value)).findAny().orElse(null);
     }
 

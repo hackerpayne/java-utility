@@ -1,10 +1,12 @@
 package com.lingdonge.quartz.service.impl;
 
 import cn.hutool.core.exceptions.UtilException;
-import com.lingdonge.quartz.domain.ScheduleJob;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.lingdonge.quartz.enums.JobStatusEnum;
 import com.lingdonge.quartz.job.BaseJob;
 import com.lingdonge.quartz.job.QuartzJobFactoryRun;
-import com.lingdonge.quartz.repository.ScheduleJobRepository;
+import com.lingdonge.quartz.mapper.ScheduleJobMapper;
+import com.lingdonge.quartz.model.ScheduleJob;
 import com.lingdonge.quartz.service.QuartzTaskService;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
@@ -14,6 +16,7 @@ import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -26,8 +29,8 @@ public class QuartzTaskServiceImpl implements QuartzTaskService {
     @Qualifier("scheduler")
     private Scheduler scheduler;
 
-    @Autowired
-    private ScheduleJobRepository scheduleJobRepository;
+    @Resource
+    private ScheduleJobMapper scheduleJobMapper;
 
     /**
      * 加载并运行定时任务里面的配置
@@ -38,7 +41,7 @@ public class QuartzTaskServiceImpl implements QuartzTaskService {
         log.info("遍历并加载数据库任务列表并执行");
 
         //查询数据库是否存在需要定时的任务
-        List<ScheduleJob> scheduleJobs = scheduleJobRepository.findAllByJobStatus("1");
+        List<ScheduleJob> scheduleJobs = scheduleJobMapper.selectList(new QueryWrapper<ScheduleJob>().eq(ScheduleJob.JOB_STATUS, JobStatusEnum.ENABLE.getValue()));
         if (scheduleJobs != null) {
             scheduleJobs.forEach(this::runJob);
         }

@@ -324,6 +324,28 @@ public class RedisTemplateUtil {
     }
 
     /**
+     * 删除大hash值
+     *
+     * @param bigHashKey
+     */
+    public void hDelLarge(String bigHashKey) {
+        HashOperations<String, Object, Object> hash = redisTemplate.opsForHash();
+        ScanOptions scanOptions = ScanOptions.scanOptions().count(100).build();
+        long cursor = 0L;
+        do {
+
+            Cursor<Map.Entry<Object, Object>> scanResult = hash.scan(bigHashKey, scanOptions);
+            scanResult.forEachRemaining(item -> {
+                hash.delete(bigHashKey, item.getKey());
+            });
+
+            cursor = scanResult.getCursorId();
+        } while (cursor != 0);
+
+        redisTemplate.delete(bigHashKey);
+    }
+
+    /**
      * @param k
      * @param v
      */
@@ -359,6 +381,25 @@ public class RedisTemplateUtil {
     }
 
     /**
+     * 删除List有超多数据的Value列表：100为一批一段一段删除
+     *
+     * @param bigListKey
+     */
+    public void lTrimLarge(String bigListKey) {
+        long llen = redisTemplate.opsForList().size(bigListKey);
+        int counter = 0;
+        int left = 100;
+        while (counter < llen) {
+            redisTemplate.opsForList().trim(bigListKey, left, llen);
+            counter += left;
+        }
+
+        // 最终删除List
+        redisTemplate.delete(bigListKey);
+
+    }
+
+    /**
      * @param key
      * @param value
      */
@@ -366,6 +407,7 @@ public class RedisTemplateUtil {
         SetOperations<String, Object> set = redisTemplate.opsForSet();
         set.add(key, value);
     }
+
 
     /**
      * 返回所有Members列表

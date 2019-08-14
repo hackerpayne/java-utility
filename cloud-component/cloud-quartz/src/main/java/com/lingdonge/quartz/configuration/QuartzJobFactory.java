@@ -40,3 +40,4 @@ public class QuartzJobFactory extends AdaptableJobFactory {
         return jobInstance;
     }
 }
+
