@@ -11,4 +11,29 @@ public class NamingUtilTest {
         System.out.println(NamingUtil.underlineToCamel("a_user_Name"));
     }
 
+    @Test
+    public void getFirstUpperName() {
+    }
+
+    @Test
+    public void getFirstLowerName() {
+    }
+
+    @Test
+    public void camelToUnderlineNew() {
+    }
+
+    @Test
+    public void camelToUnderline() {
+    }
+
+    @Test
+    public void underlineToCamelNew() {
+        System.out.println(NamingUtil.camelToUnderlineNew("a.userName"));
+    }
+
+    @Test
+    public void underlineToCamel() {
+        System.out.println(NamingUtil.underlineToCamelNew("a_user_Name_or_Invalid"));
+    }
 }

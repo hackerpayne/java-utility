@@ -16,10 +16,6 @@
 
     <url>http://www.lingdonge.com</url>
 
-    <properties>
-
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>com.lingdonge</groupId>

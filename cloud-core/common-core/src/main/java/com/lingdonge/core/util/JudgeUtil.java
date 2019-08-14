@@ -18,8 +18,7 @@ public class JudgeUtil {
      * 1开头+10位数字
      */
     public static boolean isMobile(String mobile) {
-        String regex = "^1\\d{10}$";
-        return Pattern.matches(regex, mobile);
+        return PatternPool.MOBILE.matcher(mobile).find();
     }
 
     /**
@@ -34,27 +33,14 @@ public class JudgeUtil {
     }
 
     /**
-     * 按照力蕴电话号码规则校验
-     *
-     * @param
-     * @return
-     */
-    public static boolean isLyPhone(String phoneNumber) {
-        String reg = "^((\\d{3,4})-?)(\\d{7,8})$";
-        return Pattern.matches(reg, phoneNumber);
-    }
-
-    /**
      * 匹配中国邮政编码 6位数字
      *
      * @param postCode 邮政编码
      * @return 验证成功返回true，验证失败返回false
      */
     public static boolean isPostCode(String postCode) {
-        String reg = "\\d{6}";
-        return Pattern.matches(reg, postCode);
+        return PatternPool.ZIP_CODE.matcher(postCode).find();
     }
-
 
     /**
      * 是否是数字

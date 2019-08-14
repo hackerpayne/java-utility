@@ -12,7 +12,6 @@ public class EventBusFacade {
         execute(event);
     }
 
-
     /**
      * 发送事件
      * @param event

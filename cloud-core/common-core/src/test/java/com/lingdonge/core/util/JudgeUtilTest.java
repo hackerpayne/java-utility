@@ -17,4 +17,56 @@ public class JudgeUtilTest {
 //        System.out.println(phones);
     }
 
+    @Test
+    public void isMobile() {
+        System.out.println(JudgeUtil.isMobile("18515490000"));
+    }
+
+    @Test
+    public void isFixedPhone() {
+    }
+
+    @Test
+    public void isPostCode() {
+    }
+
+    @Test
+    public void isNumber() {
+    }
+
+    @Test
+    public void filterUnNumber() {
+    }
+
+    @Test
+    public void isDigit() {
+    }
+
+    @Test
+    public void isVehiclePlate() {
+    }
+
+    @Test
+    public void isNumber12_2() {
+    }
+
+    @Test
+    public void isNumber10_2() {
+    }
+
+    @Test
+    public void isZipCode() {
+    }
+
+    @Test
+    public void isEmail() {
+    }
+
+    @Test
+    public void isIdentificationCode() {
+    }
+
+    @Test
+    public void isVehicleEngineNo() {
+    }
 }

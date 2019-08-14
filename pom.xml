@@ -24,15 +24,18 @@
 
         <!-- 常用包版本配置 -->
         <mysql.version>8.0.16</mysql.version>
+        <lombok.version>1.16.18</lombok.version>
         <httpclient.version>4.5.5</httpclient.version>
         <swagger.version>2.9.2</swagger.version>
         <swagger.ui.version>1.9.5</swagger.ui.version>
         <jackson.version>2.9.9</jackson.version>
-        <fastjson.version>4.12</fastjson.version>
+        <fastjson.version>1.2.59</fastjson.version>
         <mybatisplus.version>3.1.2</mybatisplus.version>
         <hutool.version>4.5.11</hutool.version>
         <junit.version>4.12</junit.version>
         <druid.version>1.0.31</druid.version>
+        <logback.version>1.2.3</logback.version>
+        <common.version>3.0.4</common.version>
 
         <!-- Spring框架配置 -->
         <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
@@ -79,14 +82,14 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
+            <version>${logback.version}</version>
             <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.2.3</version>
+            <version>${logback.version}</version>
             <optional>true</optional>
         </dependency>
 
@@ -94,7 +97,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.18</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 

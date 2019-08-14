@@ -96,7 +96,7 @@ public class NamingUtil {
             matcher.appendReplacement(result, replacement.replace("_", "").toUpperCase());
         }
         matcher.appendTail(result);
-        return result.toString();
+        return result.toString().replace("_", "");
     }
 
     /**

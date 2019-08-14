@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 /**
  * 常用正则表达式集合
  */
-public class PatternPool {
+public class PatternPool extends cn.hutool.core.lang.PatternPool {
 
     /**
      * 英文字母 、数字和下划线
@@ -122,6 +122,7 @@ public class PatternPool {
      * UUID
      */
     public final static Pattern UUID = Pattern.compile("^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$");
+    
     /**
      * 不带横线的UUID
      */
@@ -130,7 +131,7 @@ public class PatternPool {
     /**
      * 中国车牌号码
      */
-    public final static Pattern PLATE_NUMBER = Pattern.compile("^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$");
+    public final static Pattern CAR_NUMBER = Pattern.compile("^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$");
 
     /**
      * MAC地址正则
