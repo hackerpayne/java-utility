@@ -1,4 +1,4 @@
-package com.lingdonge.spring.web;
+package com.lingdonge.spring.util;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,14 +15,5 @@ import java.util.List;
  */
 public class RequestContextUtil {
 
-    public static HttpServletRequest getRequest() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        return request;
-    }
-
-    public static HttpSession getSession() {
-        HttpSession session = getRequest().getSession();
-        return session;
-    }
 
 }

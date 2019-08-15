@@ -1,7 +1,7 @@
 package com.lingdonge.spring.restful;
 
 import com.alibaba.fastjson.JSON;
-import com.lingdonge.spring.constant.RespCodeConstant;
+import com.lingdonge.spring.enums.RespStatusEnum;
 
 import java.util.HashMap;
 
@@ -38,8 +38,8 @@ public class Resp<T> extends RespSupport {
      */
     public static <U> Resp<U> fail() {
         Resp<U> resp = new Resp<U>();
-        resp.setCode(RespCodeConstant.FAIL_CODE);
-        resp.setMsg("未知错误");
+        resp.setCode(RespStatusEnum.FAIL.getCode());
+        resp.setMsg(RespStatusEnum.FAIL.getMsg());
         return resp;
     }
 
@@ -52,7 +52,7 @@ public class Resp<T> extends RespSupport {
      */
     public static <U> Resp<U> fail(String message) {
         Resp<U> resp = new Resp<U>();
-        resp.setCode(RespCodeConstant.FAIL_CODE);
+        resp.setCode(RespStatusEnum.FAIL.getCode());
         resp.setMsg(message);
         return resp;
     }
@@ -69,6 +69,20 @@ public class Resp<T> extends RespSupport {
         Resp<U> resp = new Resp<U>();
         resp.setCode(code);
         resp.setMsg(message);
+        return resp;
+    }
+
+    /**
+     * 直接以枚举返回的信息为准
+     *
+     * @param respStatusEnum
+     * @param <U>
+     * @return
+     */
+    public static <U> Resp<U> fail(RespStatusEnum respStatusEnum) {
+        Resp<U> resp = new Resp<U>();
+        resp.setCode(respStatusEnum.getCode());
+        resp.setMsg(respStatusEnum.getMsg());
         return resp;
     }
 
@@ -97,8 +111,22 @@ public class Resp<T> extends RespSupport {
      */
     public static <U> Resp<U> success() {
         Resp<U> resp = new Resp<U>();
-        resp.setCode(RespCodeConstant.SUCCESS_CODE);
-        resp.setMsg("");
+        resp.setCode(RespStatusEnum.SUCCESS.getCode());
+        resp.setMsg(RespStatusEnum.SUCCESS.getMsg());
+        return resp;
+    }
+
+    /**
+     * 以枚举值为准
+     *
+     * @param respStatusEnum
+     * @param <U>
+     * @return
+     */
+    public static <U> Resp<U> success(RespStatusEnum respStatusEnum) {
+        Resp<U> resp = new Resp<U>();
+        resp.setCode(respStatusEnum.getCode());
+        resp.setMsg(respStatusEnum.getMsg());
         return resp;
     }
 
@@ -111,7 +139,7 @@ public class Resp<T> extends RespSupport {
      */
     public static <U> Resp<U> successWith(String msg) {
         Resp<U> resp = new Resp<U>();
-        resp.setCode(RespCodeConstant.SUCCESS_CODE);
+        resp.setCode(RespStatusEnum.SUCCESS.getCode());
         resp.setMsg(msg);
         return resp;
     }
@@ -125,7 +153,8 @@ public class Resp<T> extends RespSupport {
      */
     public static <U> Resp<U> success(U data) {
         Resp<U> resp = new Resp<U>();
-        resp.setCode(RespCodeConstant.SUCCESS_CODE);
+        resp.setCode(RespStatusEnum.SUCCESS.getCode());
+        resp.setMsg(RespStatusEnum.SUCCESS.getMsg());
         resp.setResult(data);
         return resp;
     }
@@ -140,7 +169,7 @@ public class Resp<T> extends RespSupport {
      */
     public static <U> Resp<U> success(String msg, U data) {
         Resp<U> resp = new Resp<U>();
-        resp.setCode(RespCodeConstant.SUCCESS_CODE);
+        resp.setCode(RespStatusEnum.SUCCESS.getCode());
         resp.setMsg(msg);
         resp.setResult(data);
         return resp;

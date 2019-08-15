@@ -1,4 +1,4 @@
-package com.lingdonge.spring.web;
+package com.lingdonge.spring.util;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.ArrayUtils;

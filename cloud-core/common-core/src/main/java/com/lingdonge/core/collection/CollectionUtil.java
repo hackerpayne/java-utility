@@ -96,7 +96,6 @@ public class CollectionUtil {
         for (List<String> mg : mglist) {
             sts.add(String.join(",", mg.stream().map(Object::toString).collect(Collectors.toList())));
         }
-        System.out.println(sts);
         return sts;
         // 方法二：获取分割后的集合
 //		List<List<Integer>> splitList = Stream.iterate(0, n -> n + 1).limit(limit).parallel()

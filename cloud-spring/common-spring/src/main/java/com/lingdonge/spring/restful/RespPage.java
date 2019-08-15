@@ -2,7 +2,7 @@ package com.lingdonge.spring.restful;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lingdonge.core.page.PageBean;
-import com.lingdonge.spring.constant.RespCodeConstant;
+import com.lingdonge.spring.enums.RespStatusEnum;
 
 import java.util.Collection;
 import java.util.List;
@@ -43,7 +43,8 @@ public class RespPage<T extends Collection> extends RespSupport {
         respMeta.setPageCount(pageCount);
         respMeta.setTotalCount(totalCount);
         this.setResult(data);
-        this.setCode(RespCodeConstant.SUCCESS_CODE);
+        this.setCode(RespStatusEnum.SUCCESS.getCode());
+        this.setMsg(RespStatusEnum.SUCCESS.getMsg());
     }
 
     /**
@@ -62,7 +63,8 @@ public class RespPage<T extends Collection> extends RespSupport {
         respMeta.setPageCount(pageCount.intValue());
         respMeta.setTotalCount(totalCount.intValue());
         this.setResult(data);
-        this.setCode(RespCodeConstant.SUCCESS_CODE);
+        this.setCode(RespStatusEnum.SUCCESS.getCode());
+        this.setMsg(RespStatusEnum.SUCCESS.getMsg());
     }
 
     public RespPage(PageBean page) {
@@ -72,7 +74,8 @@ public class RespPage<T extends Collection> extends RespSupport {
         respMeta.setPageCount(page.getTotalPage());
         respMeta.setTotalCount(page.getTotalCount());
         this.setResult(page.getData());
-        this.setCode(RespCodeConstant.SUCCESS_CODE);
+        this.setCode(RespStatusEnum.SUCCESS.getCode());
+        this.setMsg(RespStatusEnum.SUCCESS.getMsg());
     }
 
     /**
@@ -83,8 +86,8 @@ public class RespPage<T extends Collection> extends RespSupport {
      */
     public static <U extends Collection> RespPage<U> fail() {
         RespPage<U> respPage = new RespPage<U>();
-        respPage.setCode(RespCodeConstant.FAIL_CODE);
-        respPage.setMsg("未知错误");
+        respPage.setCode(RespStatusEnum.FAIL.getCode());
+        respPage.setMsg(RespStatusEnum.FAIL.getMsg());
         respPage.setRespMeta(null);
         return respPage;
     }

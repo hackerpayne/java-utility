@@ -1,8 +1,9 @@
-package com.lingdonge.spring.web;
+package com.lingdonge.spring.util;
 
 import com.lingdonge.core.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
@@ -15,6 +16,31 @@ import java.net.URL;
  */
 @Slf4j
 public class SpringResourceUtil {
+
+    private final static String staticSuffix = ".css,.js,.png,.jpg,.gif,.jpeg,.bmp,.ico,.swf,.psd,.htc,.htm,.html,.crx,.xpi,.exe,.ipa,.apk,.woff2,.ico,.swf,.ttf,.otf,.svg,.woff";
+    /**
+     * 静态文件后缀
+     */
+    private final static String[] staticFiles = StringUtils.split(staticSuffix, ",");
+
+    /**
+     * 动态映射URL后缀
+     */
+    private final static String urlSuffix = ".html";
+
+    public static String[] getStaticFiles() {
+        return staticFiles;
+    }
+
+    /**
+     * 判断访问URI是否是静态文件请求
+     *
+     * @throws Exception
+     */
+    public static boolean isStaticFile(String uri) {
+        return StringUtils.endsWithAny(uri, staticFiles) && !StringUtils.endsWithAny(uri, new String[]{urlSuffix})
+                && !StringUtils.endsWithAny(uri, new String[]{".jsp"}) && !StringUtils.endsWithAny(uri, new String[]{".java"});
+    }
 
     /**
      * 获取文件完整路径的方法

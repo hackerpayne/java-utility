@@ -1,4 +1,4 @@
-package com.lingdonge.spring;
+package com.lingdonge.spring.util;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.google.common.collect.Lists;

@@ -1,25 +1,15 @@
 package com.lingdonge.db.configuration;
 
-import com.baomidou.mybatisplus.core.parser.ISqlParser;
-import com.baomidou.mybatisplus.extension.parsers.DynamicTableNameParser;
-import com.baomidou.mybatisplus.extension.parsers.ITableNameHandler;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * MyBatic自动加载配置
@@ -102,6 +92,8 @@ public class MyBatisPlusAutoConfiguration {
 //        List<ISqlParser> sqlParserList = new ArrayList<>();
 //        sqlParserList.add(dynamicTableNameParser);
 //        paginationInterceptor.setSqlParserList(sqlParserList);
+
+        paginationInterceptor.setLimit(0);// 分页无限制，否则最大只有500条一页，需要自己强力控制不能分太大的页面，否则性能急降
 
         return paginationInterceptor;
     }

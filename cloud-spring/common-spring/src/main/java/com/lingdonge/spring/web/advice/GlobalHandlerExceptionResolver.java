@@ -1,8 +1,11 @@
 package com.lingdonge.spring.web.advice;
 
+import cn.hutool.core.util.StrUtil;
 import com.google.common.base.Joiner;
+import com.lingdonge.spring.enums.RespStatusEnum;
+import com.lingdonge.spring.exception.BizException;
 import com.lingdonge.spring.restful.Resp;
-import com.lingdonge.spring.web.SpringRequestUtil;
+import com.lingdonge.spring.util.SpringRequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -32,6 +35,19 @@ import java.util.Set;
 public class GlobalHandlerExceptionResolver {
 
     /**
+     * 处理自定义的业务异常
+     *
+     * @param req
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(value = BizException.class)
+    public Resp bizExceptionHandler(HttpServletRequest req, BizException ex) {
+        log.error(ex.getMessage(), ex);
+        return Resp.fail(ex.getCode(), ex.getMessage());
+    }
+
+    /**
      * 方法和参数校验异常
      * 解决 validator 的异常
      *
@@ -47,7 +63,7 @@ public class GlobalHandlerExceptionResolver {
         for (FieldError error : fieldErrors) {
             errorMsg.add(error.getDefaultMessage());
         }
-        log.error(ex.getMessage(), ex);
+        log.error("MethodArgumentNotValidException参数校验异常", ex);
         return Resp.fail(Joiner.on(",").join(errorMsg));
     }
 
@@ -59,7 +75,7 @@ public class GlobalHandlerExceptionResolver {
      */
     @ExceptionHandler(ConstraintViolationException.class)
 //    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Resp<String> handleValidationException(ValidationException ex) {
+    public Resp<String> handleConstraintViolationException(ValidationException ex) {
         List<String> errorMsg = new ArrayList<>();
         if (ex instanceof ConstraintViolationException) {
             ConstraintViolationException exs = (ConstraintViolationException) ex;
@@ -69,17 +85,8 @@ public class GlobalHandlerExceptionResolver {
                 errorMsg.add(item.getMessage());
             }
         }
-        log.error(ex.getMessage(), ex);
-        return Resp.fail(Joiner.on(",").join(errorMsg));
-    }
-
-    /**
-     * ConstraintViolationException
-     */
-    @ExceptionHandler(ConstraintViolationException.class)
-    public Resp<String> handleConstraintViolationException(ConstraintViolationException ex) {
-        log.error(ex.getMessage(), ex);
-        return Resp.fail(ex.getMessage());
+        log.error("ConstraintViolationException参数校验异常", ex);
+        return Resp.fail(RespStatusEnum.PARAMATER_ILLEGAL.getCode(), Joiner.on(",").join(errorMsg));
     }
 
     /**
@@ -90,8 +97,20 @@ public class GlobalHandlerExceptionResolver {
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     public Resp<String> handlerNoFoundException(Exception ex) {
-        log.error(ex.getMessage(), ex);
-        return Resp.fail(404, "路径不存在，请检查路径是否正确");
+        log.error("NoHandlerFoundException路径不存在异常", ex);
+        return Resp.fail(RespStatusEnum.PAGE_NOT_FOUND);
+    }
+
+    /**
+     * 空指针异常
+     * @param req
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(value = NullPointerException.class)
+    public Resp<String> exceptionHandler(HttpServletRequest req, NullPointerException ex) {
+        log.error("NullPointerException空指针异常", ex);
+        return Resp.fail(RespStatusEnum.NULL);
     }
 
     /**
@@ -107,10 +126,10 @@ public class GlobalHandlerExceptionResolver {
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         String uri = request.getRequestURI();
         try {
-            log.error("GlobalHandlerExceptionResolver", ex.getMessage(), ex);
+            log.error("未知异常", ex);
             SpringRequestUtil.writeJson(response, Resp.fail(ex.getMessage()));
         } catch (Exception e) {
-            log.error("GlobalHandlerExceptionResolver fail to response,URI = {}", uri, e, ex);
+            log.error(StrUtil.format("未知异常,URI = {}", uri), ex);
             return null;
         }
         return null;

@@ -16,11 +16,13 @@ import java.util.Base64.Encoder;
  */
 public class Base64Util {
 
-    // Java 8专用
-    static final Encoder ENCODER = Base64.getEncoder();
-    static final Encoder urlEncoder = Base64.getUrlEncoder();
-    static final Decoder DECODER = Base64.getDecoder();
-    static final Decoder urlDecoder = Base64.getUrlDecoder();
+    private static final Encoder ENCODER = Base64.getEncoder();
+
+    private static final Encoder URL_ENCODER = Base64.getUrlEncoder();
+
+    private static final Decoder DECODER = Base64.getDecoder();
+
+    private static final Decoder URL_DECODER = Base64.getUrlDecoder();
 
     /**
      * 使用默认编码
@@ -28,17 +30,16 @@ public class Base64Util {
      * @param input
      * @return
      */
-    public static String encode(String input) {
+    public static String encodeToStr(String input) {
         return ENCODER.encodeToString(input.getBytes(CharsetUtil.CHARSET_UTF_8));
 //        return new Base64().encodeToString(input.getBytes());
     }
 
     /**
-     *
      * @param input
      * @return
      */
-    public static String encode(byte[] input) {
+    public static String encodeToStr(byte[] input) {
         return ENCODER.encodeToString(input);
 //        return new Base64().encodeToString(input.getBytes());
     }
@@ -50,9 +51,18 @@ public class Base64Util {
      * @param charset
      * @return
      */
-    public static String encode(String input, Charset charset) {
-//        return new Base64().encodeToString(input.getBytes(charset));
-        return ENCODER.encodeToString(input.getBytes(charset));
+    public static String encodeToStr(String input, Charset charset) {
+        return ENCODER.encodeToString(null == charset ? input.getBytes() : input.getBytes(charset));
+    }
+
+    /**
+     * 加密流程
+     *
+     * @param input
+     * @return
+     */
+    public static byte[] encode(byte[] input) {
+        return ENCODER.encode(input);
     }
 
     /**
@@ -63,8 +73,7 @@ public class Base64Util {
      * @return
      */
     public static String encodeUrlSafe(String input, Charset charset) {
-//        return new Base64(true).encodeToString(input.getBytes(charset));
-        return urlEncoder.encodeToString(input.getBytes(charset));
+        return URL_ENCODER.encodeToString(null == charset ? input.getBytes() : input.getBytes(charset));
     }
 
     /**
@@ -73,7 +82,7 @@ public class Base64Util {
      * @param input
      * @return
      */
-    public static String decode(String input) {
+    public static String decodeToStr(String input) {
 //        return new String(new Base64().decode(input), charset);
         return new String(DECODER.decode(input), CharsetUtil.CHARSET_UTF_8);
     }
@@ -85,14 +94,22 @@ public class Base64Util {
      * @param charset
      * @return
      */
-    public static String decode(String input, Charset charset) {
+    public static String decodeToStr(String input, Charset charset) {
 //        return new String(new Base64().decode(input), charset);
+        if (charset == null) {
+            return new String(DECODER.decode(input));
+        }
         return new String(DECODER.decode(input), charset);
     }
 
-    public static byte[] decodeToBytes(String input) {
+    /**
+     * @param input
+     * @return
+     */
+    public static byte[] decode(String input) {
         return DECODER.decode(input.getBytes(CharsetUtil.CHARSET_UTF_8));
     }
+
     /**
      * 解压到Bytes里面
      *
@@ -100,8 +117,8 @@ public class Base64Util {
      * @param charset
      * @return
      */
-    public static byte[] decodeToBytes(String input, Charset charset) {
-        return DECODER.decode(input.getBytes(charset));
+    public static byte[] decode(String input, Charset charset) {
+        return DECODER.decode(null == charset ? input.getBytes() : input.getBytes(charset));
     }
 
     /**
@@ -112,7 +129,7 @@ public class Base64Util {
      * @return
      */
     public static String urlDecode(String input, Charset charset) {
-        return new String(urlDecoder.decode(input), charset);
+        return new String(URL_DECODER.decode(input), charset);
     }
 
 }

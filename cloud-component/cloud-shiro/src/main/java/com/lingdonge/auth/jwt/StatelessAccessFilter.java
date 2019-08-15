@@ -3,7 +3,7 @@ package com.lingdonge.auth.jwt;
 import com.lingdonge.spring.SpringContextUtil;
 import com.lingdonge.spring.restful.Resp;
 import com.lingdonge.spring.token.JwtTokenUtil;
-import com.lingdonge.spring.web.SpringRequestUtil;
+import com.lingdonge.spring.util.SpringRequestUtil;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

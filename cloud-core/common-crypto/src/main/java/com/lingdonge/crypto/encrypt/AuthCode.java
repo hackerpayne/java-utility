@@ -167,8 +167,7 @@ public class AuthCode {
      * @param expiry    加密字串过期时间
      * @return 加密或者解密后的字符串
      */
-    private static String authcode(String source, String key,
-                                   DiscuzAuthcodeMode operation, int expiry) {
+    private static String authcode(String source, String key, DiscuzAuthcodeMode operation, int expiry) {
         try {
             if (source == null || key == null) {
                 return "";
@@ -192,20 +191,20 @@ public class AuthCode {
             if (operation == DiscuzAuthcodeMode.Decode) {
                 byte[] temp;
 
-                temp = Base64Util.decodeToBytes(CutString(source, ckey_length));
+                temp = Base64Util.decode(CutString(source, ckey_length));
                 result = new String(RC4(temp, cryptkey));
                 if (CutString(result, 10, 16).equals(
                         CutString(Md5Util.getMd5(CutString(result, 26) + keyb), 0, 16))) {
                     return CutString(result, 26);
                 } else {
-                    temp = Base64Util.decodeToBytes(CutString(source + "=", ckey_length));
+                    temp = Base64Util.decode(CutString(source + "=", ckey_length));
                     result = new String(RC4(temp, cryptkey));
                     if (CutString(result, 10, 16)
                             .equals(CutString(
                                     Md5Util.getMd5(CutString(result, 26) + keyb), 0, 16))) {
                         return CutString(result, 26);
                     } else {
-                        temp = Base64Util.decodeToBytes(CutString(source + "==", ckey_length));
+                        temp = Base64Util.decode(CutString(source + "==", ckey_length));
                         result = new String(RC4(temp, cryptkey));
                         if (CutString(result, 10, 16).equals(
                                 CutString(Md5Util.getMd5(CutString(result, 26) + keyb), 0,
@@ -217,12 +216,10 @@ public class AuthCode {
                     }
                 }
             } else {
-                source = "0000000000" + CutString(Md5Util.getMd5(source + keyb), 0, 16)
-                        + source;
+                source = "0000000000" + CutString(Md5Util.getMd5(source + keyb), 0, 16) + source;
 
                 byte[] temp = RC4(source.getBytes("GBK"), cryptkey);
-
-                return keyc + Base64Util.encode(temp);
+                return keyc + Base64Util.encodeToStr(temp);
 
             }
         } catch (Exception e) {

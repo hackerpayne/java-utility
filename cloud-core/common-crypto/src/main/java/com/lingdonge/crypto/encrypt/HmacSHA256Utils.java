@@ -5,6 +5,8 @@ import org.apache.commons.codec.binary.Hex;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +16,7 @@ import java.util.Map;
  */
 public class HmacSHA256Utils {
 
-    private static final String UTF_ENCODE = "utf-8";
+    private static final Charset UTF_ENCODE = StandardCharsets.UTF_8;
 
     /**
      * 生成HMAC加密结果
@@ -24,21 +26,17 @@ public class HmacSHA256Utils {
      * @param content 内容，客户端提交
      * @return
      */
-    public static String encrypt(String key, String content) {
-        try {
-            Mac mac = Mac.getInstance("HmacSHA256");
-            byte[] secretByte = key.getBytes(UTF_ENCODE);
-            byte[] dataBytes = content.getBytes(UTF_ENCODE);
+    public static String encrypt(String key, String content) throws Exception {
+        Mac mac = Mac.getInstance("HmacSHA256");
+        byte[] secretByte = key.getBytes(UTF_ENCODE);
+        byte[] dataBytes = content.getBytes(UTF_ENCODE);
 
-            SecretKey secret = new SecretKeySpec(secretByte, "HMACSHA256");
-            mac.init(secret);
+        SecretKey secret = new SecretKeySpec(secretByte, "HMACSHA256");
+        mac.init(secret);
 
-            byte[] doFinal = mac.doFinal(dataBytes);
-            byte[] hexB = new Hex().encode(doFinal);
-            return new String(hexB, UTF_ENCODE);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        byte[] doFinal = mac.doFinal(dataBytes);
+        byte[] hexB = new Hex().encode(doFinal);
+        return new String(hexB, UTF_ENCODE);
     }
 
     /**
@@ -48,7 +46,7 @@ public class HmacSHA256Utils {
      * @param map
      * @return
      */
-    public static String encrypt(String key, Map<String, ?> map) {
+    public static String encrypt(String key, Map<String, ?> map) throws Exception {
         StringBuilder s = new StringBuilder();
         for (Object values : map.values()) {
             if (values instanceof String[]) {

@@ -1,4 +1,4 @@
-package com.lingdonge.spring.web;
+package com.lingdonge.spring.util;
 
 import com.google.common.collect.Lists;
 import com.lingdonge.spring.bean.request.RequestMethodItem;
@@ -6,6 +6,7 @@ import com.lingdonge.spring.bean.request.RequestMethodParameter;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.core.MethodParameter;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.HandlerMethod;
@@ -22,6 +23,31 @@ import java.util.*;
 public class ControllerUtil {
 
     private static LocalVariableTableParameterNameDiscoverer discoverer = new LocalVariableTableParameterNameDiscoverer();
+
+    /**
+     * 获取URL
+     *
+     * @param handlerMethod
+     * @return
+     */
+    public static String getUrl(HandlerMethod handlerMethod) {
+        String mappingUrl = "";
+        String classUrl = "";
+        String methodUrl = "";
+        RequestMapping classMapping = handlerMethod.getBean().getClass().getAnnotation(RequestMapping.class);
+        RequestMapping methodMapping = handlerMethod.getMethodAnnotation(RequestMapping.class);
+
+        if (classMapping != null) {
+            classUrl = classMapping.value()[0] == null ? "" : classMapping.value()[0];
+        }
+        if (methodMapping != null) {
+            if (methodMapping.value() != null && (methodMapping.value().length != 0)) {
+                methodUrl = methodMapping.value()[0] == null ? "" : methodMapping.value()[0];
+            }
+        }
+        mappingUrl = classUrl + methodUrl;
+        return mappingUrl;
+    }
 
     /**
      * 获取所有URL列表

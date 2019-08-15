@@ -48,8 +48,4 @@ public class UuidUtil {
         return DateTimeFormatter.ofPattern("yyMMddHHmmss").format(LocalDateTime.now()) + RandomStringUtils.randomNumeric(8);
     }
 
-    public static void main(String[] args) {
-        System.out.println(UuidUtil.getRadomNumbers());
-    }
-
 }

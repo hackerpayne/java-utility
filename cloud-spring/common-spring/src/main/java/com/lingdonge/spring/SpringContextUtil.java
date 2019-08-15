@@ -2,7 +2,7 @@ package com.lingdonge.spring;
 
 import com.lingdonge.spring.bean.request.RequestMethodItem;
 import com.lingdonge.spring.enums.EnvironmentEnum;
-import com.lingdonge.spring.web.ControllerUtil;
+import com.lingdonge.spring.util.ControllerUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
