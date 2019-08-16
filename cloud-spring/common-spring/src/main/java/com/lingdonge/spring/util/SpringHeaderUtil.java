@@ -143,21 +143,6 @@ public class SpringHeaderUtil {
     }
 
     /**
-     * 设置让浏览器弹出下载对话框的Header.
-     *
-     * @param fileName 下载后的文件名.
-     */
-    public static void setFileDownloadHeader(HttpServletResponse response, String fileName) {
-        try {
-            // 中文文件名支持
-            String encodedfileName = new String(fileName.getBytes(), "ISO8859-1");
-            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encodedfileName + "\"");
-        } catch (UnsupportedEncodingException e) {
-            e.getMessage();
-        }
-    }
-
-    /**
      * 是否是Ajax异步请求
      *
      * @param request

@@ -135,6 +135,8 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
+            <!-- 此包一般在Servlet容器中都有提供 -->
+            <scope>provided</scope>
         </dependency>
 
         <!-- 网络操作类 -->

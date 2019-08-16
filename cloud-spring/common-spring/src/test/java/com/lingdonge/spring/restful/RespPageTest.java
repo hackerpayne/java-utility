@@ -1,5 +1,6 @@
 package com.lingdonge.spring.restful;
 
+import com.lingdonge.spring.bean.response.RespPage;
 import org.assertj.core.util.Lists;
 import org.junit.Test;
 

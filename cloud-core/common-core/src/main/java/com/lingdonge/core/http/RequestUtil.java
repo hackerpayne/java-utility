@@ -310,6 +310,7 @@ public class RequestUtil {
      * @param request
      * @return
      */
+    @Deprecated
     public static String getIpAddr(HttpServletRequest request) {
         if (request == null) {
             return "";

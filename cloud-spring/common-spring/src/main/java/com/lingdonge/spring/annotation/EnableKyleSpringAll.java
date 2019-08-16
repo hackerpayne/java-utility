@@ -4,7 +4,7 @@ import com.lingdonge.spring.SpringContextUtil;
 import com.lingdonge.spring.configuration.CorsAutoConfiguration;
 import com.lingdonge.spring.configuration.HibernateValidatorAutoConfiguration;
 import com.lingdonge.spring.configuration.JacksonAutoConfiguration;
-import com.lingdonge.spring.web.advice.GlobalHandlerExceptionResolver;
+import com.lingdonge.spring.exception.handler.GlobalHandlerExceptionResolver;
 import com.lingdonge.spring.web.listener.SpringServerConfigUtil;
 import org.springframework.context.annotation.Import;
 

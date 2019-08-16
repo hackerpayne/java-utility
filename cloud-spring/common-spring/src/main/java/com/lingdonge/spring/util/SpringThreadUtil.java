@@ -1,4 +1,4 @@
-package com.lingdonge.spring.threads;
+package com.lingdonge.spring.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;

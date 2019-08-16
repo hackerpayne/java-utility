@@ -107,5 +107,4 @@ public class MyBatisPlusAutoConfiguration {
         return new OptimisticLockerInterceptor();
     }
 
-
 }

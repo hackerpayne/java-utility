@@ -1,13 +1,16 @@
 package com.lingdonge.spring.util;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.servlet.ServletUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.lingdonge.core.http.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
+import org.omg.CORBA.ServerRequest;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
@@ -18,31 +21,48 @@ import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.*;
-import java.util.Map.Entry;
 
 @Slf4j
-public class SpringRequestUtil extends RequestUtil {
+public class WebUtil extends org.springframework.web.util.WebUtils {
 
     /**
-     * 获取request对象
+     * 获取 HttpServletRequest
      *
-     * @return
+     * @return {HttpServletRequest}
      */
     public static HttpServletRequest getRequest() {
-        if (RequestContextHolder.getRequestAttributes() == null) {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attributes == null) {
+            log.warn("非web环境, 无法获取请求体.");
             return null;
-        } else {
-            return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         }
+        return attributes.getRequest();
+    }
+
+    /**
+     * 获取 HttpServletResponse
+     *
+     * @return {HttpServletResponse}
+     */
+    public static HttpServletResponse getResponse() {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attributes == null) {
+            log.warn("非web环境, 无法获取响应对象.");
+            return null;
+        }
+        return attributes.getResponse();
     }
 
     /**
@@ -97,7 +117,7 @@ public class SpringRequestUtil extends RequestUtil {
      * @param html
      * @throws IOException
      */
-    public static void writeStr(HttpServletResponse response, String html) throws IOException {
+    public static void renderStr(HttpServletResponse response, String html) throws IOException {
         response.setContentType(MediaType.TEXT_HTML_VALUE);
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(html);
@@ -108,12 +128,45 @@ public class SpringRequestUtil extends RequestUtil {
     /**
      * 客户端返回JSON字符串
      *
-     * @param response
-     * @param object
-     * @return
+     * @param response HttpServletResponse
+     * @param result   结果对象
      */
-    public static void writeJson(HttpServletResponse response, Object object) throws IOException {
-        writeJson(response, JSON.toJSONString(object), MediaType.APPLICATION_JSON_UTF8_VALUE);
+    public static void renderJson(HttpServletResponse response, Object result) throws IOException {
+        renderJson(response, result, MediaType.APPLICATION_JSON_UTF8_VALUE);
+    }
+
+    /**
+     * 返回json
+     *
+     * @param response    HttpServletResponse
+     * @param result      结果对象
+     * @param contentType contentType
+     */
+    public static void renderJson(HttpServletResponse response, Object result, String contentType) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType(contentType);
+        try (PrintWriter out = response.getWriter()) {
+            out.append(JSON.toJSONString(result));
+        }
+    }
+
+    /**
+     * 从 request 从获取 body, 并转成 javabean, contentType 必须包含'application/json'
+     *
+     * @param request HttpServletRequest
+     * @param clazz   返回结果类型
+     * @param <T>     返回结果类型
+     * @return
+     * @throws IOException
+     */
+    public static <T> T renderJson(HttpServletRequest request, Class<T> clazz) throws IOException {
+        String contentType = request.getContentType();
+        MediaType mediaType = MediaType.valueOf(contentType);
+        if (mediaType.includes(MediaType.APPLICATION_JSON)) {
+            ServletInputStream inputStream = request.getInputStream();
+            return JSON.parseObject(inputStream, clazz);
+        }
+        return null;
     }
 
     /**
@@ -123,7 +176,7 @@ public class SpringRequestUtil extends RequestUtil {
      * @param outputStr
      * @param contentType
      */
-    public static void writeJson(HttpServletResponse response, String outputStr, String contentType) throws IOException {
+    public static void renderJson(HttpServletResponse response, String outputStr, String contentType) throws IOException {
         // CORS setting
         response.setHeader("OpenAccess-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -144,12 +197,27 @@ public class SpringRequestUtil extends RequestUtil {
      * @param response
      * @param fileName
      */
-    public static void writeExcel(HttpServletResponse response, String fileName) {
+    public static void renderExcel(HttpServletResponse response, String fileName) {
         response.setContentType("application/msexcel");
         response.setHeader("Content-Disposition", "attachment;filename=" + StrUtil.utf8Bytes(fileName));
         response.addHeader("Pargam", "no-cache");
         response.addHeader("Cache-Control", "no-cache");
+    }
 
+    /**
+     * 设置让浏览器弹出下载对话框的Header
+     *
+     * @param response
+     * @param fileName 指定下载的文件名
+     */
+    public static void renderDownload(HttpServletResponse response, String fileName) {
+        try {
+            // 中文文件名支持
+            String encodedfileName = new String(fileName.getBytes(), "ISO8859-1");
+            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encodedfileName + "\"");
+        } catch (UnsupportedEncodingException e) {
+            log.error(e.getMessage(), e);
+        }
     }
 
     /**
@@ -181,14 +249,40 @@ public class SpringRequestUtil extends RequestUtil {
         return request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
 
+//    /**
+//     * 获取客户端IP
+//     *
+//     * @return
+//     */
+//    public static String getClientIp() {
+//        HttpServletRequest request = getRequest();
+//        return RequestUtil.getIpAddr(request);
+//    }
+
     /**
-     * 获取客户端IP
+     * 获取客户端ip. 请求体默认从全局上下文获取.
      *
+     * @param otherHeaderNames
      * @return
      */
-    public static String getClientIp() {
-        HttpServletRequest request = getRequest();
-        return getIpAddr(request);
+    public static String getClientIP(String... otherHeaderNames) {
+        HttpServletRequest request = WebUtil.getRequest();
+        if (request == null) {
+            return null;
+        }
+
+        return getClientIP(request, otherHeaderNames);
+    }
+
+    /**
+     * 获取客户端ip
+     *
+     * @param request          请求对象
+     * @param otherHeaderNames 其他自定义头文件
+     * @return
+     */
+    public static String getClientIP(HttpServletRequest request, String... otherHeaderNames) {
+        return ServletUtil.getClientIP(request, otherHeaderNames);
     }
 
     /**
@@ -231,11 +325,11 @@ public class SpringRequestUtil extends RequestUtil {
      * @return
      */
     public static Map<String, String> getParameterMap(HttpServletRequest request) {
-        String contentType = request.getHeader(org.springframework.http.HttpHeaders.CONTENT_TYPE);
+        String contentType = request.getHeader(HttpHeaders.CONTENT_TYPE);
         Map<String, String> returnMap = new HashMap();
 
         if (MediaType.APPLICATION_JSON.equals(contentType) || MediaType.APPLICATION_JSON_UTF8.equals(contentType)) {  // json类型参数
-            String body = getBodyString(request);
+            String body = RequestUtil.getBodyString(request);
             if (StringUtils.isNotBlank(body)) {
                 try {
                     returnMap = JSONObject.parseObject(body, Map.class);
@@ -247,11 +341,11 @@ public class SpringRequestUtil extends RequestUtil {
             Map properties = request.getParameterMap();
             // 返回值Map
             Iterator entries = properties.entrySet().iterator();
-            Entry entry;
+            Map.Entry entry;
             String name = "";
             String value = "";
             while (entries.hasNext()) {
-                entry = (Entry) entries.next();
+                entry = (Map.Entry) entries.next();
                 name = (String) entry.getKey();
                 Object valueObj = entry.getValue();
                 if (null == valueObj) {

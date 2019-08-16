@@ -119,9 +119,10 @@
             <version>${jackson.version}</version>
         </dependency>
 
+        <!-- MyBatis-Plus使用 -->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-core</artifactId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatisplus.version}</version>
             <optional>true</optional>
         </dependency>

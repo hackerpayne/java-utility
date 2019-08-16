@@ -1,11 +1,9 @@
-package com.lingdonge.spring.web.advice;
+package com.lingdonge.spring.exception.handler;
 
-import cn.hutool.core.util.StrUtil;
 import com.google.common.base.Joiner;
 import com.lingdonge.spring.enums.RespStatusEnum;
 import com.lingdonge.spring.exception.BizException;
-import com.lingdonge.spring.restful.Resp;
-import com.lingdonge.spring.util.SpringRequestUtil;
+import com.lingdonge.spring.bean.response.Resp;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -14,11 +12,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.ValidationException;
@@ -103,6 +99,7 @@ public class GlobalHandlerExceptionResolver {
 
     /**
      * 空指针异常
+     *
      * @param req
      * @param ex
      * @return
@@ -114,25 +111,48 @@ public class GlobalHandlerExceptionResolver {
     }
 
     /**
+     * 处理未捕获的 RuntimeException 异常
+     *
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(value = RuntimeException.class)
+    public Resp handleRuntimeException(RuntimeException ex) {
+        log.error(ex.getMessage(), ex);
+        return Resp.fail(RespStatusEnum.FAIL);
+    }
+
+    /**
      * 默认全局异常处理
      *
-     * @param request
-     * @param response
-     * @param handler
      * @param ex
      * @return
      */
     @ExceptionHandler(Exception.class)
-    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        String uri = request.getRequestURI();
-        try {
-            log.error("未知异常", ex);
-            SpringRequestUtil.writeJson(response, Resp.fail(ex.getMessage()));
-        } catch (Exception e) {
-            log.error(StrUtil.format("未知异常,URI = {}", uri), ex);
-            return null;
-        }
-        return null;
+    public Resp resolveException(Exception ex) {
+        log.error(ex.getMessage(), ex);
+        return Resp.fail(RespStatusEnum.FAIL);
     }
+//    /**
+//     * 默认全局异常处理
+//     *
+//     * @param request
+//     * @param response
+//     * @param handler
+//     * @param ex
+//     * @return
+//     */
+//    @ExceptionHandler(Exception.class)
+//    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+//        String uri = request.getRequestURI();
+//        try {
+//            log.error("未知异常", ex);
+//            SpringRequestUtil.writeJson(response, Resp.fail(ex.getMessage()));
+//        } catch (Exception e) {
+//            log.error(StrUtil.format("未知异常,URI = {}", uri), ex);
+//            return null;
+//        }
+//        return null;
+//    }
 
 }

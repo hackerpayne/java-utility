@@ -1,5 +1,6 @@
 package com.lingdonge.spring.http;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,6 +10,7 @@ import java.io.IOException;
 /**
  * 文件上传服务
  */
+@Slf4j
 public class UploadUtil {
     /**
      * 功能：上传图片
@@ -31,7 +33,7 @@ public class UploadUtil {
             File targetFile = new File(filePath);
             FileUtils.writeByteArrayToFile(targetFile, file.getBytes());
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
         return uploadPath + "/" + file.getOriginalFilename();
     }

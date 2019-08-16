@@ -15,9 +15,31 @@ public class BizException extends RuntimeException implements Serializable {
     private String msg;
     private int code = RespStatusEnum.FAIL.getCode();
 
+    /**
+     * 没有错误码的，默认使用0
+     *
+     * @param msg
+     */
     public BizException(String msg) {
         super(msg);
         this.msg = msg;
+    }
+
+    public BizException(RespStatusEnum respStatusEnum) {
+        this.msg = respStatusEnum.getMsg();
+        this.code = respStatusEnum.getCode();
+    }
+
+    /**
+     * 带异常的返回
+     *
+     * @param respStatusEnum
+     * @param ex
+     */
+    public BizException(RespStatusEnum respStatusEnum, Throwable ex) {
+        super(ex);
+        this.msg = respStatusEnum.getMsg();
+        this.code = respStatusEnum.getCode();
     }
 
     public BizException(String msg, Throwable e) {

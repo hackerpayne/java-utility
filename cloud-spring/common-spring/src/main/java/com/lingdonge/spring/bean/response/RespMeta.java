@@ -1,4 +1,4 @@
-package com.lingdonge.spring.restful;
+package com.lingdonge.spring.bean.response;
 
 /**
  * 分页头信息，放入meta标签内
@@ -6,33 +6,33 @@ package com.lingdonge.spring.restful;
 public class RespMeta {
 
     //当前页码
-    protected int pageCurrent = 1;
+    private long pageCurrent = 1;
 
     //当前页记录数量
-    protected int pageSize;
+    private long pageSize;
 
     //总页码
-    protected int pageCount;
+    private long pageCount;
 
     //总记录数量
-    protected int totalCount;
+    private long totalCount;
 
-    public int getPageCurrent() {
+    public long getPageCurrent() {
         return pageCurrent;
     }
 
-    public void setPageCurrent(int pageCurrent) {
+    public void setPageCurrent(long pageCurrent) {
         if (pageCurrent <= 0) {
             pageCurrent = 1;
         }
         this.pageCurrent = pageCurrent;
     }
 
-    public int getPageSize() {
+    public long getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
+    public void setPageSize(long pageSize) {
         if (pageSize < 0) {
             pageSize = 0;
         }
@@ -40,19 +40,19 @@ public class RespMeta {
     }
 
 
-    public int getPageCount() {
+    public long getPageCount() {
         return pageCount;
     }
 
-    public void setPageCount(int pageCount) {
+    public void setPageCount(long pageCount) {
         this.pageCount = pageCount;
     }
 
-    public int getTotalCount() {
+    public long getTotalCount() {
         return totalCount;
     }
 
-    public void setTotalCount(int totalCount) {
+    public void setTotalCount(long totalCount) {
         this.totalCount = totalCount;
     }
 }

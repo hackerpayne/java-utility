@@ -39,12 +39,6 @@ import java.util.Map;
  */
 public class BeanCopyUtil {
 
-    public static void main(String[] args) {
-        BeanCopier beanCopier = BeanCopier.create(JwtUserInfo.class, JwtUserInfo.class, false);
-//        beanCopier.copy(source, target);
-
-    }
-
     private static final Map<String, BeanCopier> BEAN_COPIERS = new HashMap<String, BeanCopier>();
 
     /**

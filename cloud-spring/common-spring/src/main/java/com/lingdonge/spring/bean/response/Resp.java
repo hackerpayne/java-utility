@@ -1,4 +1,4 @@
-package com.lingdonge.spring.restful;
+package com.lingdonge.spring.bean.response;
 
 import com.alibaba.fastjson.JSON;
 import com.lingdonge.spring.enums.RespStatusEnum;
@@ -10,24 +10,29 @@ import java.util.HashMap;
  *
  * @param <T>
  */
-public class Resp<T> extends RespSupport {
+public class Resp<T> extends BaseResponse {
 
-    public T getResult() {
-        return result;
+    public T getData() {
+        return data;
     }
 
-    public void setResult(T result) {
-        this.result = result;
+    public void setData(T data) {
+        this.data = data;
     }
 
-    protected T result;
+    protected T data;
 
     /**
      *
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     protected Resp() {
-        this.result = (T) new HashMap();
+        this.data = (T) new HashMap();
+    }
+
+    private Resp(RespStatusEnum respStatusEnum) {
+        this.setCode(respStatusEnum.getCode());
+        this.setMsg(respStatusEnum.getMsg());
     }
 
     /**
@@ -37,10 +42,7 @@ public class Resp<T> extends RespSupport {
      * @return
      */
     public static <U> Resp<U> fail() {
-        Resp<U> resp = new Resp<U>();
-        resp.setCode(RespStatusEnum.FAIL.getCode());
-        resp.setMsg(RespStatusEnum.FAIL.getMsg());
-        return resp;
+        return new Resp<U>(RespStatusEnum.FAIL);
     }
 
     /**
@@ -80,10 +82,7 @@ public class Resp<T> extends RespSupport {
      * @return
      */
     public static <U> Resp<U> fail(RespStatusEnum respStatusEnum) {
-        Resp<U> resp = new Resp<U>();
-        resp.setCode(respStatusEnum.getCode());
-        resp.setMsg(respStatusEnum.getMsg());
-        return resp;
+        return new Resp<U>(respStatusEnum);
     }
 
     /**
@@ -99,7 +98,7 @@ public class Resp<T> extends RespSupport {
         Resp<U> resp = new Resp<U>();
         resp.setCode(code);
         resp.setMsg(message);
-        resp.setResult(data);
+        resp.setData(data);
         return resp;
     }
 
@@ -110,10 +109,7 @@ public class Resp<T> extends RespSupport {
      * @return
      */
     public static <U> Resp<U> success() {
-        Resp<U> resp = new Resp<U>();
-        resp.setCode(RespStatusEnum.SUCCESS.getCode());
-        resp.setMsg(RespStatusEnum.SUCCESS.getMsg());
-        return resp;
+        return new Resp<U>(RespStatusEnum.SUCCESS);
     }
 
     /**
@@ -124,10 +120,7 @@ public class Resp<T> extends RespSupport {
      * @return
      */
     public static <U> Resp<U> success(RespStatusEnum respStatusEnum) {
-        Resp<U> resp = new Resp<U>();
-        resp.setCode(respStatusEnum.getCode());
-        resp.setMsg(respStatusEnum.getMsg());
-        return resp;
+        return new Resp<U>(respStatusEnum);
     }
 
     /**
@@ -152,10 +145,8 @@ public class Resp<T> extends RespSupport {
      * @return
      */
     public static <U> Resp<U> success(U data) {
-        Resp<U> resp = new Resp<U>();
-        resp.setCode(RespStatusEnum.SUCCESS.getCode());
-        resp.setMsg(RespStatusEnum.SUCCESS.getMsg());
-        resp.setResult(data);
+        Resp<U> resp = new Resp<U>(RespStatusEnum.SUCCESS);
+        resp.setData(data);
         return resp;
     }
 
@@ -171,13 +162,13 @@ public class Resp<T> extends RespSupport {
         Resp<U> resp = new Resp<U>();
         resp.setCode(RespStatusEnum.SUCCESS.getCode());
         resp.setMsg(msg);
-        resp.setResult(data);
+        resp.setData(data);
         return resp;
     }
 
     @Override
     public String toString() {
-        return String.format("Resource { content: %s, %s }", getResult(), super.toString());
+        return String.format("Resource { content: %s, %s }", getData(), super.toString());
     }
 
     /**
@@ -203,7 +194,7 @@ public class Resp<T> extends RespSupport {
 
         Resp<?> that = (Resp<?>) obj;
 
-        boolean contentEqual = this.result == null ? that.result == null : this.result.equals(that.result);
+        boolean contentEqual = this.data == null ? that.data == null : this.data.equals(that.data);
         return contentEqual ? super.equals(obj) : false;
     }
 
@@ -211,7 +202,7 @@ public class Resp<T> extends RespSupport {
     public int hashCode() {
 
         int resultInt = super.hashCode();
-        resultInt += result == null ? 0 : 17 * result.hashCode();
+        resultInt += data == null ? 0 : 17 * data.hashCode();
         return resultInt;
     }
 

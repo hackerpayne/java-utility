@@ -1,26 +1,30 @@
-package com.lingdonge.spring.restful;
+package com.lingdonge.spring.bean.response;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lingdonge.core.page.PageBean;
 import com.lingdonge.spring.enums.RespStatusEnum;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 继承自ResultSupport，多了meta和data属性，meta用于存放分页相关信息，也可以扩展成其他元数据信息，data用与存放数组信息
  */
-public class RespPage<T extends Collection> extends RespSupport {
+public class RespPage<T extends Collection> extends BaseResponse {
 
-    public List<?> getResult() {
-        return result;
+    public List<?> getData() {
+        return data;
     }
 
-    public void setResult(List<?> result) {
-        this.result = result;
+    public void setData(List<?> data) {
+        this.data = data;
     }
 
-    protected List<?> result;
+    protected List<?> data;
 
     private RespMeta respMeta;
 
@@ -42,7 +46,30 @@ public class RespPage<T extends Collection> extends RespSupport {
         respMeta.setPageSize(pageSize);
         respMeta.setPageCount(pageCount);
         respMeta.setTotalCount(totalCount);
-        this.setResult(data);
+        this.setData(data);
+        this.setCode(RespStatusEnum.SUCCESS.getCode());
+        this.setMsg(RespStatusEnum.SUCCESS.getMsg());
+    }
+
+    /**
+     * 直接返回数据：例：return new RespPage<>(page, this::toSimpleLicenceDTO);
+     * @param page
+     * @param mapper
+     * @param <E>
+     */
+    public <E> RespPage(IPage<E> page, Function<E, T> mapper) {
+        this();
+        respMeta.setPageCurrent(page.getCurrent());
+        respMeta.setPageSize(page.getSize());
+        respMeta.setTotalCount(page.getTotal());
+        respMeta.setPageCount(page.getPages());
+
+        if (CollUtil.isEmpty(page.getRecords())) {
+            this.setData(Collections.emptyList());
+        } else {
+            this.setData(page.getRecords().stream().map(mapper).collect(Collectors.toList()));
+        }
+
         this.setCode(RespStatusEnum.SUCCESS.getCode());
         this.setMsg(RespStatusEnum.SUCCESS.getMsg());
     }
@@ -62,7 +89,7 @@ public class RespPage<T extends Collection> extends RespSupport {
         respMeta.setPageSize(pageSize.intValue());
         respMeta.setPageCount(pageCount.intValue());
         respMeta.setTotalCount(totalCount.intValue());
-        this.setResult(data);
+        this.setData(data);
         this.setCode(RespStatusEnum.SUCCESS.getCode());
         this.setMsg(RespStatusEnum.SUCCESS.getMsg());
     }
@@ -73,7 +100,7 @@ public class RespPage<T extends Collection> extends RespSupport {
         respMeta.setPageSize(page.getPageSize());
         respMeta.setPageCount(page.getTotalPage());
         respMeta.setTotalCount(page.getTotalCount());
-        this.setResult(page.getData());
+        this.setData(page.getData());
         this.setCode(RespStatusEnum.SUCCESS.getCode());
         this.setMsg(RespStatusEnum.SUCCESS.getMsg());
     }
@@ -105,7 +132,7 @@ public class RespPage<T extends Collection> extends RespSupport {
         RespPage<U> respPage = new RespPage<U>();
         respPage.setCode(code);
         respPage.setMsg(message);
-        respPage.setResult(data);
+        respPage.setData(data);
         return respPage;
     }
 
@@ -136,13 +163,6 @@ public class RespPage<T extends Collection> extends RespSupport {
         return new RespPage<U>(page);
     }
 
-    /**
-     * 直接返回Page结果，适配MyBatisPlus
-     *
-     * @param page
-     * @param <U>
-     * @return
-     */
     public static <U extends Collection> RespPage<U> success(IPage page) {
         return new RespPage<U>(page.getCurrent(), page.getSize(), page.getPages(), page.getTotal(), page.getRecords());
     }
