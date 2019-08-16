@@ -128,6 +128,11 @@ public class LocalDateUtilTest {
 
     @Test
     public void toUnixTime() {
+        System.out.println(LocalDateUtil.toUnixTimeShort());
+        System.out.println(LocalDateUtil.toUnixTimeShort(LocalDateTime.now()));
+
+        System.out.println(LocalDateUtil.toUnixTime());
+        System.out.println(LocalDateUtil.toUnixTime(LocalDateTime.now()));
     }
 
     @Test

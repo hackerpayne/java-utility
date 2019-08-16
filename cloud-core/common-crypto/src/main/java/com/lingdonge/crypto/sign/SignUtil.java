@@ -231,7 +231,6 @@ public class SignUtil {
      */
     public static boolean verifySignByPrivateKey(HashMap<String, Object> hashParas, String privateKey, String signKey, EncodingTypeEnum encodingTypeEnum) {
 
-
         String signValue = MapUtil.getSignStr(hashParas, signKey); // 取出签名
 
         String signString = MapUtil.getSignStr(hashParas, signKey); // 除出签名之后的字符串列表

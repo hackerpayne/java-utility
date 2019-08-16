@@ -316,6 +316,23 @@ public class LocalDateUtil {
     }
 
     /**
+     * 当前Unix时间戳
+     *
+     * @return
+     */
+    public static long toUnixTime() {
+        return toUnixTime(LocalDateTime.now());
+    }
+
+    public static long toUnixTimeShort() {
+        return toUnixTime(LocalDateTime.now()) / 1000;
+    }
+
+    public static long toUnixTimeShort(LocalDateTime localDateTime) {
+        return toUnixTime(localDateTime) / 1000;
+    }
+
+    /**
      * LocalDateTime转时间戳
      *
      * @param localDateTime
