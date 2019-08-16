@@ -30,6 +30,14 @@
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.version}</version>
+            <!-- 此包一般在Servlet容器中都有提供 -->
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <modules>

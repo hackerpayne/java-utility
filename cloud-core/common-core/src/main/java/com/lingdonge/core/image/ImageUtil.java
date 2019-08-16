@@ -45,7 +45,7 @@ public class ImageUtil {
      * @throws IORuntimeException IO异常
      */
     public static BufferedImage toImage(String base64) throws IORuntimeException {
-        byte[] decode = Base64Util.decodeToBytes(base64, CharsetUtil.CHARSET_UTF_8);
+        byte[] decode = Base64Util.decode(base64, CharsetUtil.CHARSET_UTF_8);
         return toImage(decode);
     }
 

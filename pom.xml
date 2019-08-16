@@ -36,6 +36,10 @@
         <druid.version>1.0.31</druid.version>
         <logback.version>1.2.3</logback.version>
         <common.version>3.0.4</common.version>
+        <codec.version>1.12</codec.version>
+        <servlet.version>3.1.0</servlet.version>
+        <jsoup.version>1.9.2</jsoup.version>
+        <jsonpath.version>2.4.0</jsonpath.version>
 
         <!-- Spring框架配置 -->
         <spring.boot.version>2.1.5.RELEASE</spring.boot.version>

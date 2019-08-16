@@ -3,7 +3,7 @@ package com.lingdonge.auth.jwt;
 import com.lingdonge.spring.SpringContextUtil;
 import com.lingdonge.spring.bean.response.Resp;
 import com.lingdonge.spring.token.JwtTokenUtil;
-import com.lingdonge.spring.util.SpringRequestUtil;
+import com.lingdonge.spring.util.WebUtil;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -185,7 +185,6 @@ public class StatelessAccessFilter extends AccessControlFilter {
 
     }
 
-
     /**
      * 鉴权失败 返回错误信息
      *
@@ -195,8 +194,7 @@ public class StatelessAccessFilter extends AccessControlFilter {
     private void onLoginFail(ServletResponse response) throws IOException {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         Resp result = Resp.fail(0, "Auth Fail 无权限操作");
-        SpringRequestUtil.writeJson(httpServletResponse, result);
-
+        WebUtil.renderJson(httpServletResponse, result);
     }
 
 

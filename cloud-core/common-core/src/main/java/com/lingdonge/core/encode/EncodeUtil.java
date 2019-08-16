@@ -1,5 +1,8 @@
 package com.lingdonge.core.encode;
 
+import cn.hutool.core.util.HexUtil;
+import cn.hutool.core.util.StrUtil;
+import com.lingdonge.core.enums.EncodingTypeEnum;
 import com.lingdonge.core.util.StringUtils;
 
 import java.io.*;
@@ -8,6 +11,52 @@ import java.io.*;
  * 编码处理辅助类
  */
 public class EncodeUtil {
+
+    /**
+     * 二进制转为指定类型
+     *
+     * @param input
+     * @param encodingTypeEnum
+     * @return
+     */
+    public static String encodeTo(byte[] input, EncodingTypeEnum encodingTypeEnum) {
+        String encryptedStr = null;
+        switch (encodingTypeEnum) {
+            case HEX:
+                encryptedStr = HexUtil.encodeHexStr(input);
+                break;
+            case BASE64:
+                encryptedStr = Base64Util.encodeToStr(input);
+                break;
+            case STRING:
+                encryptedStr = StrUtil.str(input, CharsetUtil.CHARSET_UTF_8);
+                break;
+        }
+        return encryptedStr;
+    }
+
+    /**
+     * 从指定字符串解开到二进制
+     *
+     * @param input
+     * @param encodingTypeEnum
+     * @return
+     */
+    public static byte[] decodeTo(String input, EncodingTypeEnum encodingTypeEnum) {
+        byte[] encrypted = null;
+        switch (encodingTypeEnum) {
+            case HEX:
+                encrypted = HexUtil.decodeHex(input);
+                break;
+            case BASE64:
+                encrypted = Base64Util.decode(input);
+                break;
+            case STRING:
+                encrypted = input.getBytes(CharsetUtil.CHARSET_UTF_8);
+                break;
+        }
+        return encrypted;
+    }
 
     /**
      * @param string

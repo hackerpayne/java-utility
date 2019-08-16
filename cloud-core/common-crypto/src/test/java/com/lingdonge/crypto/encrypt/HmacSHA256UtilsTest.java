@@ -7,7 +7,7 @@ public class HmacSHA256UtilsTest {
 
 
     @Test
-    public void encrypt() {
+    public void encrypt() throws Exception {
         String key = "234sdfdf";
         String content = "加密一下这个信息";
         String value = HmacSHA256Utils.encrypt(key, content);

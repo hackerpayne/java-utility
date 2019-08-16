@@ -5,7 +5,7 @@ import org.junit.Test;
 public class DesEncryptUtilTest {
 
     @Test
-    public void test() {
+    public void test() throws Exception {
         // 待加密的内容
         String content = "d85178ffb65259f3ee58df426d2f8e26";
         // DES 的加密KEy

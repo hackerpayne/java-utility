@@ -3,7 +3,6 @@ package com.lingdonge.core.collection;
 import com.google.common.collect.Lists;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -21,7 +20,7 @@ public class MapUtil extends cn.hutool.core.map.MapUtil {
      * @return
      */
     public static String getSignStr(HashMap<String, Object> hashParameters) {
-        return getSignStr(hashParameters, Lists.newArrayList("sign"));
+        return getSignStr(hashParameters, "sign");
     }
 
     /**
@@ -32,14 +31,14 @@ public class MapUtil extends cn.hutool.core.map.MapUtil {
      * @param popKey
      * @return
      */
-    public static String getSignStr(Map<String, Object> hashParameters, List<String> popKey) {
+    public static String getSignStr(Map<String, Object> hashParameters, String popKey) {
 
         if (isEmpty(hashParameters)) {
             return null;
         }
 
         Map<String, Object> newHash = hashParameters.entrySet().stream()
-                .filter(item -> !popKey.contains(popKey))
+                .filter(item -> !item.getKey().equalsIgnoreCase(popKey))
                 .collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue(), (s, b) -> s));
 
         // 对Map进行ASCII字典排序，生成String格式，工具类由HuTool-Core提供
