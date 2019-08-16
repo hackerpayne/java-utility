@@ -8,7 +8,7 @@
     <groupId>com.lingdonge</groupId>
     <artifactId>utility-parent</artifactId>
     <name>utility</name>
-    <version>3.0.4</version>
+    <version>3.0.5</version>
 
     <description>Java日常工具类</description>
     <url>https://github.com/lingdonge/java-utility</url>
