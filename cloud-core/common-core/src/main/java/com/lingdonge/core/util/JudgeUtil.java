@@ -1,5 +1,6 @@
 package com.lingdonge.core.util;
 
+import cn.hutool.core.util.ReUtil;
 import com.lingdonge.core.regex.PatternPool;
 import lombok.extern.slf4j.Slf4j;
 
@@ -7,7 +8,6 @@ import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Slf4j
 public class JudgeUtil {
@@ -18,7 +18,7 @@ public class JudgeUtil {
      * 1开头+10位数字
      */
     public static boolean isMobile(String mobile) {
-        return PatternPool.MOBILE.matcher(mobile).find();
+        return ReUtil.isMatch(PatternPool.MOBILE, mobile);
     }
 
     /**
@@ -28,8 +28,7 @@ public class JudgeUtil {
      * @return
      */
     public static boolean isFixedPhone(String fixedPhone) {
-        String reg = "[0]{1}[0-9]{2,3}-[0-9]{7,8}";
-        return Pattern.matches(reg, fixedPhone);
+        return ReUtil.isMatch(PatternPool.PHONE, fixedPhone);
     }
 
     /**
@@ -39,7 +38,7 @@ public class JudgeUtil {
      * @return 验证成功返回true，验证失败返回false
      */
     public static boolean isPostCode(String postCode) {
-        return PatternPool.ZIP_CODE.matcher(postCode).find();
+        return ReUtil.isMatch(PatternPool.ZIP_CODE, postCode);
     }
 
     /**
@@ -49,8 +48,7 @@ public class JudgeUtil {
      * @return
      */
     public static boolean isNumber(String number) {
-        String reg = "-?[0-9]|-?[0-9]+.?[0-9]+";
-        return Pattern.matches(reg, number);
+        return ReUtil.isMatch(PatternPool.NUMBERS, number);
     }
 
     /**
@@ -60,12 +58,7 @@ public class JudgeUtil {
      * @return
      */
     public static String filterUnNumber(String str) {
-        // 只允数字
-        String regEx = "[^0-9]";
-        Pattern p = Pattern.compile(regEx);
-        Matcher m = p.matcher(str);
-        //替换与模式匹配的所有字符（即非数字的字符将被""替换）
-        return m.replaceAll("").trim();
+        return ReUtil.replaceAll(str, PatternPool.NOT_NUMBERS, "");
     }
 
     /**
@@ -75,22 +68,7 @@ public class JudgeUtil {
      * @return
      */
     public static boolean isDigit(String param) {
-        return param.matches("[0-9]+");
-    }
-
-    /**
-     * 判断是否为车牌号码
-     *
-     * @param param
-     * @return
-     */
-    public static boolean isVehiclePlate(String param) {
-        if ((param.matches("^(([\u4e00-\u9fa5]{1})|([A-Z]{1}))[A-Z]{1}[A-Z0-9]{4}(([\u4e00-\u9fa5]{1})|([A-Z0-9]{1}))$")
-                || param.matches("^WJ[0-9]{2}(([\u4e00-\u9fa5]{1})|([0-9]{1})[0-9]{4})$"))
-                && param.matches("^([\u4e00-\u9fa5]*[a-zA-Z0-9]+){6,}$") && param.matches("^.{3}((?!.*O)(?!.*I)).*$")) {
-            return true;
-        }
-        return false;
+        return ReUtil.isMatch(PatternPool.NUMBERS, param);
     }
 
     /**
@@ -121,7 +99,7 @@ public class JudgeUtil {
      * @return
      */
     public static boolean isZipCode(String param) {
-        return param.matches("^[0-9]{6}$");
+        return ReUtil.isMatch(PatternPool.ZIP_CODE, param);
     }
 
     /**
@@ -135,23 +113,13 @@ public class JudgeUtil {
     }
 
     /**
-     * 判断是否为车辆识别代码（车架号）
+     * 判断是否是有效的身份证号码
      *
-     * @param param
+     * @param input
      * @return
      */
-    public static boolean isIdentificationCode(String param) {
-        return param.matches("^[A-Z0-9]{6,17}$");
-    }
-
-    /**
-     * 判断是否为发动机号
-     *
-     * @param param
-     * @return
-     */
-    public static boolean isVehicleEngineNo(String param) {
-        return param.matches("^[A-Z0-9]+$");
+    public static boolean isIdCardNo(String input) {
+        return ReUtil.isMatch(PatternPool.CITIZEN_ID, input);
     }
 
     /**
@@ -161,7 +129,7 @@ public class JudgeUtil {
      * @return
      */
     public static boolean isMoney(String param) {
-        return param.matches("^(([1-9]\\d{0,9})|0)(\\.\\d{1,2})?$");
+        return ReUtil.isMatch(PatternPool.MONEY, param);
     }
 
     /**
@@ -182,24 +150,37 @@ public class JudgeUtil {
     }
 
     /**
+     * 判断是否有效的日期时间格式
+     *
+     * @param input
+     * @param dateFormat
+     * @return
+     */
+    public static boolean isValidDate(String input, String dateFormat) {
+        boolean convertSuccess = true;
+
+        try {
+            // 指定日期格式为四位年/两位月份/两位日期，注意yyyy/MM/dd区分大小写；
+            SimpleDateFormat format = new SimpleDateFormat(dateFormat);
+            // 设置lenient为false. 否则SimpleDateFormat会比较宽松地验证日期
+            format.setLenient(false);
+            format.parse(input);
+        } catch (ParseException e) {
+            convertSuccess = false;
+        }
+        return convertSuccess;
+    }
+
+    /**
      * 格式是yyyy/MM/dd HH:mm:ss
      *
      * @param param
      * @return boolean
      */
     public static boolean isValidDate(String param) {
-        boolean convertSuccess = true;
-        // 指定日期格式为四位年/两位月份/两位日期，注意yyyy/MM/dd区分大小写；
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        // 设置lenient为false. 否则SimpleDateFormat会比较宽松地验证日期
-        try {
-            format.setLenient(false);
-            format.parse(param);
-        } catch (ParseException e) {
-            convertSuccess = false;
-        }
-        return convertSuccess;
+        return isValidDate(param, "yyyy/MM/dd HH:mm:ss");
     }
+
 
     /**
      * 格式是yyyy-MM-dd
@@ -208,19 +189,8 @@ public class JudgeUtil {
      * @return boolean
      */
     public static boolean isValidDay(String param) {
-        boolean convertSuccess = true;
-        // yyyy-MM-dd
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        // 设置lenient为false. 否则SimpleDateFormat会比较宽松地验证日期
-        try {
-            format.setLenient(false);
-            format.parse(param);
-        } catch (ParseException e) {
-            convertSuccess = false;
-        }
-        return convertSuccess;
+        return isValidDate(param, "yyyy-MM-dd");
     }
-
 
     /**
      * 验证是否为URL

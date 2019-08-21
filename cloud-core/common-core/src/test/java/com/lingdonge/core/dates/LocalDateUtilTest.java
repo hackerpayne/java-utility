@@ -114,12 +114,12 @@ public class LocalDateUtilTest {
 
     @Test
     public void getTime() {
+        System.out.println(LocalDate.parse("2019-08-11").atStartOfDay());
         System.out.println(LocalDateUtil.getTime(LocalDateTime.now().minusHours(1)));
     }
 
     @Test
     public void fromUnixTime() {
-
         long time = 1561965215926L;
         long time2 = 1561965215L;
         System.out.println(LocalDateUtil.fromUnixTime(time));

@@ -19,6 +19,15 @@ public class PatternPool extends cn.hutool.core.lang.PatternPool {
      */
     public final static Pattern NUMBERS = Pattern.compile("\\d+");
 
+    /**
+     * 所有非数字
+     */
+    public final static Pattern NOT_NUMBERS = Pattern.compile("[^0-9]");
+
+    /**
+     * 本地座机号
+     */
+    public final static Pattern PHONE = Pattern.compile("[0]{1}[0-9]{2,3}-[0-9]{7,8}");
 
     /**
      * URL
@@ -99,6 +108,11 @@ public class PatternPool extends cn.hutool.core.lang.PatternPool {
     public final static Pattern ZIP_CODE = Pattern.compile("\\d{6}");
 
     /**
+     * 是否是金额
+     */
+//    public final static Pattern MONEY = Pattern.compile("^(([1-9]\\d{0,9})|0)(\\.\\d{1,2})?$");
+
+    /**
      * 生日
      */
     public final static Pattern BIRTHDAY = Pattern.compile("^(\\d{2,4})([/\\-\\.年]?)(\\d{1,2})([/\\-\\.月]?)(\\d{1,2})日?$");
@@ -122,7 +136,7 @@ public class PatternPool extends cn.hutool.core.lang.PatternPool {
      * UUID
      */
     public final static Pattern UUID = Pattern.compile("^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$");
-    
+
     /**
      * 不带横线的UUID
      */
