@@ -69,7 +69,7 @@ public class GlobalHandlerExceptionResolver {
      * @param ex
      * @return
      */
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler(ValidationException.class)
 //    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Resp<String> handleConstraintViolationException(ValidationException ex) {
         List<String> errorMsg = new ArrayList<>();
@@ -92,7 +92,7 @@ public class GlobalHandlerExceptionResolver {
      * @return
      */
     @ExceptionHandler(NoHandlerFoundException.class)
-    public Resp<String> handlerNoFoundException(Exception ex) {
+    public Resp<String> handlerNoFoundException(NoHandlerFoundException ex) {
         log.error("NoHandlerFoundException路径不存在异常", ex);
         return Resp.fail(RespStatusEnum.PAGE_NOT_FOUND);
     }

@@ -1,29 +1,23 @@
 package com.lingdonge.redis.ratelimit;
 
 import com.lingdonge.core.threads.ThreadUtil;
-import com.lingdonge.redis.util.RedisConnUtil;
+import com.lingdonge.redis.RedisTestUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
-import org.springframework.data.redis.core.RedisTemplate;
 
 @Slf4j
 public class RedisRateLimitUtilTest {
 
     private RedisRateLimitUtil rateLimitUtil;
 
+    @Before
     public void init() {
-        RedisProperties redisProperties = new RedisProperties();
-        redisProperties.setHost("localhost");
-        redisProperties.setPassword("123456");
-        RedisTemplate redisTemplate = RedisConnUtil.getRedisTemplateFromLettuce(redisProperties);
-        rateLimitUtil = new RedisRateLimitUtil(redisTemplate);
+        rateLimitUtil = new RedisRateLimitUtil(RedisTestUtil.buildRedisProperties());
     }
 
     @Test
     public void testRateLimit() throws InterruptedException {
-
-        init();
 
         for (Integer i = 0; i < 100; i++) {
 

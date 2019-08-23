@@ -1,6 +1,7 @@
 package com.lingdonge.redis.distributelock;
 
 import com.lingdonge.redis.util.RedissonUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
@@ -10,11 +11,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * 基于Redisson实现的分布式锁
  */
-public class RedissonDistributeLock {
+@Slf4j
+public class RedissonDistributeLock extends AbstractDistributedLock {
 
     private RedissonClient redissonClient;
 
     public RedissonDistributeLock() {
+
     }
 
     /**
@@ -26,80 +29,39 @@ public class RedissonDistributeLock {
         redissonClient = RedissonUtil.getRedissonClient(redisProperties);
     }
 
-    public void testTryLock() {
-        RLock redLock = redissonClient.getLock("REDLOCK_KEY");
-        Boolean isLock = false;
+    /**
+     * 加锁
+     *
+     * @param key         RedisKey值
+     * @param expire      过期时间
+     * @param retryTimes  重试次数
+     * @param sleepMillis 失败休眠时间
+     * @return
+     */
+    @Override
+    public boolean lock(String key, long expire, int retryTimes, long sleepMillis) {
+
         try {
-            isLock = redLock.tryLock();
+            RLock lock = redissonClient.getLock(key);
 
-            // 500ms拿不到锁, 就认为获取锁失败。10000ms即10s是锁失效时间。
-            isLock = redLock.tryLock(500, 10000, TimeUnit.MILLISECONDS);
+//            lock.lock(TIMEOUT_MILLIS, TimeUnit.MILLISECONDS); // 自定义释放时间
+            boolean result = lock.tryLock(sleepMillis, expire, TimeUnit.MILLISECONDS); // 加锁
 
-            if (isLock) { // 如果加锁成功，执行业务逻辑
-
+            // 如果获取锁失败，按照传入的重试次数进行重试
+            while ((!result) && retryTimes-- > 0) {
+                try {
+                    log.debug("lock failed, retrying..." + retryTimes);
+                    Thread.sleep(sleepMillis);
+                } catch (InterruptedException e) {
+                    return false;
+                }
+                result = lock.tryLock(sleepMillis, expire, TimeUnit.MILLISECONDS); // 加锁
             }
-        } catch (Exception ex) {
-        } finally {
-            // 无论如何，最后需要解锁
-            redLock.unlock();
-        }
-    }
-
-    /**
-     * 加锁
-     *
-     * @param lockKey
-     * @return
-     */
-    public RLock lock(String lockKey) {
-        RLock lock = redissonClient.getLock(lockKey);
-        lock.lock();
-        return lock;
-    }
-
-    /**
-     * 加锁，带释放时间
-     *
-     * @param lockKey   加锁的Key
-     * @param leaseTime 释放时间，单位秒
-     * @return
-     */
-    public RLock lock(String lockKey, int leaseTime) {
-        RLock lock = redissonClient.getLock(lockKey);
-        lock.lock(leaseTime, TimeUnit.SECONDS);
-        return lock;
-    }
-
-    /**
-     * 加锁，自定义释放时间
-     *
-     * @param lockKey
-     * @param unit
-     * @param timeout
-     * @return
-     */
-    public RLock lock(String lockKey, TimeUnit unit, int timeout) {
-        RLock lock = redissonClient.getLock(lockKey);
-        lock.lock(timeout, unit);
-        return lock;
-    }
-
-    /**
-     * 加锁
-     *
-     * @param lockKey
-     * @param unit
-     * @param waitTime
-     * @param leaseTime
-     * @return
-     */
-    public boolean tryLock(String lockKey, TimeUnit unit, int waitTime, int leaseTime) {
-        RLock lock = redissonClient.getLock(lockKey);
-        try {
-            return lock.tryLock(waitTime, leaseTime, unit);
+            return result;
         } catch (InterruptedException e) {
             return false;
         }
+
     }
 
     /**
@@ -107,27 +69,11 @@ public class RedissonDistributeLock {
      *
      * @param lockKey
      */
-    public void unlock(String lockKey) {
+    @Override
+    public boolean releaseLock(String lockKey) {
         RLock lock = redissonClient.getLock(lockKey);
         lock.unlock();
-    }
-
-    /**
-     * 解锁
-     *
-     * @param lock
-     */
-    public void unlock(RLock lock) {
-        lock.unlock();
-    }
-
-    /**
-     * 设置连接器
-     *
-     * @param redissonClient
-     */
-    public void setRedissonClient(RedissonClient redissonClient) {
-        this.redissonClient = redissonClient;
+        return true;
     }
 
 }

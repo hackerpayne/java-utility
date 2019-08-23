@@ -1,8 +1,9 @@
 package com.lingdonge.redis.service;
 
+import com.lingdonge.redis.RedisTestUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 
 import java.util.List;
 
@@ -12,18 +13,13 @@ public class RedisTemplateUtilTest {
 
     private RedisTemplateUtil redisTemplateUtil;
 
+    @Before
     public void init() {
-        RedisProperties redisProperties = new RedisProperties();
-        redisProperties.setHost("127.0.0.1");
-        redisProperties.setPassword("123456");
-        redisProperties.setPort(6379);
-        redisTemplateUtil = new RedisTemplateUtil(redisProperties);
+        redisTemplateUtil = new RedisTemplateUtil(RedisTestUtil.buildRedisProperties());
     }
 
     @Test
     public void testSet() {
-        init();
-
         boolean result = redisTemplateUtil.set("testKey", "TestValue");
         System.out.println(result);
         String value = redisTemplateUtil.get("testKey").toString();
@@ -32,8 +28,6 @@ public class RedisTemplateUtilTest {
 
     @Test
     public void testScan() {
-
-        init();
 
         List<String> listKeys = redisTemplateUtil.keys("f*");
         for (String cursor : listKeys) {
@@ -44,8 +38,6 @@ public class RedisTemplateUtilTest {
 
     @Test
     public void testInteger() {
-        init();
-
 //        Long incre = redisTemplateUtil.incr("test:test2", 1);
 //        log.info("添加结果：{}", incre);
 

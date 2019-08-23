@@ -1,19 +1,16 @@
 package com.lingdonge.redis.bloomfilter;
 
+import com.lingdonge.redis.RedisTestUtil;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 
 public class RedisMultiBloomFilterUtilTest {
 
     private RedisMultiBloomFilterUtil redisMultiBloomFilterUtil;
 
+    @Before
     public void init() {
-        RedisProperties redisProperties = new RedisProperties();
-        redisProperties.setHost("127.0.0.1");
-        redisProperties.setPassword("123456");
-        redisProperties.setDatabase(1);
-
-        redisMultiBloomFilterUtil = new RedisMultiBloomFilterUtil(redisProperties, 3);
+        redisMultiBloomFilterUtil = new RedisMultiBloomFilterUtil(RedisTestUtil.buildRedisProperties(), 3);
     }
 
     @Test

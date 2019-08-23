@@ -2,6 +2,7 @@ package com.lingdonge.redis.queue;
 
 import cn.hutool.core.thread.ThreadUtil;
 import com.lingdonge.core.dates.LocalDateUtil;
+import com.lingdonge.redis.RedisTestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
@@ -17,12 +18,7 @@ public class RedisDelayQueueUtilTest {
     private String redisKey = "redis:delay:queue:test";
 
     public void init() {
-        RedisProperties redisProperties = new RedisProperties();
-        redisProperties.setHost("127.0.0.1");
-        redisProperties.setPassword("123456");
-        redisProperties.setPort(6379);
-        redisProperties.setTimeout(Duration.ofSeconds(10));
-        redisDelayQueueUtil = new RedisDelayQueueUtil(redisProperties);
+        redisDelayQueueUtil = new RedisDelayQueueUtil(RedisTestUtil.buildRedisProperties());
     }
 
     @Test

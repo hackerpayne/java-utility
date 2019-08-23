@@ -2,39 +2,56 @@ package com.lingdonge.redis.distributelock;
 
 /**
  * Redis分布式锁
+ * 参考配置：https://my.oschina.net/dengfuwei/blog/1600681
  */
 public interface DistributeLock {
+
     /**
      * 默认锁有效时间(单位毫秒)，默认60秒有效期
      */
-    public static final long DEFAULT_LOCK_EXPIRE_TIME_MS = 60 * 1000;
+    public static final long TIMEOUT_MILLIS = 60 * 1000;
+
     /**
      * 默认睡眠时间(单位毫秒)
      */
-    public static final long DEFAULT_SLEEP_TIME_MS = 100;
+    public static final long SLEEP_MILLIS = 100;
+
+    /**
+     * 默认重试次数
+     */
+    public static final int RETRY_TIMES = Integer.MAX_VALUE;
+
+    boolean lock(String key);
+
+    boolean lock(String key, int retryTimes);
+
+    boolean lock(String key, int retryTimes, long sleepMillis);
 
     /**
      * 尝试锁
-     *
-     * @param lock             锁的键
-     * @param requestTimeoutMS 请求超时 ms
-     * @return 如果锁成功，则返回true；否则返回false
+     * @param key Redis的Key值
+     * @param expire 过期时间
+     * @return
      */
-    boolean tryLock(String lock, long requestTimeoutMS);
+    boolean lock(String key, long expire);
 
     /**
-     * 尝试锁
-     *
-     * @param lock             锁的键
-     * @param lockExpireTimeMS 锁有效期 ms
-     * @param requestTimeoutMS 请求超时 ms
+     * 尝试加锁
+     * @param key
+     * @param expire
+     * @param retryTimes
+     * @return
      */
-    boolean tryLock(String lock, long lockExpireTimeMS, long requestTimeoutMS);
+    boolean lock(String key, long expire, int retryTimes);
+
+    boolean lock(String key, long expire, int retryTimes, long sleepMillis);
 
     /**
      * 解锁
      *
-     * @param lock 锁的键
+     * @param key 锁的键名
+     * @return
      */
-    void unlock(String lock);
+    public boolean releaseLock(String key);
+
 }

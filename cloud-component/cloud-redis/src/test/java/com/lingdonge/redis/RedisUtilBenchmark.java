@@ -19,27 +19,9 @@ public class RedisUtilBenchmark {
         System.out.println(((1000 * TOTAL_OPERATIONS) / elapsed) + " ops");
     }
 
-    private static RedisProperties initProperties() {
-        RedisProperties redisProperties = new RedisProperties();
-//        redisProperties.setMinIdle(0);
-//        redisProperties.setMaxIdle(5);
-//        redisProperties.setMaxTotal(5);
-//        redisProperties.setHoled(3000);
-        redisProperties.setTimeout(Duration.ofSeconds(2000));
-
-        redisProperties.setHost("127.0.0.1");
-        redisProperties.setPort(6379);
-        redisProperties.setPassword("weimob123");
-//        redisProperties.setDB(0);
-
-//        redisProperties.afterPropertiesSet();
-
-        return redisProperties;
-    }
-
     private static void dotest() throws Exception {
 
-        final RedisPoolUtil redisPoolUtil = new RedisPoolUtil(initProperties());
+        final RedisPoolUtil redisPoolUtil = new RedisPoolUtil(RedisTestUtil.buildRedisProperties());
 
         List<Thread> tds = new ArrayList<Thread>();
 

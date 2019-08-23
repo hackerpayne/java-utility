@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -39,7 +40,7 @@ import java.util.Map;
 @Component
 //@Lazy(false)
 @Slf4j
-public class SpringContextUtil implements ApplicationContextAware {
+public class SpringContextUtil implements ApplicationContextAware, Serializable {
 
     private static ApplicationContext applicationContext;
 

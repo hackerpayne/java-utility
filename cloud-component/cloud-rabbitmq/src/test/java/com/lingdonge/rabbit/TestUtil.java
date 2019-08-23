@@ -9,17 +9,22 @@ import java.util.concurrent.TimeoutException;
 
 public class TestUtil {
 
-
-    private static RabbitMQUtils getRabbitMQUtils()  {
+    public static RabbitProperties buildProperties(){
         RabbitProperties rabbitProperties = new RabbitProperties();
         rabbitProperties.setHost("localhost");
         rabbitProperties.setPort(5672);
         rabbitProperties.setUsername("kyle250");
         rabbitProperties.setPassword("123455");
         rabbitProperties.setVirtualHost("/");
+        return rabbitProperties;
+    }
+
+
+    private static RabbitMQUtils getRabbitMQUtils()  {
+
 
         try {
-            return new RabbitMQUtils(rabbitProperties);
+            return new RabbitMQUtils(buildProperties());
         } catch (IOException | TimeoutException e) {
             e.printStackTrace();
         }
