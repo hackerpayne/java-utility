@@ -57,7 +57,7 @@ public class SignUtil {
      * @param privateKey
      * @return
      */
-    public static String encryptByPrivateKey(HashMap<String, Object> hashParas, String privateKey, EncodingTypeEnum encodingTypeEnum) {
+    public static String signByPrivateKey(HashMap<String, Object> hashParas, String privateKey, EncodingTypeEnum encodingTypeEnum) {
 
         String signString = MapUtil.getSignStr(hashParas);
 
@@ -98,7 +98,7 @@ public class SignUtil {
      * @param encodingTypeEnum
      * @return
      */
-    public static String encryptByPublicKey(HashMap<String, Object> hashParas, String publicKey, EncodingTypeEnum encodingTypeEnum) {
+    public static String signByPublicKey(HashMap<String, Object> hashParas, String publicKey, EncodingTypeEnum encodingTypeEnum) {
         String signString = MapUtil.getSignStr(hashParas);
 
         // 使用算法进行加密，工具类由HuTool-Crypto提供
@@ -135,11 +135,10 @@ public class SignUtil {
     /**
      * @param encryptedStr
      * @param privateKey
-     * @param encodingTypeEnum
      * @return
      */
-    public static String decryptToStrByPrivateKey(String encryptedStr, String privateKey, EncodingTypeEnum encodingTypeEnum) {
-        return EncodeUtil.encodeTo(decryptByPrivateKey(encryptedStr, privateKey), encodingTypeEnum);
+    public static String decryptToStrByPrivateKey(String encryptedStr, String privateKey) {
+        return StrUtil.str(decryptByPrivateKey(encryptedStr, privateKey), CharsetUtil.UTF_8);
     }
 
     /**
@@ -171,11 +170,10 @@ public class SignUtil {
      *
      * @param encryptedStr
      * @param publicKey
-     * @param encodingTypeEnum
      * @return
      */
-    public static String decryptToStrByPublicKey(String encryptedStr, String publicKey, EncodingTypeEnum encodingTypeEnum) {
-        return EncodeUtil.encodeTo(decryptByPublicKey(encryptedStr, publicKey), encodingTypeEnum);
+    public static String decryptToStrByPublicKey(String encryptedStr, String publicKey) {
+        return StrUtil.str(decryptByPublicKey(encryptedStr, publicKey), CharsetUtil.UTF_8);
     }
 
     /**

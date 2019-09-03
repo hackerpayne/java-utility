@@ -81,8 +81,7 @@ public class RsaSignUtil {
         keyGen.initialize(1024);//可以理解为：加密后的密文长度，实际原文要小些 越大 加密解密越慢
 
         // 生成密钥对
-        KeyPair keyPair = keyGen.generateKeyPair();
-        return keyPair;
+        return keyGen.generateKeyPair();
     }
 
     /**
@@ -353,8 +352,7 @@ public class RsaSignUtil {
      * @return
      * @throws Exception
      */
-    public static byte[] decryptByPrivateKey(byte[] encryptedData, String privateKey)
-            throws Exception {
+    public static byte[] decryptByPrivateKey(byte[] encryptedData, String privateKey) throws Exception {
 
         PrivateKey priKey = getPrivateKey(privateKey);
 

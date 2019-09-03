@@ -40,7 +40,12 @@ public class SignUtilTest {
         hashParas.put("mobile", "18000000000");
         hashParas.put("copId", "1");
         hashParas.put("t", "12323");
-        log.info("私钥签名结果为：{}", SignUtil.encryptByPrivateKey(hashParas, PRIVATE_KEY, EncodingTypeEnum.BASE64));
+
+        String encrypted = SignUtil.signByPrivateKey(hashParas, PRIVATE_KEY, EncodingTypeEnum.BASE64);
+        log.info("私钥签名结果为：{}", encrypted);
+
+        String decrpted = SignUtil.decryptToStrByPublicKey(encrypted, PUBLIC_KEY);
+        log.info("公钥解密结果为：[{}]", decrpted);
     }
 
     @Test
@@ -53,6 +58,18 @@ public class SignUtilTest {
 
     @Test
     public void encryptByPublicKey() {
+
+        HashMap<String, Object> hashParas = Maps.newHashMap();
+        hashParas.put("mobile", "18000000000");
+        hashParas.put("copId", "1");
+        hashParas.put("t", "12323");
+
+        String encrypted = SignUtil.signByPublicKey(hashParas, PUBLIC_KEY, EncodingTypeEnum.BASE64);
+        log.info("公钥签名结果为：{}", encrypted);
+
+        String decrpted = SignUtil.decryptToStrByPrivateKey(encrypted, PRIVATE_KEY);
+        log.info("私钥解密结果为：[{}]", decrpted);
+
     }
 
     @Test
@@ -89,6 +106,16 @@ public class SignUtilTest {
 
     @Test
     public void signMapToBase64ByPrivateKey() {
+        HashMap<String, Object> hashParas = Maps.newHashMap();
+        hashParas.put("mobile", "18000000000");
+        hashParas.put("copId", "1");
+        hashParas.put("t", "12323");
+
+        String sign = SignUtil.signByPrivateKey(hashParas, PRIVATE_KEY, EncodingTypeEnum.BASE64);
+        log.info("私签验名结果为：[{}]", sign);
+
+        String decrpted = SignUtil.decryptToStrByPublicKey(sign, PUBLIC_KEY);
+        log.info("公钥解签结果为：[{}]", decrpted);
     }
 
     @Test
@@ -128,22 +155,22 @@ public class SignUtilTest {
         HashMap<String, Object> hashParas = Maps.newHashMap();
         hashParas.put("mobile", "18000000000");
         hashParas.put("copId", "1");
-
-        String encrypted = SignUtil.encryptByPrivateKey(hashParas, PRIVATE_KEY, EncodingTypeEnum.BASE64);
-        log.info("私钥加密到Base64结果为：{}", encrypted);
-        log.info("公钥解密到Base64结果为：{}", SignUtil.decryptToStrByPublicKey(encrypted, PUBLIC_KEY, EncodingTypeEnum.STRING));
-
-        String encryptedHex = SignUtil.encryptByPrivateKey(hashParas, PRIVATE_KEY, EncodingTypeEnum.HEX);
-        log.info("私钥加密到Hex结果为：{}", encryptedHex);
-        log.info("公钥解密到Hex结果为：{}", SignUtil.decryptToStrByPublicKey(encryptedHex, PUBLIC_KEY, EncodingTypeEnum.STRING));
-
-        String encryptedPublic = SignUtil.encryptByPublicKey(hashParas, PUBLIC_KEY, EncodingTypeEnum.BASE64);
-        log.info("公钥加密到Base64结果为：{}", encryptedPublic);
-        log.info("私钥解密到Base64结果为：{}", SignUtil.decryptToStrByPrivateKey(encryptedPublic, PRIVATE_KEY, EncodingTypeEnum.STRING));
-
-        String encryptedPublicHex = SignUtil.encryptByPublicKey(hashParas, PUBLIC_KEY, EncodingTypeEnum.HEX);
-        log.info("公钥加密到Hex结果为：{}", encryptedPublicHex);
-        log.info("私钥解密到Hex结果为：{}", SignUtil.decryptToStrByPrivateKey(encryptedPublicHex, PRIVATE_KEY, EncodingTypeEnum.STRING));
+//
+//        String encrypted = SignUtil.encryptByPrivateKey(hashParas, PRIVATE_KEY, EncodingTypeEnum.BASE64);
+//        log.info("私钥加密到Base64结果为：{}", encrypted);
+//        log.info("公钥解密到Base64结果为：{}", SignUtil.decryptToStrByPublicKey(encrypted, PUBLIC_KEY));
+//
+//        String encryptedHex = SignUtil.encryptByPrivateKey(hashParas, PRIVATE_KEY, EncodingTypeEnum.HEX);
+//        log.info("私钥加密到Hex结果为：{}", encryptedHex);
+//        log.info("公钥解密到Hex结果为：{}", SignUtil.decryptToStrByPublicKey(encryptedHex, PUBLIC_KEY));
+//
+//        String encryptedPublic = SignUtil.encryptByPublicKey(hashParas, PUBLIC_KEY, EncodingTypeEnum.BASE64);
+//        log.info("公钥加密到Base64结果为：{}", encryptedPublic);
+//        log.info("私钥解密到Base64结果为：{}", SignUtil.decryptToStrByPrivateKey(encryptedPublic, PRIVATE_KEY));
+//
+//        String encryptedPublicHex = SignUtil.encryptByPublicKey(hashParas, PUBLIC_KEY, EncodingTypeEnum.HEX);
+//        log.info("公钥加密到Hex结果为：{}", encryptedPublicHex);
+//        log.info("私钥解密到Hex结果为：{}", SignUtil.decryptToStrByPrivateKey(encryptedPublicHex, PRIVATE_KEY));
 
         // 使用Hutool-Http包，提交至接口
         String apiUrl = "http://localhost:9667/open/thirdparty/userRegister";
