@@ -35,7 +35,7 @@
         <junit.version>4.12</junit.version>
         <druid.version>1.0.31</druid.version>
         <logback.version>1.2.3</logback.version>
-        <common.version>3.0.4</common.version>
+        <common.version>3.0.5</common.version>
         <codec.version>1.12</codec.version>
         <servlet.version>3.1.0</servlet.version>
         <jsoup.version>1.9.2</jsoup.version>

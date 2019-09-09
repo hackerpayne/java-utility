@@ -62,6 +62,7 @@
         <module>cloud-xxl-job</module>
         <module>cloud-alibaba-oss</module>
         <module>cloud-message-push</module>
+        <module>cloud-jetcache</module>
     </modules>
 
     <dependencyManagement>

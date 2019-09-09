@@ -1,4 +1,4 @@
-package com.lingdonge.cache.core;
+package com.lingdonge.encache.core;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
@@ -8,7 +8,6 @@ import net.sf.ehcache.Element;
  * EnCache缓存辅助类
  */
 public class EnCacheUtil {
-
 
     public static CacheManager manager = CacheManager.create();
 

@@ -1,44 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.lingdonge</groupId>
         <artifactId>cloud-component</artifactId>
         <version>3.0.5</version>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>cloud-cache</artifactId>
+    <name>cloud-jetcache</name>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
-    <description>Cache缓存集成</description>
+    <description>JetCache集成</description>
+
+    <properties>
+        <jetcache.version>2.5.14</jetcache.version>
+    </properties>
 
     <dependencies>
-
         <dependency>
-            <groupId>com.lingdonge</groupId>
-            <artifactId>common-spring</artifactId>
-            <version>${project.parent.version}</version>
+            <groupId>com.alicp.jetcache</groupId>
+            <artifactId>jetcache-starter-redis</artifactId>
+            <version>${jetcache.version}</version>
         </dependency>
-
-        <!-- 引入redis依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-
-        <!-- 缓存的依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-        </dependency>
-
     </dependencies>
 
     <dependencyManagement>
