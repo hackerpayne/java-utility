@@ -9,7 +9,7 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>cloud-cache</artifactId>
+    <artifactId>cloud-encache</artifactId>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <description>Cache缓存集成</description>
