@@ -52,7 +52,6 @@
         <module>cloud-shiro</module>
         <module>cloud-quartz</module>
         <module>cloud-atomikos</module>
-        <module>cloud-cache</module>
         <module>cloud-redis</module>
         <module>cloud-database</module>
         <module>cloud-lucene</module>
@@ -62,6 +61,7 @@
         <module>cloud-xxl-job</module>
         <module>cloud-alibaba-oss</module>
         <module>cloud-message-push</module>
+        <module>cloud-encache</module>
         <module>cloud-jetcache</module>
     </modules>
 
