@@ -25,7 +25,7 @@
         <spring.cloud.version>Greenwich.RELEASE</spring.cloud.version>
         <spring.cloud.netflix>2.1.1.RELEASE</spring.cloud.netflix>
 
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
     </properties>
 
     <modules>
