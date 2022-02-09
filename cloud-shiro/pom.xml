@@ -13,7 +13,7 @@
     <description>Shiro集成</description>
 
     <properties>
-        <shiro.version>1.4.0</shiro.version>
+        <shiro.version>1.7.1</shiro.version>
     </properties>
 
     <dependencies>
